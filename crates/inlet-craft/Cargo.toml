@@ -1,0 +1,14 @@
+[package]
+name = "inlet-craft"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Literature-correlated aerosol inlet and sampling-line analysis and design"
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+schemars.workspace = true
+serde_path_to_error.workspace = true
+libm.workspace = true
+fcmaes-core = { path = "../../vendor/fcmaes-core" }

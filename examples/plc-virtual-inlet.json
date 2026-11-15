@@ -1,0 +1,68 @@
+{
+  "schema": "inlet-craft.case/0.1",
+  "air": {
+    "temperature_k": 293.15,
+    "pressure_pa": 101325.0
+  },
+  "platform": {
+    "speed_m_s": [
+      3.0
+    ]
+  },
+  "particles": {
+    "physical_diameter_m": [
+      1e-07,
+      3e-07,
+      1e-06,
+      3e-06,
+      1e-05
+    ]
+  },
+  "elements": [
+    {
+      "kind": "probe",
+      "inner_diameter_m": 0.05,
+      "outer_diameter_m": 0.052,
+      "angle_to_heading_deg": 0.0,
+      "angle_to_vertical_deg": 70.0
+    },
+    {
+      "kind": "tube",
+      "length_m": 7.0,
+      "inner_diameter_m": 0.05,
+      "inclination_deg": 20.0
+    },
+    {
+      "kind": "bend",
+      "angle_deg": 70.0,
+      "radius_m": 0.24555334077035282
+    },
+    {
+      "kind": "tube",
+      "length_m": 0.5,
+      "inner_diameter_m": 0.05,
+      "inclination_deg": 90.0
+    },
+    {
+      "kind": "bend",
+      "angle_deg": 90.0,
+      "radius_m": 0.1909859317102744
+    },
+    {
+      "kind": "contraction",
+      "outlet_diameter_m": 0.01,
+      "half_angle_deg": 45.0,
+      "length_m": 0.2
+    },
+    {
+      "kind": "tube",
+      "length_m": 5.0,
+      "inner_diameter_m": 0.01
+    }
+  ],
+  "flow": {
+    "total_m3_s": 0.00016666666666666666,
+    "sensor_m3_s": 1.6666666666666667e-05
+  },
+  "sensor": {}
+}

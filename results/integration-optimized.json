@@ -1,0 +1,15 @@
+{
+  "schema": "inlet-craft.integration/0.1",
+  "passed": true,
+  "checks": [
+    "CLI case/result JSON schemas",
+    "nested unknown fields rejected with path",
+    "verify nonzero status and all failed/passed rows retained",
+    "sweep mixed valid/invalid values",
+    "optimization-jobs validate/execute/checksummed-journal/evidence",
+    "pre-existing job cancellation",
+    "in-flight cooperative job cancellation <10s",
+    "installed native Python check/evaluate/sweep/verify parity"
+  ],
+  "python_optimized": true
+}

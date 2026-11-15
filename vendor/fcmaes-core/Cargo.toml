@@ -1,0 +1,35 @@
+[package]
+name = "fcmaes-core"
+version = "0.2.1"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT"
+authors = ["Dietmar Wolz"]
+repository = "https://github.com/dietmarwo/fcmaes-rust"
+description = "Fast, parallel, gradient-free optimization algorithms implemented in pure Rust."
+readme = "README.md"
+documentation = "https://docs.rs/fcmaes-core"
+homepage = "https://dietmarwo.github.io/fcmaes-rust/"
+keywords = [
+    "optimization",
+    "black-box",
+    "cma-es",
+    "evolutionary",
+    "multi-objective",
+]
+categories = [
+    "algorithms",
+    "mathematics",
+]
+publish = ["crates-io"]
+
+[lib]
+name = "fcmaes_core"
+
+[dependencies]
+rand = "0.8"
+rand_pcg = "0.3"
+rand_distr = "0.4"
+rayon = "1"
+nalgebra = "0.33"
+libm = "0.2"

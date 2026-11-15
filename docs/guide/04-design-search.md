@@ -1,0 +1,15 @@
+# 4. Design search
+
+`examples/bicycle-study.json` defines bounded JSON-pointer variables for inlet diameter, total flow, tube length, bend radius and buffer volume. Varying probe diameter preserves its wall ratio and changes connected equal-diameter sections until a contraction. Varying contraction outlet diameter propagates the downstream diameter until the next contraction. Other input edits must remain geometrically consistent; invalid trials remain failed evaluations.
+
+Scalar mode minimizes worst-case absolute PM10 relative bias across declared conditions, subject to the study constraints. Multi-objective mode uses **fcmaes MODE**, with objectives PM10 bias, distance resolution and total flow(L/min), and one aggregate nonnegative constraint violation. Both use ask/tell so solver evaluations cannot exceed the exact budget, including invalid candidates. Bounds, feasibility and objectives of returned candidates are re-evaluated cold; baseline and cold-check evaluations are separately reported outside the optimizer budget.
+
+`constraints.distance_reference_speed_m_s=5` evaluates the resolution constraint/objective at18km/h as requested by the companion design. Without it, maximum resolution across all declared speeds is used. The candidate still reports the maximum across all speeds separately. Optional constraints bound PM10 relative bias, resolution, total flow, warning-group count and laminar Re. Nonphysical extrapolations are always rejected by design search, even if their efficiency departure is small.
+
+Budgets specify evaluations, seed and wall time. Cancellation is cooperative between complete objective evaluations; cold checks also obey cancellation/deadline. A deadline can therefore prevent an otherwise promising point from being returned as verified. The worker process can be killed by the job runner after its grace period. There is no solver checkpoint/resume claim.
+
+`feasible_design_found` is conditional on the model and warning allowance. `no_feasible_design_found` means the finite search did not find an accepted design; it is not proof that none exists. Failed candidate rows are bounded to the first256 in the compact result, with an explicit omitted count. Fixture verification keeps every row. The Pareto archive is bounded to256 rechecked points and does not certify coverage of the true front.
+
+The continuous fine-mode tail can expose a source limitation: Liu's extrapolated small-Stokes transmission becomes slightly greater than one outside its fitted range. The raw evaluator reports it without clipping; search refuses it. This can make the strict full-distribution study find no accepted design even when integrated PM10 bias looks acceptable. Do not fit away that problem or interpret the outcome as a hardware impossibility. A new verified small-Stokes treatment is needed for that operating range.
+
+See [the generated bicycle study report](../bicycle-study.md), including a coarse-only sensitivity study and a deliberately impossible resolution constraint. They test search behavior under stated assumptions, not performance of a built sensor.

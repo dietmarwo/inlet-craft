@@ -1,0 +1,23 @@
+{
+  "schema": "inlet-craft.oracle/0.1",
+  "aerosolpy_version": "1.0.2",
+  "aerosolpy_license": "MIT",
+  "predeclared_tolerances": {
+    "slip_relative": 0.05,
+    "diffusion_relative": 0.05,
+    "penetration_absolute": 0.02
+  },
+  "all_passed": true,
+  "AeroSampleR": {
+    "status": "not_run",
+    "reason": "Rscript not installed in execution environment"
+  },
+  "PLC": {
+    "status": "not_run",
+    "reason": "requires external IGOR Pro user; no PLC software inspected"
+  },
+  "experimental_validation": false,
+  "maximum_slip_relative_error": 0.01318472640060031,
+  "maximum_diffusion_relative_error": 0.01065472055417871,
+  "maximum_penetration_absolute_error": 0.003917359237327611
+}

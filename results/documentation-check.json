@@ -1,0 +1,23 @@
+{
+  "schema": "inlet-craft.documentation-check/0.1",
+  "passed": true,
+  "authored_markdown_files": 16,
+  "executed_blocks": [
+    {
+      "file": "README.md",
+      "block": 0,
+      "language": "sh",
+      "passed": true
+    },
+    {
+      "file": "docs/guide/05-python-and-jobs.md",
+      "block": 0,
+      "language": "python",
+      "passed": true
+    }
+  ],
+  "external_design_attachments": 2,
+  "vendor_docs": "excluded as upstream source inputs",
+  "schemas": 5,
+  "site": "site/index.html"
+}

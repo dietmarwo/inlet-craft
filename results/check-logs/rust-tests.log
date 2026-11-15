@@ -1,0 +1,80 @@
+   Compiling inlet-craft v0.1.0 (/workspace/scratch/97cbdd2366c9/inlet-craft/crates/inlet-craft)
+   Compiling pyo3-ffi v0.29.0
+   Compiling pyo3 v0.29.0
+   Compiling inlet-craft-py v0.1.0 (/workspace/scratch/97cbdd2366c9/inlet-craft/crates/inlet-craft-py)
+   Compiling inlet-craft-cli v0.1.0 (/workspace/scratch/97cbdd2366c9/inlet-craft/crates/inlet-craft-cli)
+    Finished `release` profile [optimized] target(s) in 19.85s
+     Running unittests src/lib.rs (target/release/build/inlet-craft/2fb26ebb082e3004/out/inlet_craft-2fb26ebb082e3004)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/verification.rs (target/release/build/inlet-craft/ad90dc3dcd683c5e/out/verification-ad90dc3dcd683c5e)
+
+running 32 tests
+test air_pressure_and_dimensional_relations ... ok
+test apparent_wind_vectors_and_stationary_case ... ok
+test cancellation_prevents_solver_and_rechecks ... ok
+test contraction_uses_factor_two_and_upstream_velocity ... ok
+test general_tank_chain_conserves_probability ... ok
+test failed_reference_row_is_retained ... ok
+test matched_speeds_and_small_particle_limits ... ok
+test invalid_fixture_tolerance_cannot_pass ... ok
+test calm_and_slow_modes_are_finite_and_reported ... ok
+test downward_facing_aperture_rejected_for_calm_and_slow ... ok
+test out_of_range_values_are_reported_without_clamping ... ok
+test monodisperse_pm_matches_size_resolved ... ok
+test references_are_reproduced_and_evidence_is_honest ... ok
+test particle_diameter_roundtrips_and_relaxation_is_aerodynamic ... ok
+test particle_count_through_split_is_conserved ... ok
+test sampling_weights_are_normalized ... ok
+test angles_symmetry_and_tailwind_gap_rejection ... ok
+test transport_monotonicity_and_bounds ... ok
+test schemas_generated_from_rust_are_strict ... ok
+test tilted_probe_uses_vector_angle_and_boundary_roundoff ... ok
+test transition_flow_requires_opt_in ... ok
+test transport_zero_length_and_angle_limits ... ok
+test two_tanks_match_analytic_step_including_equal_poles ... ok
+test unsupported_stiff_time_chain_is_rejected_quickly ... ok
+test unsupported_geometry_and_diameter_changes_rejected ... ok
+test unequal_three_tank_quantiles_match_independent_scipy_expm ... ok
+test unknown_nested_fields_and_trailing_data_rejected ... ok
+test pm_quadrature_converges ... ok
+test response_averaging_and_position_offsets ... ok
+test no_design_found_is_not_infeasibility_proof ... ok
+test mode_search_keeps_rechecked_nondominated_points ... ok
+test search_is_deterministic_bounded_and_cold_rechecked ... ok
+
+test result: ok. 32 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/main.rs (target/release/build/inlet-craft-cli/4a1355c2f2bedb68/out/inlet_craft-4a1355c2f2bedb68)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/worker.rs (target/release/build/inlet-craft-cli/0f41aab2444e109b/out/inlet_craft_worker-0f41aab2444e109b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/release/build/inlet-craft-py/9d3116dc53154684/out/_inlet_craft-9d3116dc53154684)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests inlet_craft
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests _inlet_craft
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

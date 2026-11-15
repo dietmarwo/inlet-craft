@@ -1,0 +1,13 @@
+[build-system]
+requires = ["maturin>=1.9,<2"]
+build-backend = "maturin"
+[project]
+name = "inlet-craft"
+version = "0.1.0"
+requires-python = ">=3.10"
+description = "Literature-correlated aerosol inlet system analysis and design"
+license = "MIT"
+[tool.maturin]
+manifest-path = "crates/inlet-craft-py/Cargo.toml"
+python-source = "python"
+module-name = "inlet_craft._inlet_craft"

@@ -1,0 +1,879 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>inlet-craft documentation</title><style>body{margin:0;background:#f4f6f8;color:#17212c;font:16px/1.6 system-ui}nav{position:fixed;width:250px;height:100vh;overflow:auto;padding:20px;background:#152d40;box-sizing:border-box}nav a{display:block;color:#d6ecfa;margin:10px 0;font-size:14px}main{max-width:1050px;margin-left:270px;padding:30px}article{background:white;padding:30px;margin:0 0 30px;border-radius:10px;overflow:auto}h1{line-height:1.2}pre{padding:15px;background:#edf3f7;overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid #dce3e8;padding:8px;text-align:left}a{color:#066da2}@media(max-width:800px){nav{position:static;width:auto;height:auto}main{margin:0;padding:12px}article{padding:20px}}</style><nav><h2 style="color:white">inlet-craft</h2><a href="#README">inlet-craft</a><a href="#docs-bicycle-study">Bicycle design study: executed results</a><a href="#docs-comparison">Comparison and license boundaries</a><a href="#docs-developer-architecture">Architecture</a><a href="#docs-developer-formula-registry">Formula registry and evidence ledger</a><a href="#docs-developer-independent-review">Independent implementation review</a><a href="#docs-developer-plan-traceability">Plan implementation and gate traceability</a><a href="#docs-guide-01-first-evaluation">1. First evaluation</a><a href="#docs-guide-02-cases-and-warnings">2. Cases, units and diagnostics</a><a href="#docs-guide-03-wind-pm-and-response">3. Wind, PM mass and response</a><a href="#docs-guide-04-design-search">4. Design search</a><a href="#docs-guide-05-python-and-jobs">5. Python and durable jobs</a><a href="#docs-how-do-i">How do I…?</a><a href="#docs-reference">Generated interface reference</a><a href="#docs-validation-protocol">Validation protocol and open gates</a><a href="#docs-validation-virtual-inlet">Published virtual-inlet comparison</a></nav><main><article id="README"><h1>inlet-craft</h1>
+<p>Rust library and tools for an aerosol inlet, sampling line, mixing volume and sensor on a moving platform. It evaluates published correlations with SI inputs and explicit validity diagnostics, then searches designs with fcmaes DE or MODE.</p>
+<p><strong>Status: provisional 0.1.0 source candidate.</strong> Software verification is included; the stronger original-source/published-point gate G0 and independent comparison gate G1 remain incomplete. No on-bike validation, release tag or package publication is claimed. Start with <a href="docs/guide/01-first-evaluation.md">the guide</a> and <a href="docs/developer/formula-registry.md">the evidence ledger</a>.</p>
+<h2>First evaluation</h2>
+<p>Rust 1.88 or later and a Cargo registry connection on the first build. The two ecosystem crates are pinned source snapshots in <code>vendor/</code>, with upstream revisions and MIT licenses. Cargo registry dependencies are locked, not vendored.</p>
+<pre><code class="language-sh">cargo build --release --locked
+target/release/inlet-craft check examples/bicycle.json &gt; target/check.json
+target/release/inlet-craft evaluate examples/bicycle.json &gt; target/bicycle.json
+target/release/inlet-craft verify &gt; target/verification.json
+</code></pre>
+<p>The bicycle example has four riding speeds, two crosswinds and a declared bimodal number distribution. Aspiration can exceed one. Tube transport should be at most one inside its valid range; outside-range extrapolation is returned with diagnostics and is never clipped.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>describe</code></td>
+<td>Actual schemas, implemented formula catalog, sources and limits</td>
+</tr>
+<tr>
+<td><code>check CASE</code></td>
+<td>Full validation, model coverage and warnings</td>
+</tr>
+<tr>
+<td><code>evaluate CASE</code></td>
+<td>Per-size, per-element/per-mechanism efficiencies, PM mass bias, time and distance</td>
+</tr>
+<tr>
+<td><code>sweep CASE</code></td>
+<td>Declared speed/wind Cartesian scenarios</td>
+</tr>
+<tr>
+<td><code>sweep CASE POINTER VALUES</code></td>
+<td>Numeric JSON-pointer sweep; failed rows retained</td>
+</tr>
+<tr>
+<td><code>optimize STUDY</code></td>
+<td>DE scalar search, MODE Pareto variant, budgets and cold checks</td>
+</tr>
+<tr>
+<td><code>verify [FIXTURES]</code></td>
+<td>Evidence-labeled numerical rows, nonzero exit if any row fails</td>
+</tr>
+</tbody>
+</table>
+<p>Read <a href="docs/guide/02-cases-and-warnings.md">case conventions</a>, <a href="docs/guide/03-wind-pm-and-response.md">time/distributions</a>, <a href="docs/guide/04-design-search.md">design search</a>, <a href="docs/guide/05-python-and-jobs.md">Python/jobs</a>, <a href="docs/comparison.md">comparison</a>, <a href="docs/developer/architecture.md">architecture</a>, and <a href="docs/validation/protocol.md">validation protocol</a>. Generated schemas live in <code>schemas/</code>; raw execution results live in <code>results/</code>.</p>
+<h2>Verification</h2>
+<p><code>cargo test --workspace --locked</code>, <code>cargo clippy --workspace --all-targets --locked -- -D warnings</code>, and <code>cargo fmt --all -- --check</code> test the Rust workspace. Build/install the native Python wheel with maturin, then run <code>python3 scripts/check_integration.py</code> and repeat with <code>python3 -O</code>. <code>scripts/check_oracles.py</code> compares installed aerosolpy, and <code>scripts/run_studies.py</code> reproduces the bounded study campaign. <code>scripts/check_docs.py</code> executes all shell/Python fences in authored documentation, checks JSON fences, and regenerates interface files/site. CI performs these checks. Optional AeroSampleR and IGOR checks remain distinct from measured physical validation.</p>
+<p>MIT. Published mathematical equations are reimplemented with citations. No Particle Loss Calculator software code is included or was consulted.</p></article><article id="docs-bicycle-study"><h1>Bicycle design study: executed results</h1>
+<p>Date2026-11-14. Source defaults and random seeds are retained in examples/results. These are computed correlation outputs, not field measurements.</p>
+<h2>Baseline at2L/min</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Speedkm/h</th>
+<th style="text-align: right;">Crosswindm/s</th>
+<th style="text-align: right;">PM2.5relativebias</th>
+<th style="text-align: right;">PM10relativebias</th>
+<th style="text-align: right;">Meanpositionoffsetm</th>
+<th style="text-align: right;">Resolutionm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">-0.06%</td>
+<td style="text-align: right;">-19.32%</td>
+<td style="text-align: right;">6.02</td>
+<td style="text-align: right;">7.86</td>
+</tr>
+<tr>
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">-0.35%</td>
+<td style="text-align: right;">-27.30%</td>
+<td style="text-align: right;">6.02</td>
+<td style="text-align: right;">7.86</td>
+</tr>
+<tr>
+<td style="text-align: right;">15.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">+0.26%</td>
+<td style="text-align: right;">-16.59%</td>
+<td style="text-align: right;">9.03</td>
+<td style="text-align: right;">11.79</td>
+</tr>
+<tr>
+<td style="text-align: right;">15.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">-0.02%</td>
+<td style="text-align: right;">-17.71%</td>
+<td style="text-align: right;">9.03</td>
+<td style="text-align: right;">11.79</td>
+</tr>
+<tr>
+<td style="text-align: right;">20.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">+0.69%</td>
+<td style="text-align: right;">-13.25%</td>
+<td style="text-align: right;">12.05</td>
+<td style="text-align: right;">15.73</td>
+</tr>
+<tr>
+<td style="text-align: right;">20.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">+0.19%</td>
+<td style="text-align: right;">-11.39%</td>
+<td style="text-align: right;">12.05</td>
+<td style="text-align: right;">15.73</td>
+</tr>
+<tr>
+<td style="text-align: right;">25.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">+1.20%</td>
+<td style="text-align: right;">-9.23%</td>
+<td style="text-align: right;">15.06</td>
+<td style="text-align: right;">19.66</td>
+</tr>
+<tr>
+<td style="text-align: right;">25.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">+0.38%</td>
+<td style="text-align: right;">-5.37%</td>
+<td style="text-align: right;">15.06</td>
+<td style="text-align: right;">19.66</td>
+</tr>
+</tbody>
+</table>
+<h2>Budgeted search</h2>
+<p>Resolution goal15m at18km/h, PM10within15%, totalflow≤3L/min, laminar flow. All nonphysical extrapolations are hard rejected. The all-speeds maximum resolution is also retained in each raw candidate.</p>
+<table>
+<thead>
+<tr>
+<th>Study</th>
+<th style="text-align: right;">Budgetused</th>
+<th>Accepted</th>
+<th style="text-align: right;">PM10worstbias</th>
+<th style="text-align: right;">Resolutionat18km/h</th>
+<th style="text-align: right;">FlowL/min</th>
+<th style="text-align: right;">Paretopoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>full-distribution-seed42</td>
+<td style="text-align: right;">512</td>
+<td>no_feasible_design_found</td>
+<td style="text-align: right;">0.14594</td>
+<td style="text-align: right;">11.808</td>
+<td style="text-align: right;">3.000</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>full-distribution-seed7</td>
+<td style="text-align: right;">512</td>
+<td>no_feasible_design_found</td>
+<td style="text-align: right;">0.14538</td>
+<td style="text-align: right;">12.147</td>
+<td style="text-align: right;">3.000</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>full-distribution-seed123</td>
+<td style="text-align: right;">512</td>
+<td>no_feasible_design_found</td>
+<td style="text-align: right;">0.14423</td>
+<td style="text-align: right;">14.712</td>
+<td style="text-align: right;">3.000</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>mode-full-distribution</td>
+<td style="text-align: right;">256</td>
+<td>no_feasible_design_found</td>
+<td style="text-align: right;">0.15319</td>
+<td style="text-align: right;">13.139</td>
+<td style="text-align: right;">2.828</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>coarse-monodisperse-sensitivity</td>
+<td style="text-align: right;">512</td>
+<td>feasible_design_found</td>
+<td style="text-align: right;">0.09923</td>
+<td style="text-align: right;">13.566</td>
+<td style="text-align: right;">3.000</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td>mode-coarse-monodisperse-sensitivity</td>
+<td style="text-align: right;">256</td>
+<td>feasible_design_found</td>
+<td style="text-align: right;">0.10044</td>
+<td style="text-align: right;">12.191</td>
+<td style="text-align: right;">2.939</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr>
+<td>deliberately-impossible-zero-resolution</td>
+<td style="text-align: right;">64</td>
+<td>no_feasible_design_found</td>
+<td style="text-align: right;">0.10954</td>
+<td style="text-align: right;">15.183</td>
+<td style="text-align: right;">2.871</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<h2>Interpretation</h2>
+<p>The full-lognormal study is limited by a source/extrapolation issue: for sufficiently small Stokes numbers and sub-isokinetic conditions, Liu transmission slightly exceeds1. This lies outside the source fitting range. Even very low-mass fine tails trigger the explicit nonphysical guard. The integrated PM10bias and resolution alone do not settle feasibility. These failed searches therefore give no evidence that the hardware goal is impossible. No constants or outputs were clipped to make them pass.</p>
+<p>The coarse monodisperse sensitivity removes that fine-tail issue and tests a different declared aerosol. A feasible result there demonstrates search functionality and conditional tradeoffs only; it is not a recommended bike design or a validation for realistic multimodal aerosol. The deliberately impossible zero-resolution goal tests truthful finite-search failure reporting.</p>
+<h3>Reported best-candidate violations</h3>
+<ul>
+<li><strong>full-distribution-seed42</strong>: nonphysical extrapolation cannot be accepted by search</li>
+<li><strong>full-distribution-seed7</strong>: nonphysical extrapolation cannot be accepted by search</li>
+<li><strong>full-distribution-seed123</strong>: nonphysical extrapolation cannot be accepted by search</li>
+<li><strong>mode-full-distribution</strong>: PM10 relative deviation: 1.531902e-1 &gt; 1.500000e-1; nonphysical extrapolation cannot be accepted by search</li>
+<li><strong>coarse-monodisperse-sensitivity</strong>: no declared constraint violation; scientific coverage warnings remain.</li>
+<li><strong>mode-coarse-monodisperse-sensitivity</strong>: no declared constraint violation; scientific coverage warnings remain.</li>
+<li><strong>deliberately-impossible-zero-resolution</strong>: distance resolution m: 1.518254e1 &gt; 0.000000e0</li>
+</ul>
+<p>G2practitioner acceptance remains pending. Raw cases and failed rows are preserved in results; reference and oracle evidence are distinct from optimization.</p></article><article id="docs-comparison"><h1>Comparison and license boundaries</h1>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Where it is ahead / purpose</th>
+<th>inlet-craft's addition</th>
+<th>Verified comparison here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Particle Loss Calculator</td>
+<td>Broad established correlations, interactive geometry and published experimental comparisons</td>
+<td>Rust API/CLI/Python, strict inputs, moving-platform scenarios, time response and design search</td>
+<td>Paper-equation implementation plus approximate virtual example; no IGOR software comparison</td>
+</tr>
+<tr>
+<td>AeroSampleR0.3.0</td>
+<td>Established R sampling-line workflow, reporting, Pui/Zhang bend options and calm-probe choices</td>
+<td>Variable-diameter explicit contractions and mobile scenarios/search</td>
+<td>Public API export adapter supplied; R/package comparison not run in this environment</td>
+</tr>
+<tr>
+<td>aerosolpy</td>
+<td>Aerosol mechanics and diffusional survival, broader aerosol kinetics package</td>
+<td>Whole inlet/system composition, moving-air aspiration and design search</td>
+<td>Installed package grid for slip, diffusion and tube diffusional survival; different correlations explained</td>
+</tr>
+<tr>
+<td>AeroCalc</td>
+<td>Many spreadsheet formulas and teaching utility</td>
+<td>Versioned scriptable cases, diagnostics and reproducible studies</td>
+<td>No spreadsheet oracle executed</td>
+</tr>
+</tbody>
+</table>
+<p>The comparison is about workflows, not an assertion that inlet-craft is a more accurate physical model. PLC's validation is its authors' evidence; it does not transfer to this reimplementation. AeroSampleR has mechanisms and reporting choices inlet-craft does not provide, and aerosolpy covers broader aerosol science.</p>
+<p>PLC paper is CC BY3.0; PLC software has a separate restrictive license and was not inspected. First-party code is MIT. Vendored ecosystem crates are MIT. aerosolpy(MIT) is only an installed comparison dependency; AeroSampleR(GPL-3) is optional and called externally. Neither oracle's code is copied into this library.</p>
+<p>Primary links: <a href="https://doi.org/10.5194/amt-2-479-2009">PLC paper</a>, <a href="https://www.osti.gov/servlets/purl/1675151">Brockmann standard-reference notes</a>, <a href="https://cran.r-project.org/web/packages/AeroSampleR/refman/AeroSampleR.html">AeroSampleR CRAN manual</a>, <a href="https://github.com/DominikStolzenburg/aerosolpy">aerosolpy</a>. Source access and limits are recorded in the formula registry.</p></article><article id="docs-developer-architecture"><h1>Architecture</h1>
+<p>The workspace has three first-party crates. <code>inlet-craft</code> owns SI primitives, strict models, literature equations, diagnostics, compositional evaluation, response, evidence fixtures and design search. <code>inlet-craft-cli</code> owns JSON command dispatch and the separate actual SDK worker binary. <code>inlet-craft-py</code> is a PyO3 JSON bridge with a small dict wrapper. The core and executables forbid unsafe Rust; external dependencies are not covered by that first-party attribute.</p>
+<p>Input validation precedes physics. The aerodynamic/physical conversion is implicit because Cunningham slip depends on diameter. The evaluator resolves apparent wind and inlet orientation, computes aspiration separately from transmission, then multiplies transport mechanisms. Each requested size has an element breakdown; distribution quadrature uses the same path and aggregates diagnostic ranges. Buffers/splits are explicit assumptions rather than hidden empirical formulas.</p>
+<p>Response is independent of particle size and computed once per case. One/two first-order stages use analytic formulas, repeated poles have a stable equal-tank limit, and longer chains use phase-type uniformization with preflight work caps. Plug delay and the trailing average are added to the response. All public JSON includes precise engineering definitions of mean age/resolution.</p>
+<p>The search wrapper mutates only declared design fields, validates every candidate, and calls actual fcmaes DE or MODE. MODE uses3 objectives and1 aggregate violation. The solver's state cannot alter the evaluator. Returned points are rebuilt and evaluated cold, then constraint-checked again. Invalid rows remain evidence, bounded in the compact search JSON. Walltime/cancellation are checked between objectives and before each cold recheck; a runner provides hard process limits.</p>
+<p>Versioned case/result/study/search/verification schemas are generated from Rust types with schemars. <code>describe</code> embeds the formula catalog and complete provenance ledger. <code>scripts/check_docs.py</code> checks generated artifacts and executes authored code fences. A static documentation site is generated for hosting; nothing is deployed automatically.</p>
+<p>The two ecosystem dependencies are source snapshots from upstream HEAD retrieved on2026-11-14, recorded in each <code>vendor/*/VENDORED.md</code>. Their algorithm code is unchanged; only fcmaes workspace-inherited Cargo metadata is made standalone. This makes the source ZIP independent of later ecosystem git changes. Third-party registry crates still come from Cargo with the lockfile.</p>
+<p>Numerical resource limits include512 scenarios,256 requested diameters,100 elements,8 modes,16–256 quadrature bins, and a2million scenario/particle/element work estimate. The response solver has a separate cap. These bounds prevent accidental unbounded allocations or stiff-chain hangs; they are computational support limits, not experimentally established aerosol limits.</p>
+<p>Outstanding scientific work is listed in the evidence ledger and validation protocol. The architecture deliberately leaves room for verified alternative correlations; it does not silently replace missing physics with fitted constants.</p></article><article id="docs-developer-formula-registry"><h1>Formula registry and evidence ledger</h1>
+<p>Date: 2026-11-14. Implementation from published equations, <strong>not PLC program code</strong>.</p>
+<h2>Sources and decisions</h2>
+<ul>
+<li>B: John E. Brockmann, <em>Aerosol Sampling and Transport</em>, Sandia lecture, OSTI 1675150, https://www.osti.gov/servlets/purl/1675150 (standard-reference author; slides 5,10,13,14,20,26,30,34,38,42). Download and equation images inspected.</li>
+<li>W: von der Weiden, Drewnick &amp; Borrmann (2009), https://doi.org/10.5194/amt-2-479-2009, pp.482–485,492. This is a published secondary compilation; original references are attributed below. The software was not downloaded or inspected.</li>
+<li>C: Muyshondt, McFarland &amp; Anand (1996), https://doi.org/10.1080/02786829608965364. Abstract specifies upstream velocity / downstream diameter for contraction Stokes number.</li>
+<li>Allen &amp; Raabe (1985), https://doi.org/10.1080/02786828508959055, slip correlation as reproduced in W.</li>
+<li>Sutherland viscosity: 1.716e-5 Pa s at 273.15 K, S=111 K; ideal dry air R=287.05 J/(kg K); kinetic mean free path lambda=(mu/p)<em>sqrt(pi</em>R*T/2). This choice differs slightly from fixed mean-free-path tables and is declared.</li>
+</ul>
+<h2>Implemented equations</h2>
+<p>All lengths m, velocities m/s, flow m3/s, temperatures K, pressures Pa; radians in trigonometry unless explicitly marked degrees. Physical diameter dp, density rho_p and dynamic shape chi determine tau. Aerodynamic diameter da solves da² Cc(da) = (rho_p/1000/chi) dp² Cc(dp). Do not multiply density twice for aerodynamic input.</p>
+<table>
+<thead>
+<tr>
+<th>ID / attribution</th>
+<th>Equation / definition</th>
+<th>Source / validity / assumptions</th>
+<th>Verification anchor and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>air.sutherland</td>
+<td>mu=mu0<em>(T/T0)^1.5</em>(T0+S)/(T+S), rho=p/(R*T)</td>
+<td>Sutherland; dry ideal air, engineering range 200–350 K, 20000–120000 Pa</td>
+<td>reference mu(T0)=1.716e-5; p doubles rho, halves lambda</td>
+</tr>
+<tr>
+<td>particle.allen_raabe</td>
+<td>Kn=2lambda/dp; Cc=1+Kn<em>(1.142+.558</em>exp(-.999/Kn))</td>
+<td>W p482; solid-sphere fit, original Kn .03–7.2; mean-free-path convention differs slightly</td>
+<td>Cc tends to 1 as Kn tends to zero</td>
+</tr>
+<tr>
+<td>particle.stokes</td>
+<td>tau=rho_p<em>dp²</em>Cc/(18mu<em>chi); v=tau</em>g; D=kB<em>T</em>Cc/(3<em>pi</em>mu<em>dp</em>chi)</td>
+<td>B slide5; Stokes drag; settling Rep&lt;.1</td>
+<td>standard 1um unit sphere ~3.5e-5 m/s; tau*g=v</td>
+</tr>
+<tr>
+<td>aspiration.belyaev_levin</td>
+<td>A=1+(R-1)<em>(k</em>St/(1+k*St)), k=2+.617/R</td>
+<td>B slide10; W eq5; St=tau*U0/d; 0.05&lt;=St&lt;=2.03, .17&lt;=R&lt;=5.6</td>
+<td>arithmetic fixture R=2,St=.1; A=1 at R=1, A tends R at infinite St</td>
+</tr>
+<tr>
+<td>aspiration.durham_lundgren</td>
+<td>s=St<em>exp(.022</em>theta_deg); A=1+(R<em>cos(theta)-1)</em>[(1-1/(1+(2+.617/R)<em>s))/(1-1/(1+2.617</em>s))]<em>(1-1/(1+.55</em>s<em>exp(.25</em>s)))</td>
+<td>W eq6; 0&lt;theta&lt;=60deg, .02&lt;=St&lt;=4, .5&lt;=R&lt;=2</td>
+<td>arithmetic point and zero-St limit; empirical jump at 0deg is reported</td>
+</tr>
+<tr>
+<td>aspiration.hangal_willeke</td>
+<td>A=1+(R<em>cos(theta)-1)</em>3*St^sqrt(R)</td>
+<td>W eq7; 61&lt;=theta&lt;=90deg, .02&lt;=St&lt;=.2, .5&lt;=R&lt;=2</td>
+<td>theta=90,R=1,St=.1 gives .7; 60–61deg interval is uncovered</td>
+</tr>
+<tr>
+<td>aspiration.grinshpun_calm</td>
+<td>q=v/U; s=tau<em>U/d; A=q</em>cos(phi)+exp(-4<em>s^(1+sqrt(q))/(1+2</em>s))</td>
+<td>B slide20, W eq8; phi angle to upward-facing vertical 0–90deg, .001&lt;=q&lt;=1, .001&lt;=s&lt;=100</td>
+<td>explicit use of inlet-speed St; small particle limit 1</td>
+</tr>
+<tr>
+<td>aspiration.grinshpun_slow</td>
+<td>f=exp(-v/U0); A=A_moving<em>sqrt(1+delta)</em>f+A_calm*(1-f); delta=(v/U0)^2 for horizontal wind orthogonal to vertical settling</td>
+<td>W eq9–10; automatic switch at U0&lt;=1.5m/s; extension of blend below.5m/s is an implementation policy, reported; underlying correlation ranges still checked</td>
+<td>exactly U0=0 uses calm formula; no divide-by-zero</td>
+</tr>
+<tr>
+<td>transmission.liu</td>
+<td>T=(1+(R-1)/(1+2.66*St^(-2/3)))/(1+(R-1)/(1+.418/St))</td>
+<td>B slide13, W eq12; 1&lt;=R&lt;=10, .01&lt;=St&lt;=100</td>
+<td>at R=1 and St=0 T=1; approach 1 at infinite St</td>
+</tr>
+<tr>
+<td>transmission.hangal_willeke</td>
+<td>Iv=.09<em>(St</em>(1/R-1))^.3 for super-isokinetic, else 0; T=exp(-75*Iv²)</td>
+<td>B slide14, W eq13–14; .25&lt;=R&lt;=1, .02&lt;=St&lt;=4</td>
+<td>matched speed 1; .6075 coefficient retained, lecture rounds .61</td>
+</tr>
+<tr>
+<td>transmission.hangal_willeke_angle</td>
+<td>Iv=.09<em>(St</em>cos(theta)<em>(1/R-1))^.3 if R&lt;=1; alpha_deg=12</em>((1-theta_deg/90)-exp(-theta_deg)); Iw=sqrt(St<em>R)</em>sin(theta±alpha)<em>sin((theta±alpha)/2); T=exp(-75</em>(Iv+Iw)²)</td>
+<td>W eq15–19; .02&lt;=St&lt;=4,.25&lt;=R&lt;=4,0&lt;theta&lt;=90; documented downward/upward branch</td>
+<td>zero-St 1, signs explicit; gravitational deposition is in transport only</td>
+</tr>
+<tr>
+<td>tube.diffusion_holman</td>
+<td>xi=pi<em>D</em>L/Q; Sh=3.66+.2672/(xi+.10079<em>xi^(1/3)); T=exp(-xi</em>Sh)</td>
+<td>W eq21–22; laminar Re&lt;2000</td>
+<td>L=0 T=1; decreasing in length</td>
+</tr>
+<tr>
+<td>tube.diffusion_friedlander</td>
+<td>Sh=.0118<em>Re^(7/8)</em>Sc^(1/3); T=exp(-xi*Sh)</td>
+<td>W eq21,23; turbulent Re&gt;4000</td>
+<td>L=0 T=1</td>
+</tr>
+<tr>
+<td>tube.settling_heyder</td>
+<td>a=.75<em>L</em>v<em>cos(inclination)/(d</em>U); T=1-(2/pi)<em>(2</em>a<em>sqrt(1-a^(2/3))-a^(1/3)</em>sqrt(1-a^(2/3))+asin(a^(1/3)))</td>
+<td>B slide26, W eq24–25; a&gt;=1 gives complete deposition (analytic domain); abs(v*sin(i)/U)&lt;&lt;1 checked against stated .1 policy</td>
+<td>horizontal/vertical limits; saturation is analytic, not efficiency clamping</td>
+</tr>
+<tr>
+<td>tube.settling_schwendiman</td>
+<td>T=exp(-d<em>L</em>v*cos(inclination)/Q)</td>
+<td>B slide26, W eq26–27; turbulent flow</td>
+<td>zero length 1</td>
+</tr>
+<tr>
+<td>tube.inertia_lee_gieseke</td>
+<td>vp=(.0006<em>(.0395</em>St<em>Re^.75)^2+2e-8</em>Re)<em>U/(5.03</em>Re^.125); T=exp(-pi<em>d</em>L*vp/Q)</td>
+<td>W eq28–29, Re 4000–15600 (Lee/Gieseke original DOI10.1016/0021-8502(94)90011-6); St=tau*U/d</td>
+<td>L=0 T=1; use W version, not B's different capped Liu-Agarwal model</td>
+</tr>
+<tr>
+<td>bend.pui_laminar</td>
+<td>T=(1+(St/.171)^(.452<em>St/.171+2.242))^(-2</em>theta_rad/pi)</td>
+<td>B slide38, W eq30; St=tau*U/d, curvature radius/(d/2) 5–30; fit measured at Re1000, curvature5.6–5.7; generic curvature envelope5–30 is not additional fitted-condition evidence</td>
+<td>St=.171,theta=pi/2 gives .5; angle radians despite W's degrees sentence</td>
+</tr>
+<tr>
+<td>bend.pui_turbulent</td>
+<td>T=exp(-2.823<em>St</em>theta_rad)</td>
+<td>B slide38, W eq31; Re&gt;4000, curvature ratio5–30</td>
+<td>zero angle1; St=.1,theta=pi/2 arithmetic fixture</td>
+</tr>
+<tr>
+<td>contraction.muyshondt</td>
+<td>x=2<em>St</em>(1-Ao/Ai); T=1-1/(1+(x/(3.14<em>exp(-.0185</em>halfangle_deg)))^(-1.24))</td>
+<td>B slide42 / notes eq40; W eq32 omits factor2; C St=tau*U_upstream/d_downstream; .001&lt;=x&lt;=100, 12–90deg</td>
+<td>no contraction limit1; preserves area/velocity convention</td>
+</tr>
+<tr>
+<td>response.series</td>
+<td>plug delay=sum(Vtube/Q); mixed tau=V/Q; sensor first-order tau; trailing boxcar T/2 mean, T²/12 variance</td>
+<td>mass conservation / linear systems, explicitly modeled assumptions</td>
+<td>two equal tanks y=1-exp(-t/tau)*(1+t/tau); split keeps concentration, partitions count</td>
+</tr>
+</tbody>
+</table>
+<h2>Conflicts resolved and uncovered parts</h2>
+<p>The B lecture gives a wider Belyaev range (.005–10, .2–5) than W; use W's narrower St range and retain diagnostics. B's Gormley–Kennedy diffusion is an independent alternative, not the chosen Holman formula. Bend angle uses radians (a 90deg bend at St=.171 has .5 penetration, not almost zero). Contraction St does <strong>not</strong> use downstream velocity. Calm St does <strong>not</strong> use wind speed. Angle 60–61deg and backward-facing wind are rejected. No smoothing at correlation boundaries. Apparent wind is horizontal. Effective misalignment satisfies cos(theta)=sin(phi)<em>cos(yaw), so a vertical inlet has theta90deg. Slow-air delta uses the horizontal-wind/vertical-settling vector dot product (zero), an explicit geometric generalization of the scalar coplanar source. Arbitrary vertical wind and experimental validation of 3-D correlations are not claimed. The original scalar delta=(v/U0)</em>(v/U0+2*cos(theta+phi)) is correct only where those angles are coplanar.</p>
+<p>Buffers have only residence time; a warning states that particle losses in them are unmodeled. Ideal well-mixed splits preserve concentration and track sensor/bypass particle-count fractions; no branch aspiration correlation is implied. Enlargements, blunt slots, shrouds, non-conductive electrostatics and thermophoresis have no implemented model.</p>
+<p>Brockmann written notes SAND2010-7446P, https://www.osti.gov/servlets/purl/1675151, independently confirm the equations and give approximate bend guide points (St=.05/.16/.32, penetration about 1/.5/.1, adjacent curvature8 geometry). These are checked at a predeclared absolute .06 tolerance and labeled approximate, not precision validation. Contraction uses the primary standard-reference factor2, unlike W. Validity diagnostic x is defined using the same factor2; the exact original validation interval remains a provenance gap.</p>
+<h2>Gate G0 and evidence honesty</h2>
+<p><strong>G0 is incomplete.</strong> Not every original article was available in full text and not every equation has a source-published numerical point. <code>verify</code> distinguishes arithmetic/limit fixtures from genuine published curve/text comparisons. No calculated number is labeled a published measurement. W and B make a provisional literature-equation implementation possible; they do not satisfy the stronger original-source-only and every-formula-number conditions of G0. This gap is carried into G1. No release or experimental validation is claimed. Track V needs external data.</p>
+<h2>License and existing-tool search</h2>
+<p>New implementation MIT; published mathematical equations are reimplemented with attribution. W paper CC BY 3.0. PLC software license is separate; no PLC code read, linked, copied or translated. aerosolpy is MIT and AeroSampleR GPL-3; optional installed-package subprocess oracle comparisons do not copy their code into this library. No legal opinion on redistribution of those packages is implied.</p>
+<p>Search on 2026-11-14 found references calling PLC “open source”, but the citing article points back to von der Weiden (2009), not to a separately identified moving-platform library. AeroCalc is a spreadsheet; AeroSampleR and aerosolpy overlap but do not provide this system/search interface. This search is not proof of absence of all tools. Proceed with provisional implementation, not with a novelty claim.</p></article><article id="docs-developer-independent-review"><h1>Independent implementation review</h1>
+<p>Date: 2026-11-14. Reviewer: a separate agent that did not write the solver, bindings, worker, tests, or guides. This review covers implementation increments I0–I7; it is not practitioner acceptance or experimental validation.</p>
+<h2>Disposition</h2>
+<p>The project is a useful <strong>provisional software candidate</strong> with unusually explicit evidence limitations. It must not be described as an experimentally validated inlet designer or as having passed all of the plan's scientific gates. The current README, guides, result metadata and validation protocol make that distinction correctly.</p>
+<p>The core equations and conventions were reviewed against the published Particle Loss Calculator paper and Brockmann's Sandia tutorial slides and written notes. No PLC program code was consulted. The original Allen–Raabe DOI was independently verified against its publisher. Most original empirical papers and precise published numerical anchors remain outstanding, as the formula registry states.</p>
+<h2>Increment review</h2>
+<table>
+<thead>
+<tr>
+<th>Increment</th>
+<th>Independent review and disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I0</td>
+<td>Reviewed source provenance, license boundaries, equation registry, source conflicts and explicit incomplete G0 declaration. Original-source/published-point coverage remains incomplete.</td>
+</tr>
+<tr>
+<td>I1</td>
+<td>Inspected SI primitives and slip-corrected aerodynamic inversion. Density is not applied twice. Diameter/shape/density roundtrip and dimensional tests pass. Allen–Raabe coefficients are correctly attributed to solid spheres; the mean-free-path convention difference is declared.</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>Inspected moving/calm Stokes definitions, angle branches, probe transmission, source jumps, horizontal-wind geometry and slow interpolation. The vertical-inlet angle and floating-point endpoint regressions are tested. The vector generalization is explicitly identified as an assumption.</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>Inspected mechanism multiplication, tube regime handling, bend/contraction conventions and concentration/count-flux split accounting. Buffer wall loss, bend settling and taper transport omissions are reported rather than silently modeled.</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>Reviewed strict nested serde parsing, versioned schemas, CLI error/verification behavior, native Python bridge and failed-row preservation. Generated interface and integration checks supplement the core tests.</td>
+</tr>
+<tr>
+<td>I5</td>
+<td>Inspected distribution mass weighting, ideal aerodynamic cuts, apparent-wind geometry, mean age, averaging and response quantiles. Independently checked a three-tank unequal-pole response against SciPy. Stiff/expensive chains have explicit numerical support limits.</td>
+</tr>
+<tr>
+<td>I6</td>
+<td>Inspected actual DE/MODE integration, aggregate constraints, linked geometry, exact optimizer evaluation budgets, cancellation-aware cold checks and finite-search status claims. The 18 km/h resolution reference is separate from the reported maximum across speeds.</td>
+</tr>
+<tr>
+<td>I7</td>
+<td>Reviewed README, five guide chapters, architecture, comparison, release preparation and validation protocol. They distinguish software verification, partial external comparisons and future physical validation.</td>
+</tr>
+</tbody>
+</table>
+<h2>Findings corrected during review</h2>
+<ul>
+<li>The primary Brockmann contraction expression contains a factor of two relative to the printed PLC expression. The implementation keeps that source choice, upstream velocity/downstream diameter, and an explicit source-conflict diagnostic. The fitted coefficient <code>3.14</code> is retained as published; it is not replaced with pi.</li>
+<li>Calm-air Stokes number uses inlet velocity, while moving-air aspiration uses freestream velocity. Bend angle uses radians internally and the selected standard-reference convention uses tube diameter.</li>
+<li>A nonfinite general-chain CDF previously could produce a finite, false quantile through the bisection comparison. Quantiles now propagate the failure, and response preflight bounds reject expensive/stiff cases before solving.</li>
+<li>Optimization now uses MODE for multiple objectives, propagates contraction diameters, checks cancellation before baseline/cold work, and drops points that cannot be cold-checked before termination.</li>
+<li>Distance at 18 km/h is explicitly selectable instead of inadvertently imposing the same distance requirement at 25 km/h.</li>
+<li>Probe tilt and yaw now use a vector dot product for effective horizontal-wind misalignment. A small stated endpoint tolerance avoids rejecting a nominal 60-degree angle solely because of floating-point roundoff.</li>
+</ul>
+<h2>Independently executed checks</h2>
+<p>The reviewer ran <code>cargo test --offline --locked -p inlet-craft</code>: <strong>31 tests passed</strong>, including strict parsing, reference-row handling, limiting behavior, diameter conversion, transport bounds/monotonicity, flow transitions, split conservation, PM convergence, geometry, response, deterministic search, MODE, cold checks and cancellation. The final rerun includes rejection of an unsupported downward-facing aperture in both calm and slow air.</p>
+<p>An additional independent check used three well-mixed buffers with time constants 0.3, 0.7 and 1.5 seconds, without plug delay, sensor lag or averaging. The CLI quantiles were compared with <code>scipy.linalg.expm</code> for an absorbing continuous-time Markov chain and a root solve. A priori absolute tolerance was 1e-10 seconds:</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th style="text-align: right;">Rust CLI</th>
+<th style="text-align: right;">Independent SciPy</th>
+<th style="text-align: right;">Absolute error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>t10, seconds</td>
+<td style="text-align: right;">0.7986830031575964</td>
+<td style="text-align: right;">0.7986830031577664</td>
+<td style="text-align: right;">1.70e-13</td>
+</tr>
+<tr>
+<td>t90, seconds</td>
+<td style="text-align: right;">4.704048480781098</td>
+<td style="text-align: right;">4.704048480781246</td>
+<td style="text-align: right;">1.48e-13</td>
+</tr>
+</tbody>
+</table>
+<p>The recorded aerosolpy report was inspected: all 150 rows passed its declared tolerances. Maximum relative slip and diffusion differences are approximately 1.318% and 1.065%; maximum absolute penetration difference is 0.003918. This is partial numerical comparison, not validation of aspiration, bends, contractions or a built inlet.</p>
+<p>The executed study campaign was inspected. Three full-distribution DE searches found raw integrated PM10 deviations around 14.4–14.6% and resolution below 15 m at 18 km/h, but all were rejected by the small-Stokes nonphysical extrapolation guard. The coarse-monodisperse sensitivity found a conditionally accepted point with 9.92% worst PM10 deviation, 13.57 m reference-speed resolution and 3 L/min flow. The zero-resolution case was correctly unsuccessful. These are distribution-dependent computational outcomes, not evidence of hardware performance.</p>
+<p>The reconstructed PLC virtual system has a <strong>material unresolved mismatch</strong>: only two of six approximate anchors meet the predeclared two-percentage-point absolute tolerance. At 40 L/min, predicted losses around 2–3% differ from roughly 5–6% in the paper; at 150 L/min, about 5–6% differs from roughly 40%. The reviewer independently inspected the printed turbulent expression and its Reynolds exponent; no missing printed exponent was found. The standard-reference dimensionless-to-dimensional conversion agrees with the implementation. The original Lee–Gieseke full text was not available, and the final 10 mm section at 150 L/min also exceeds the reported Re&lt;15600 fit range. The cause has not been established and must not be attributed solely to unspecified geometry or air state. All failed anchors remain evidence. No coefficient was adjusted to obtain agreement.</p>
+<p>The reviewer also independently ran <code>cargo clippy --offline --locked --workspace --all-targets -- -D warnings</code>: <strong>passed</strong>. The empirical contraction coefficient is preserved under a documented, narrowly scoped lint exception. The implementation author records the final complete workspace/integration/docs checks in the implementation log.</p>
+<p>To avoid validating MODE only on an empty accepted archive, the reviewer independently ran a 128-evaluation, seed-42 MODE study using the example constraints and a monodisperse 5-micrometer aerosol. It returned eight feasible, cold-checked Pareto points. Every returned pair was checked for strict dominance; none was dominated. Their worst-case PM10 deviations ranged from approximately 10.20% to 13.50%. This verifies nonempty multi-objective operation for that hypothetical aerosol, not general design suitability.</p>
+<h2>Accepted limitations and remaining gates</h2>
+<p>The full-distribution bicycle search is particularly sensitive to a genuine source-coverage issue: Liu transmission extrapolated below its fitted Stokes range can exceed one slightly. Evaluation preserves and diagnoses that result; design search rejects it. A failed strict search therefore cannot establish that the hardware goals are physically unattainable. PM bias, resolution and this extrapolation barrier must be reported separately. The guides do so.</p>
+<p>The finite-search result retains the first 256 failed candidate rows and an omitted count, rather than retaining arbitrarily many failures in memory. The Pareto archive is also bounded. This is a documented departure from the plan's unrestricted failed-row retention; individual fixture verification retains every row.</p>
+<p>G0 and G1 remain incomplete. The optional AeroSampleR runtime comparison and an external IGOR Pro run were not performed. Approximate published bend guidance and the partial virtual-inlet reconstruction cannot substitute for precise original numerical evidence. G2 has computed studies but still needs an aerosol practitioner's assessment. G3 requires actual on-bike measurements under a protocol fixed before opening the data. No release, optimality proof, physical infeasibility proof or experimental agreement is established by this review.</p>
+<h2>Source links</h2>
+<ul>
+<li><a href="https://doi.org/10.5194/amt-2-479-2009">Published PLC paper</a></li>
+<li><a href="https://www.osti.gov/servlets/purl/1675150">Brockmann Sandia slides, SAND2010-7445P</a></li>
+<li><a href="https://www.osti.gov/servlets/purl/1675151">Brockmann Sandia written notes, SAND2010-7446P</a></li>
+<li><a href="https://doi.org/10.1080/02786828508959055">Original Allen–Raabe solid-sphere slip measurements</a></li>
+<li><a href="https://doi.org/10.1080/02786829608965364">Original Muyshondt contraction paper</a></li>
+</ul></article><article id="docs-developer-plan-traceability"><h1>Plan implementation and gate traceability</h1>
+<table>
+<thead>
+<tr>
+<th>Increment</th>
+<th>Implemented and checked</th>
+<th>Remaining evidence or delivery boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I0</td>
+<td>Formula registry first; source/conflict/license ledger; existing-tool search; independent review</td>
+<td>G0 incomplete: not every original full text or published numerical point available</td>
+</tr>
+<tr>
+<td>I1</td>
+<td>Air/particle primitives, slip-corrected diameter conversion; grids/properties and aerosolpy comparison</td>
+<td>Exact original mean-free-path convention differs and is recorded</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>Facing/oblique/right-angle, calm/slow aspiration and transmission; endpoints, limits, range diagnostics</td>
+<td>Fitted ranges and3-D assumption boundaries remain; precision published fixtures not universal</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>Tubes/regimes/bends/contractions/buffers/splits/system product, per-mechanism output</td>
+<td>Buffer wall loss and bend settling not modeled; virtual-system mismatch retained; G1 open</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>Strict typed case/result schemas; describe/check/evaluate/verify; CLI and native Python</td>
+<td>Package publication deferred; source/wheel local delivery only</td>
+</tr>
+<tr>
+<td>I5</td>
+<td>Weighted wind distributions, tilt/yaw, size modes, mass-weightedPM, response and position/resolution, sweep</td>
+<td>Numerical response/work caps; time response is a declared linear model</td>
+</tr>
+<tr>
+<td>I6</td>
+<td>Actual fcmaes DE and MODE; bounded ask/tell; constraints, cold checks, failed rows, actual optimization-jobs SDK worker and cancellation</td>
+<td>Finite search cannot prove infeasibility; compact failed-row/archive caps; G2 practitioner acceptance pending</td>
+</tr>
+<tr>
+<td>I7</td>
+<td>Progressive guide, generated reference/schemas/static site, comparison, executable authored fences and CI, release preparation</td>
+<td>No tag/publish/deploy; GitHub CI configuration authored but hosted run not observed</td>
+</tr>
+<tr>
+<td>V1</td>
+<td>Installed aerosolpy comparison; AeroSampleR exporter and PLC test protocol</td>
+<td>R/AeroSampleR/IGOR comparisons not executed</td>
+</tr>
+<tr>
+<td>V2/V3</td>
+<td>Draft protocol specifies data/tolerance registration before opening data</td>
+<td>No physical measurements or independent CFD supplied; G3 not passed</td>
+</tr>
+</tbody>
+</table>
+<p>The user requested Rust implementation of the project, which authorizes source creation despite the earlier proposal's owner-decision questions. No external repository, release, tag or deployment was created. Independent review was required by the supplied plan and is recorded separately.</p></article><article id="docs-guide-01-first-evaluation"><h1>1. First evaluation</h1>
+<p>Build and run the commands in the README. <code>examples/bicycle.json</code> describes a defined thin-walled inlet, not the slot of a sensor housing. Its total flow is 2 L/min, sensor branch 0.282 L/min, tube 15 cm long, bend90deg with2cm radius, and buffer20mL. Inputs remain SI in JSON: multiply L/min by1/60000 for m3/s, milliliters by1e-6 for m3.</p>
+<p>Start with <code>check</code>. An error prevents evaluation: unknown fields, negative flow, a blunt wall, an unexplained diameter jump, backward-facing wind, the60–61deg correlation gap, or transition tube flow without explicit permission. A warning permits a numerical result and states what is extrapolated or unmodeled.</p>
+<p><code>evaluate</code> returns one scenario per positive-weight Cartesian combination. Each scenario has an efficiency curve, element/mechanism breakdown, the distribution-dependent PM response and the modeled time response. <code>size_statistics</code> averages the declared scenario probabilities; it is not a climatological confidence interval. Inspect warnings before using any curve.</p>
+<p>The assumed distribution and model limitations travel in the result. A good-looking PM10 average can result from cancellation of over-aspiration and transport loss; changing the coarse mode can remove that cancellation. Compare size-resolved curves, worst-case scenarios and multiple distributions before choosing hardware.</p></article><article id="docs-guide-02-cases-and-warnings"><h1>2. Cases, units and diagnostics</h1>
+<p><code>schema</code> must equal <code>inlet-craft.case/0.1</code>. Nested unknown fields are rejected. <code>particles</code> takes exactly one nonempty <code>aerodynamic_diameter_m</code> or <code>physical_diameter_m</code> list. Density defaults to1000kg/m3 and dynamic shape factor to1. Aerodynamic input is converted to physical diameter by a slip-corrected implicit solve; density is not applied twice. Diffusion uses physical size. Shape factor is used as an effective drag/mobility factor, an assumption for non-spherical particles.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Required fields and meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>probe</code></td>
+<td>First and unique; <code>inner_diameter_m</code>. Optional outer diameter must satisfy1&lt;=outer/inner&lt;1.1; omission emits an assumption warning. <code>angle_to_heading_deg</code> is yaw, <code>angle_to_vertical_deg</code> defaults90(horizontal),0 is vertical.</td>
+</tr>
+<tr>
+<td><code>tube</code></td>
+<td><code>length_m</code>, <code>inner_diameter_m</code>; <code>inclination_deg</code> defaults0(horizontal). Diameter matches upstream.</td>
+</tr>
+<tr>
+<td><code>bend</code></td>
+<td><code>angle_deg</code>, centerline <code>radius_m</code>; optional matching inner diameter. Arc diffusion and travel time included; settling along unknown arc orientation omitted with warning.</td>
+</tr>
+<tr>
+<td><code>contraction</code></td>
+<td>Smaller <code>outlet_diameter_m</code>, <code>half_angle_deg</code>; optional axial <code>length_m</code> for conical volume. Uses upstream velocity/downstream diameter and the reference's factor2.</td>
+</tr>
+<tr>
+<td><code>buffer</code></td>
+<td><code>volume_m3</code>; time constantV/Q only, particle wall losses unmodeled.</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td><code>sensor_m3_s</code> equals global sensor flow. Downstream elements carry that flow. Ideal mixed concentration preserved; count flux partitions.</td>
+</tr>
+</tbody>
+</table>
+<p>If there is no explicit split, the sensor samples the final stream. Flow fractions in results are relative to ambient concentration times <strong>total inlet flow</strong>; aspiration enrichment can make them larger than one. With downstream branch losses, branch plus bypass flux is reduced by the branch deposition.</p>
+<p>Air is dry and ideal. The chosen Sutherland/kinetic mean-free-path convention differs slightly from the original Allen–Raabe fit; <code>W_RANGE</code> reports its Knudsen envelope. Coagulation, charge, wall temperature, evaporation, platform wakes, humidity and sensor optics are excluded. The independent-mechanism product assumes losses do not alter later deposition behavior.</p>
+<p><code>E_TRANSITION</code> covers Re2000–4000 inclusively. <code>options.extend_laminar_transition=true</code> applies laminar equations with <code>W_TRANSITION</code>. This is an estimate, not a verified transition correlation. A source-provenance or omitted-process warning is different from a formula-range warning.</p>
+<p>Warnings are grouped by code, element path, formula and quantity; minimum, maximum and occurrence counts cover both requested sizes and PM quadrature particles. <code>warning_count</code> counts groups; <code>warning_event_count</code> counts individual events and depends on quadrature size. <code>W_REGIME_BOUNDARY</code> reports empirical endpoint jumps as advisory information, including regimes not used by that scenario. The endpoint classification has a1e-10deg floating-point tolerance; the true60–61deg gap is never interpolated.</p>
+<p><code>upward_sampling</code> selects the source's upward-flow transmission branch; false is downward sampling/upward-facing aperture. The tilt field controls effective angle, while this branch flag records orientation convention. The Grinshpun calm fit covers an upward-facing aperture tilted0–90deg; a downward-facing calm/slow aperture is outside this implementation's geometry. Arbitrary three-dimensional external wind is not supported.</p></article><article id="docs-guide-03-wind-pm-and-response"><h1>3. Wind, PM mass and response</h1>
+<p>Positive headwind points toward the rider; crosswind is signed lateral wind. Apparent incoming horizontal components are (riding_speed+headwind,crosswind). Optional <code>platform.wind_samples</code> takes wind speed, direction <strong>from</strong> heading (0headwind,90crosswind,180tailwind), and weights, in place of component arrays. Speed weights combine independently with wind weights and are normalized; zero-weight conditions are skipped. No stochastic independence beyond what the user declares is inferred.</p>
+<p>The probe's effective angle satisfies cos(theta)=sin(phi)*cos(yaw), with phi the tilt from vertical. Vertical probes therefore see90deg horizontal flow. A horizontal forward-facing probe with a sufficiently strong tailwind sees&gt;90deg and is rejected. The slow-air interpolation uses the orthogonality of vertical settling and horizontal freestream for its vector speed correction; this is a declared geometric extension of the scalar source. Auto uses zero wind→calm, positive wind up to1.5m/s→slow, above1.5→moving. Extension of the slow interpolation below.5m/s is explicitly diagnosed. No calm threshold hides a small nonzero wind.</p>
+<p>Each size mode is a <strong>number</strong> lognormal in physical diameter. Supply number concentration, geometric mean physical diameter and geometric standard deviation;1 denotes an exact monodisperse population. All modes share the case's density/shape. PM ratios compare integrated particle mass below ideal2.5/10µm aerodynamic hard cuts with and without the modeled inlet. They do not include the optical response or actual cut curve of a commercial sensor. No assumed mode is a measurement of Aachen's aerosol.</p>
+<p>Integration uses the mass-shifted normal in log diameter, truncated at the ideal aerodynamic cut; nine standard deviations cover numerical tails. The exact truncated mass normalizes each mode, and convergence is tested between64 and128 bins. The user can choose16–256 bins. A zero ideal mass returns null efficiency rather than a division by zero. The result records bins and the distribution.</p>
+<p>Travel through tubes/arcs/conical tapers is plug delay. Each buffer is an ideally stirred tank with tau=V/Q. <code>sensor.response_time_s</code> means first-order <strong>tau</strong>, nott90; convert a measured single-pole t90 by dividing by ln10. A trailing average has mean ageT/2 and varianceT²/12.</p>
+<p><code>mean_age_s</code> sums plug delay, tank/sensor time constants and half the averaging interval. Multiplying by riding speed gives <code>mean_position_offset_m</code>: the reading belongs to air encountered that distance earlier along the trajectory. Correcting GNSS should use trajectory history at the mean timestamp, not simply shift coordinates on a curved road.</p>
+<p>Resolution here means speed times the modeled step's10–90% rise time. It is separate from mean offset. The exact repeated-two-tank response is tested; longer chains use bounded uniformization and the trailing average uses128-point quadrature. More than12 tanks or excessive stiffness/work estimate is rejected before an expensive solve. This numerical cap is not a physical limit of mixing tanks.</p></article><article id="docs-guide-04-design-search"><h1>4. Design search</h1>
+<p><code>examples/bicycle-study.json</code> defines bounded JSON-pointer variables for inlet diameter, total flow, tube length, bend radius and buffer volume. Varying probe diameter preserves its wall ratio and changes connected equal-diameter sections until a contraction. Varying contraction outlet diameter propagates the downstream diameter until the next contraction. Other input edits must remain geometrically consistent; invalid trials remain failed evaluations.</p>
+<p>Scalar mode minimizes worst-case absolute PM10 relative bias across declared conditions, subject to the study constraints. Multi-objective mode uses <strong>fcmaes MODE</strong>, with objectives PM10 bias, distance resolution and total flow(L/min), and one aggregate nonnegative constraint violation. Both use ask/tell so solver evaluations cannot exceed the exact budget, including invalid candidates. Bounds, feasibility and objectives of returned candidates are re-evaluated cold; baseline and cold-check evaluations are separately reported outside the optimizer budget.</p>
+<p><code>constraints.distance_reference_speed_m_s=5</code> evaluates the resolution constraint/objective at18km/h as requested by the companion design. Without it, maximum resolution across all declared speeds is used. The candidate still reports the maximum across all speeds separately. Optional constraints bound PM10 relative bias, resolution, total flow, warning-group count and laminar Re. Nonphysical extrapolations are always rejected by design search, even if their efficiency departure is small.</p>
+<p>Budgets specify evaluations, seed and wall time. Cancellation is cooperative between complete objective evaluations; cold checks also obey cancellation/deadline. A deadline can therefore prevent an otherwise promising point from being returned as verified. The worker process can be killed by the job runner after its grace period. There is no solver checkpoint/resume claim.</p>
+<p><code>feasible_design_found</code> is conditional on the model and warning allowance. <code>no_feasible_design_found</code> means the finite search did not find an accepted design; it is not proof that none exists. Failed candidate rows are bounded to the first256 in the compact result, with an explicit omitted count. Fixture verification keeps every row. The Pareto archive is bounded to256 rechecked points and does not certify coverage of the true front.</p>
+<p>The continuous fine-mode tail can expose a source limitation: Liu's extrapolated small-Stokes transmission becomes slightly greater than one outside its fitted range. The raw evaluator reports it without clipping; search refuses it. This can make the strict full-distribution study find no accepted design even when integrated PM10 bias looks acceptable. Do not fit away that problem or interpret the outcome as a hardware impossibility. A new verified small-Stokes treatment is needed for that operating range.</p>
+<p>See <a href="../bicycle-study.md">the generated bicycle study report</a>, including a coarse-only sensitivity study and a deliberately impossible resolution constraint. They test search behavior under stated assumptions, not performance of a built sensor.</p></article><article id="docs-guide-05-python-and-jobs"><h1>5. Python and durable jobs</h1>
+<p>Build a native wheel using <code>maturin build --release --locked</code>, then install the resulting wheel from <code>target/wheels/</code>. The binding uses the same Rust parser and evaluator as the CLI and returns plain Python dictionaries. A JSON-coded <code>ValueError</code> carries Rust diagnostics. The wheel built in this campaign is for the execution environment's CPython/Linux, not Android.</p>
+<pre><code class="language-python">import json
+import inlet_craft
+with open('examples/bicycle.json') as f:
+    case=json.load(f)
+result=inlet_craft.evaluate(case)
+if len(result['scenarios']) != 8:
+    raise RuntimeError('unexpected scenario count')
+if not inlet_craft.verify()['all_passed']:
+    raise RuntimeError('reference verification failed')
+</code></pre>
+<p>Python functions are <code>check</code>, <code>evaluate</code>, <code>describe</code>, <code>verify</code>, <code>sweep</code>, and <code>optimize</code>. The native functions exchange JSON internally; the Python sweep helper copies the input for each value and retains row failures. Evidence checks do not depend on Python assert statements and are repeated under <code>python -O</code>.</p>
+<p><code>inlet-craft-worker</code> uses the actual optimization-jobs SDK, profile<code>inlet-craft.optimize/1</code>, worker ID<code>inlet-craft</code>, protocol<code>optimization.worker/0.2</code>. <code>examples/bicycle-job.json</code> embeds the study in a standard job envelope. Use the worker's <code>validate SPEC</code> output's <code>resolved</code> object as <code>ATTEMPT/resolved.json</code>, then execute <code>inlet-craft-worker execute ATTEMPT</code>. The SDK writes checked result journals and run manifests. A <code>cancel.request</code> file cancels the task. The integration checker exercises validation, execution, pre-cancel and in-flight cancellation.</p>
+<p>One study is one task, with <code>inner_threads=1</code>. For parallel exploration submit independent seeded jobs to optimization-jobs/experiment-craft. This worker has no distributed orchestration implementation and makes no claim about multicore speedup. The SDK's claim is <code>best_found</code> only for a feasible cold-checked point, otherwise <code>none</code>; an unsuccessful finite search never reports a global <code>infeasible</code> claim.</p></article><article id="docs-how-do-i"><h1>How do I…?</h1>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Starting point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compute a bicycle inlet</td>
+<td><code>examples/bicycle.json</code>; guide1–3</td>
+</tr>
+<tr>
+<td>Use a known non-unit particle density</td>
+<td>Physical diameter plus density/shape, or aerodynamic diameter with the same properties; inspect physical conversion</td>
+</tr>
+<tr>
+<td>Understand a warning</td>
+<td>Its code/path/formula/range in result; formula registry and guide2</td>
+</tr>
+<tr>
+<td>Model crosswind or tailwind</td>
+<td>Component arrays or wind samples; guide3</td>
+</tr>
+<tr>
+<td>Correct position lag</td>
+<td>Mean age and actual trajectory history; guide3</td>
+</tr>
+<tr>
+<td>Reduce mixing blur</td>
+<td>Smaller buffer, more flow, shorter sensor tau; include resulting aspiration/transport changes</td>
+</tr>
+<tr>
+<td>Search designs</td>
+<td><code>examples/bicycle-study.json</code>; guide4</td>
+</tr>
+<tr>
+<td>Find a Pareto tradeoff</td>
+<td>Study <code>multi_objective=true</code>; inspect cold-rechecked MODE archive</td>
+</tr>
+<tr>
+<td>Reject extrapolation</td>
+<td>Constrain warning groups and inspect mechanisms; a nonphysical extrapolation is always rejected by search</td>
+</tr>
+<tr>
+<td>Model a housing slot</td>
+<td>Obtain a verified model or measurements first; the thin-wall correlations do not cover it</td>
+</tr>
+<tr>
+<td>Run independent seeded jobs</td>
+<td><code>examples/bicycle-job.json</code>; guide5</td>
+</tr>
+<tr>
+<td>Add a new correlation</td>
+<td>Extend provenance/fixtures before code; keep source conflicts and failure evidence</td>
+</tr>
+</tbody>
+</table></article><article id="docs-reference"><h1>Generated interface reference</h1>
+<p>Generated from the current binary <code>describe</code>. Schemas are in schemas/. Registry is the authoritative source/validity ledger.</p>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Source and declared applicability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>air.sutherland</td>
+<td>Sutherland; dry ideal air, engineering range 200–350 K, 20000–120000 Pa</td>
+</tr>
+<tr>
+<td>particle.allen_raabe</td>
+<td>W p482; solid-sphere fit, original Kn .03–7.2; mean-free-path convention differs slightly</td>
+</tr>
+<tr>
+<td>particle.stokes</td>
+<td>B slide5; Stokes drag; settling Rep&lt;.1</td>
+</tr>
+<tr>
+<td>aspiration.belyaev_levin</td>
+<td>B slide10; W eq5; St=tau*U0/d; 0.05&lt;=St&lt;=2.03, .17&lt;=R&lt;=5.6</td>
+</tr>
+<tr>
+<td>aspiration.durham_lundgren</td>
+<td>W eq6; 0&lt;theta&lt;=60deg, .02&lt;=St&lt;=4, .5&lt;=R&lt;=2</td>
+</tr>
+<tr>
+<td>aspiration.hangal_willeke</td>
+<td>W eq7; 61&lt;=theta&lt;=90deg, .02&lt;=St&lt;=.2, .5&lt;=R&lt;=2</td>
+</tr>
+<tr>
+<td>aspiration.grinshpun_calm</td>
+<td>B slide20, W eq8; phi angle to upward-facing vertical 0–90deg, .001&lt;=q&lt;=1, .001&lt;=s&lt;=100</td>
+</tr>
+<tr>
+<td>aspiration.grinshpun_slow</td>
+<td>W eq9–10; automatic switch at U0&lt;=1.5m/s; extension of blend below.5m/s is an implementation policy, reported; underlying correlation ranges still checked</td>
+</tr>
+<tr>
+<td>transmission.liu</td>
+<td>B slide13, W eq12; 1&lt;=R&lt;=10, .01&lt;=St&lt;=100</td>
+</tr>
+<tr>
+<td>transmission.hangal_willeke</td>
+<td>B slide14, W eq13–14; .25&lt;=R&lt;=1, .02&lt;=St&lt;=4</td>
+</tr>
+<tr>
+<td>transmission.hangal_willeke_angle</td>
+<td>W eq15–19; .02&lt;=St&lt;=4,.25&lt;=R&lt;=4,0&lt;theta&lt;=90; documented downward/upward branch</td>
+</tr>
+<tr>
+<td>tube.diffusion_holman</td>
+<td>W eq21–22; laminar Re&lt;2000</td>
+</tr>
+<tr>
+<td>tube.diffusion_friedlander</td>
+<td>W eq21,23; turbulent Re&gt;4000</td>
+</tr>
+<tr>
+<td>tube.settling_heyder</td>
+<td>B slide26, W eq24–25; a&gt;=1 gives complete deposition (analytic domain); abs(v*sin(i)/U)&lt;&lt;1 checked against stated .1 policy</td>
+</tr>
+<tr>
+<td>tube.settling_schwendiman</td>
+<td>B slide26, W eq26–27; turbulent flow</td>
+</tr>
+<tr>
+<td>tube.inertia_lee_gieseke</td>
+<td>W eq28–29, Re 4000–15600 (Lee/Gieseke original DOI10.1016/0021-8502(94)90011-6); St=tau*U/d</td>
+</tr>
+<tr>
+<td>bend.pui_laminar</td>
+<td>B slide38, W eq30; St=tau*U/d, curvature radius/(d/2) 5–30; fit measured at Re1000, curvature5.6–5.7; generic curvature envelope5–30 is not additional fitted-condition evidence</td>
+</tr>
+<tr>
+<td>bend.pui_turbulent</td>
+<td>B slide38, W eq31; Re&gt;4000, curvature ratio5–30</td>
+</tr>
+<tr>
+<td>contraction.muyshondt</td>
+<td>B slide42 / notes eq40; W eq32 omits factor2; C St=tau*U_upstream/d_downstream; .001&lt;=x&lt;=100, 12–90deg</td>
+</tr>
+<tr>
+<td>response.series</td>
+<td>mass conservation / linear systems, explicitly modeled assumptions</td>
+</tr>
+</tbody>
+</table>
+<p>Diagnostic codes: E_JSON, E_IO, E_USAGE, E_SCHEMA, E_POSITIVE, E_NONNEGATIVE, E_SHAPE, E_WEIGHTS, E_SAMPLES, E_RESOURCE, E_FINITE, E_WIND, E_PARTICLES, E_DIAMETER, E_FLOW, E_ELEMENTS, E_PROBE, E_ANGLE, E_UNCOVERED, E_TRANSITION, E_REGIME, E_ANGLE_UNCOVERED, E_NUMERIC, E_RESPONSE, E_DISTRIBUTION, E_BUDGET, E_VARIABLES, E_VARIABLE, E_BOUNDS, E_DIMENSION, E_CASE, E_EMPTY_PM, E_FIXTURE, W_RANGE, W_NONPHYSICAL, W_TRANSITION, W_REGIME_BOUNDARY, W_SLOW_POLICY, W_CALM_TRANSMISSION, W_WALL_ASSUMED, W_BEND_SETTLING, W_SOURCE_CONFLICT, W_CONTRACTION_TRANSPORT, W_BUFFER_LOSS_UNMODELED, W_IDEAL_SPLIT.</p></article><article id="docs-validation-protocol"><h1>Validation protocol and open gates</h1>
+<p><strong>G0 incomplete:</strong> original-source and source-published-number coverage is incomplete. Most formulas were checked against Brockmann's standard-reference notes and the published PLC compilation. Numerical arithmetic fixtures are labeled as arithmetic; approximate published bend guidance is labeled as adjacent geometry with an a priori absolute tolerance. No constants were tuned to obtain agreement.</p>
+<p><strong>G1 incomplete:</strong> Rust regression/property checks, the aerosolpy grid and the approximate PLC virtual regression are numerical verification. AeroSampleR runtime and an independent IGOR Pro execution remain pending. They cannot be replaced by re-evaluating the same formulas in another language.</p>
+<p><strong>G2 conditional study produced, practitioner acceptance pending:</strong> the bicycle campaign records successes/failures under explicit aerosol distributions, source extrapolation guards and resource budgets. A practitioner must assess whether the model covers the proposed inlet before hardware selection.</p>
+<p><strong>G3 not attempted:</strong> no on-bike data, laboratory flow data or particle-tracking CFD was supplied or generated. No experimental claim is made.</p>
+<h2>V1 code-to-code</h2>
+<p>Freeze cases before opening external results: forward-facing probe at three speed ratios; yaw30/60/90deg; calm horizontal/vertical; tube at Re1000/8000;90deg bend at three Stokes numbers; a contraction. Use the source's exact angle, diameter and Stokes conventions. Export all PLC input values with outputs and software version. Declare per-case numerical tolerances before comparison. Explain formula choices rather than fit constants. The optional AeroSampleR exporter records a uniform-diameter tube/bend case and must be checked under an installed R package before claiming agreement.</p>
+<p>The virtual PLC example is qualitative because its air state, bend settling orientation and taper-wall loss details are not fully specified. The primary contraction equation also differs from the PLC printed equation. The comparison script records every approximate anchor and uses a predeclared2percentage-point absolute tolerance; a mismatch stays failed. This limited comparison cannot close G1.</p>
+<h2>V2 experiment to be registered before data</h2>
+<p>Build a defined conductive thin-walled inlet and measure actual total/sensor flow, including under wind. Freeze design, tubing, aerosol size distribution assumptions and reference-instrument settings. Co-locate on the same bike at0,10,15,20,25km/h, with repeated randomized route segments and at least three repeats per condition; log wind, humidity, temperature, speed and timestamps. First perform filter-zero, flow and step tests.</p>
+<p>Primary quantity: ratio of size-resolved concentration, or properly defined coarse/fine mass ratio, against a reference of known inlet response. Separate inlet effects from optical humidity response. Register a tolerance such as absolute relative speed-dependence error≤.15 for the declared coarse fraction, with instrument uncertainty and interval method specified <strong>before</strong> opening measurements. The illustrative.15 is a draft protocol decision, not an agreed experimental acceptance criterion. Keep raw data and rejected runs. Analyze disagreements against omitted fan/housing/wake/buffer physics.</p>
+<p>Only measured results can close G3. TrackV3 body-fitted flow/particle tracking would be a separate numerical check, not a substitute for measurement.</p></article><article id="docs-validation-virtual-inlet"><h1>Published virtual-inlet comparison</h1>
+<p>The geometry was transcribed from Figure7 of von der Weiden2009. Approximate graph anchors and a2percentage-point absolute tolerance were fixed before running. Missing air state, bend orientation and taper-wall physics are recorded. Every result is retained.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">FlowL/min</th>
+<th style="text-align: right;">Diameterµm</th>
+<th style="text-align: right;">Publishedloss</th>
+<th style="text-align: right;">Computedloss</th>
+<th>Pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">1.00%</td>
+<td style="text-align: right;">1.38%</td>
+<td>True</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.32%</td>
+<td style="text-align: right;">1.25%</td>
+<td>True</td>
+</tr>
+<tr>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">6.00%</td>
+<td style="text-align: right;">2.84%</td>
+<td>False</td>
+</tr>
+<tr>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">5.00%</td>
+<td style="text-align: right;">2.14%</td>
+<td>False</td>
+</tr>
+<tr>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">40.00%</td>
+<td style="text-align: right;">6.20%</td>
+<td>False</td>
+</tr>
+<tr>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">40.00%</td>
+<td style="text-align: right;">5.54%</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>Overall anchor check: <strong>FAILED</strong>. This comparison does not closeG1.</p>
+<p>A failed anchor is evidence of an unresolved system/source discrepancy, not permission to fit a constant or copy PLC code. Potential omissions are named above, but are not demonstrated to explain a large discrepancy. The affected whole-system reproduction claim is withheld; the implementation remains a provisional literature-equation tool.</p></article></main></html>

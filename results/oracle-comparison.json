@@ -1,0 +1,1375 @@
+{
+  "schema": "inlet-craft.oracle/0.1",
+  "aerosolpy_version": "1.0.2",
+  "aerosolpy_license": "MIT",
+  "predeclared_tolerances": {
+    "slip_relative": 0.05,
+    "diffusion_relative": 0.05,
+    "penetration_absolute": 0.02
+  },
+  "all_passed": true,
+  "rows": [
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 10.0,
+      "slip_relative_error": 0.007203012212202209,
+      "diffusion_relative_error": 0.009845298928802704,
+      "penetration_absolute_error": 0.0034531846011081058,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 13.33521432163324,
+      "slip_relative_error": 0.0062628092815333325,
+      "diffusion_relative_error": 0.008902629478788171,
+      "penetration_absolute_error": 0.002358219816745555,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 17.78279410038923,
+      "slip_relative_error": 0.005062831806014634,
+      "diffusion_relative_error": 0.007699503993876089,
+      "penetration_absolute_error": 0.0015609330842261127,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 23.71373705661655,
+      "slip_relative_error": 0.00355475946317263,
+      "diffusion_relative_error": 0.006187475388521602,
+      "penetration_absolute_error": 0.0010112087680750337,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 31.622776601683793,
+      "slip_relative_error": 0.001699221268803397,
+      "diffusion_relative_error": 0.004327069393060157,
+      "penetration_absolute_error": 0.0006458655779395528,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 42.169650342858226,
+      "slip_relative_error": 0.0005178653130610833,
+      "diffusion_relative_error": 0.002104166527533202,
+      "penetration_absolute_error": 0.00040908283735330286,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 56.23413251903491,
+      "slip_relative_error": 0.003060466968347497,
+      "diffusion_relative_error": 0.0004451053645355696,
+      "penetration_absolute_error": 0.00025826017538355117,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 74.98942093324558,
+      "slip_relative_error": 0.00581120667565771,
+      "diffusion_relative_error": 0.003203061335996571,
+      "penetration_absolute_error": 0.00016336473447464694,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 100.0,
+      "slip_relative_error": 0.00854424734575765,
+      "diffusion_relative_error": 0.005943271838762754,
+      "penetration_absolute_error": 0.00010420056183468862,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 133.3521432163324,
+      "slip_relative_error": 0.010925694967416022,
+      "diffusion_relative_error": 0.008330966927258099,
+      "penetration_absolute_error": 6.756751339775935e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 177.82794100389228,
+      "slip_relative_error": 0.012572876683632384,
+      "diffusion_relative_error": 0.009982469844181607,
+      "penetration_absolute_error": 4.497582372653408e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 237.13737056616552,
+      "slip_relative_error": 0.01318472640060031,
+      "diffusion_relative_error": 0.010595924681825575,
+      "penetration_absolute_error": 3.101283998929727e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 316.2277660168379,
+      "slip_relative_error": 0.012694588938146234,
+      "diffusion_relative_error": 0.01010450139745589,
+      "penetration_absolute_error": 2.2256298607303826e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 421.6965034285822,
+      "slip_relative_error": 0.011334722406118436,
+      "diffusion_relative_error": 0.008741067404617886,
+      "penetration_absolute_error": 1.658089609690716e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 562.341325190349,
+      "slip_relative_error": 0.009532494309139272,
+      "diffusion_relative_error": 0.0069341113597444215,
+      "penetration_absolute_error": 1.2714474501240858e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 749.8942093324558,
+      "slip_relative_error": 0.0076993169780800175,
+      "diffusion_relative_error": 0.005096124888867015,
+      "penetration_absolute_error": 9.935555396523021e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1000.0,
+      "slip_relative_error": 0.0060771843674592985,
+      "diffusion_relative_error": 0.003469736791122391,
+      "penetration_absolute_error": 7.853205005847741e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1333.521432163324,
+      "slip_relative_error": 0.004736290619939187,
+      "diffusion_relative_error": 0.0021253253558126683,
+      "penetration_absolute_error": 6.2527718233118534e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1778.2794100389228,
+      "slip_relative_error": 0.0036596924575881262,
+      "diffusion_relative_error": 0.001045902856174119,
+      "penetration_absolute_error": 5.004742034464549e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 2371.373705661655,
+      "slip_relative_error": 0.0028086206950923565,
+      "diffusion_relative_error": 0.00019259840018404084,
+      "penetration_absolute_error": 4.022107870427227e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 3162.2776601683795,
+      "slip_relative_error": 0.0021438188861616636,
+      "diffusion_relative_error": 0.00047394744343209894,
+      "penetration_absolute_error": 3.2428145511076423e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 4216.965034285822,
+      "slip_relative_error": 0.0016294816515269872,
+      "diffusion_relative_error": 0.0009896339854325031,
+      "penetration_absolute_error": 2.6213104660222086e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 5623.413251903491,
+      "slip_relative_error": 0.0012345178863221173,
+      "diffusion_relative_error": 0.0013856338947890734,
+      "penetration_absolute_error": 2.1234679593584715e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 7498.942093324558,
+      "slip_relative_error": 0.000932959940538769,
+      "diffusion_relative_error": 0.0016879829447933314,
+      "penetration_absolute_error": 1.723288490129704e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 10000.0,
+      "slip_relative_error": 0.0007037267698063454,
+      "diffusion_relative_error": 0.00191781748362585,
+      "penetration_absolute_error": 1.4007016212458367e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 10.0,
+      "slip_relative_error": 0.006448754735448592,
+      "diffusion_relative_error": 0.009089062740222698,
+      "penetration_absolute_error": 0.0029654131086956914,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 13.33521432163324,
+      "slip_relative_error": 0.005298902366281499,
+      "diffusion_relative_error": 0.007936193859385154,
+      "penetration_absolute_error": 0.0019969831456130294,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 17.78279410038923,
+      "slip_relative_error": 0.0038492948366894986,
+      "diffusion_relative_error": 0.006482783443311435,
+      "penetration_absolute_error": 0.0013092203533197067,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 23.71373705661655,
+      "slip_relative_error": 0.002057990146399735,
+      "diffusion_relative_error": 0.004686779461487323,
+      "penetration_absolute_error": 0.0008429169350754329,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 31.622776601683793,
+      "slip_relative_error": 9.519595622431432e-05,
+      "diffusion_relative_error": 0.0025279447111044018,
+      "penetration_absolute_error": 0.0005365799168249863,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 42.169650342858226,
+      "slip_relative_error": 0.0025853842486444067,
+      "diffusion_relative_error": 3.1223682615211246e-05,
+      "penetration_absolute_error": 0.00033966028529908154,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 56.23413251903491,
+      "slip_relative_error": 0.005312096074525874,
+      "diffusion_relative_error": 0.002702641372903436,
+      "penetration_absolute_error": 0.0002149955569463735,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 74.98942093324558,
+      "slip_relative_error": 0.008070078691719829,
+      "diffusion_relative_error": 0.005467859255228191,
+      "penetration_absolute_error": 0.00013694582071410721,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 100.0,
+      "slip_relative_error": 0.010542506233204074,
+      "diffusion_relative_error": 0.007946772939398161,
+      "penetration_absolute_error": 8.848242482772939e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 133.3521432163324,
+      "slip_relative_error": 0.012347719183198769,
+      "diffusion_relative_error": 0.009756721667722013,
+      "penetration_absolute_error": 5.854655562698152e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 177.82794100389228,
+      "slip_relative_error": 0.013158235459170498,
+      "diffusion_relative_error": 0.010569364244314094,
+      "penetration_absolute_error": 4.004734674567523e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 237.13737056616552,
+      "slip_relative_error": 0.012856549248535076,
+      "diffusion_relative_error": 0.010266886592968594,
+      "penetration_absolute_error": 2.8482787617467586e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 316.2277660168379,
+      "slip_relative_error": 0.011624020690177872,
+      "diffusion_relative_error": 0.009031124631019738,
+      "penetration_absolute_error": 2.1041608117777777e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 421.6965034285822,
+      "slip_relative_error": 0.00986748488427347,
+      "diffusion_relative_error": 0.007269980745938764,
+      "penetration_absolute_error": 1.6025592697310742e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 562.341325190349,
+      "slip_relative_error": 0.008016279165565465,
+      "diffusion_relative_error": 0.005413918591913425,
+      "penetration_absolute_error": 1.2459800741826399e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 749.8942093324558,
+      "slip_relative_error": 0.0063472132857426145,
+      "diffusion_relative_error": 0.0037404741006785702,
+      "penetration_absolute_error": 9.811070358356488e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1000.0,
+      "slip_relative_error": 0.0049558677586379885,
+      "diffusion_relative_error": 0.0023454785310702553,
+      "penetration_absolute_error": 7.787853272822609e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1333.521432163324,
+      "slip_relative_error": 0.0038346507089669357,
+      "diffusion_relative_error": 0.001221320091350675,
+      "penetration_absolute_error": 6.217372116812392e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1778.2794100389228,
+      "slip_relative_error": 0.002946167160346458,
+      "diffusion_relative_error": 0.00033050570351500497,
+      "penetration_absolute_error": 4.985512771171763e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 2371.373705661655,
+      "slip_relative_error": 0.002250777528240211,
+      "diffusion_relative_error": 0.0003667082070786254,
+      "penetration_absolute_error": 4.011698677364173e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 3162.2776601683795,
+      "slip_relative_error": 0.0017119397102031142,
+      "diffusion_relative_error": 0.0009069596070763186,
+      "penetration_absolute_error": 3.2372020100090992e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 4216.965034285822,
+      "slip_relative_error": 0.0012976652504191888,
+      "diffusion_relative_error": 0.00132232087050288,
+      "penetration_absolute_error": 2.6182980782385457e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 5623.413251903491,
+      "slip_relative_error": 0.0009810725935737175,
+      "diffusion_relative_error": 0.0016397440734861046,
+      "penetration_absolute_error": 2.121860189219227e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 7498.942093324558,
+      "slip_relative_error": 0.0007402419042150665,
+      "diffusion_relative_error": 0.00188120655576407,
+      "penetration_absolute_error": 1.7224363788592711e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 273.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 10000.0,
+      "slip_relative_error": 0.0005576845610480996,
+      "diffusion_relative_error": 0.0020642428181130157,
+      "penetration_absolute_error": 1.400253984873423e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 10.0,
+      "slip_relative_error": 0.007529390822855753,
+      "diffusion_relative_error": 0.01009433882478561,
+      "penetration_absolute_error": 0.0036885916145238395,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 13.33521432163324,
+      "slip_relative_error": 0.006660253996786603,
+      "diffusion_relative_error": 0.009222989367714485,
+      "penetration_absolute_error": 0.0025367025706100055,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 17.78279410038923,
+      "slip_relative_error": 0.005546557370544436,
+      "diffusion_relative_error": 0.00810645751506378,
+      "penetration_absolute_error": 0.0016872761276214288,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 23.71373705661655,
+      "slip_relative_error": 0.004139290134466567,
+      "diffusion_relative_error": 0.006695607686439953,
+      "penetration_absolute_error": 0.0010966320723901912,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 31.622776601683793,
+      "slip_relative_error": 0.0023947830746446908,
+      "diffusion_relative_error": 0.004946659495731032,
+      "penetration_absolute_error": 0.0007018277551393837,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 42.169650342858226,
+      "slip_relative_error": 0.00028860328049740147,
+      "diffusion_relative_error": 0.0028351178315437764,
+      "penetration_absolute_error": 0.0004449272740126853,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 56.23413251903491,
+      "slip_relative_error": 0.0021623123429236335,
+      "diffusion_relative_error": 0.00037796271656231895,
+      "penetration_absolute_error": 0.000280820707311058,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 74.98942093324558,
+      "slip_relative_error": 0.0048698125659003555,
+      "diffusion_relative_error": 0.0023364302058737074,
+      "penetration_absolute_error": 0.00017733986778167843,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 100.0,
+      "slip_relative_error": 0.0076442207344541435,
+      "diffusion_relative_error": 0.005117901406784808,
+      "penetration_absolute_error": 0.00011270536254603947,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 133.3521432163324,
+      "slip_relative_error": 0.010182720941063872,
+      "diffusion_relative_error": 0.007662864076020348,
+      "penetration_absolute_error": 7.262785778971992e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 177.82794100389228,
+      "slip_relative_error": 0.012106978495841636,
+      "diffusion_relative_error": 0.009592020366870235,
+      "penetration_absolute_error": 4.7900607274442564e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 237.13737056616552,
+      "slip_relative_error": 0.013072709204785316,
+      "diffusion_relative_error": 0.010560209613574512,
+      "penetration_absolute_error": 3.264790121393357e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 316.2277660168379,
+      "slip_relative_error": 0.012925369253551366,
+      "diffusion_relative_error": 0.010412494567264674,
+      "penetration_absolute_error": 2.314542846659773e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 421.6965034285822,
+      "slip_relative_error": 0.011805395105014882,
+      "diffusion_relative_error": 0.009289669211129947,
+      "penetration_absolute_error": 1.7063828319230367e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 562.341325190349,
+      "slip_relative_error": 0.010098856473220952,
+      "diffusion_relative_error": 0.00757878610770657,
+      "penetration_absolute_error": 1.2989585278289084e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 749.8942093324558,
+      "slip_relative_error": 0.008244548068900626,
+      "diffusion_relative_error": 0.00571975704245109,
+      "penetration_absolute_error": 1.0106966700340614e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1000.0,
+      "slip_relative_error": 0.006545342534862164,
+      "diffusion_relative_error": 0.004016225705236187,
+      "penetration_absolute_error": 7.969695459908444e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1333.521432163324,
+      "slip_relative_error": 0.005118249179824064,
+      "diffusion_relative_error": 0.0025854992847181846,
+      "penetration_absolute_error": 6.3363790059334235e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1778.2794100389228,
+      "slip_relative_error": 0.003964592806971701,
+      "diffusion_relative_error": 0.0014289059567401674,
+      "penetration_absolute_error": 5.066647310258965e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 2371.373705661655,
+      "slip_relative_error": 0.0030486589381281126,
+      "diffusion_relative_error": 0.0005106403219271582,
+      "penetration_absolute_error": 4.06896424676173e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 3162.2776601683795,
+      "slip_relative_error": 0.002330682654805738,
+      "diffusion_relative_error": 0.00020916377093604943,
+      "penetration_absolute_error": 3.2789008576061818e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 4216.965034285822,
+      "slip_relative_error": 0.00177366315984262,
+      "diffusion_relative_error": 0.000767601314894506,
+      "penetration_absolute_error": 2.649479457161874e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 5623.413251903491,
+      "slip_relative_error": 0.0013450049796811525,
+      "diffusion_relative_error": 0.0011973507644056358,
+      "penetration_absolute_error": 2.145683994481118e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 7498.942093324558,
+      "slip_relative_error": 0.0010171824320441836,
+      "diffusion_relative_error": 0.0015260078760721552,
+      "penetration_absolute_error": 1.7409466154250097e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 10000.0,
+      "slip_relative_error": 0.0007676711670470127,
+      "diffusion_relative_error": 0.001776154341815328,
+      "penetration_absolute_error": 1.4148201518127124e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 10.0,
+      "slip_relative_error": 0.0068323787880602005,
+      "diffusion_relative_error": 0.009395552350810465,
+      "penetration_absolute_error": 0.0031775457702390986,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 13.33521432163324,
+      "slip_relative_error": 0.005766062231966851,
+      "diffusion_relative_error": 0.008326521187535407,
+      "penetration_absolute_error": 0.0021527854104178568,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 17.78279410038923,
+      "slip_relative_error": 0.004414843342123609,
+      "diffusion_relative_error": 0.006971862391895511,
+      "penetration_absolute_error": 0.0014171887793490434,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 23.71373705661655,
+      "slip_relative_error": 0.00273328881341528,
+      "diffusion_relative_error": 0.005286026995583448,
+      "penetration_absolute_error": 0.0009148382274605238,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 31.622776601683793,
+      "slip_relative_error": 0.000692150120670032,
+      "diffusion_relative_error": 0.003239692013123019,
+      "penetration_absolute_error": 0.0005831733457444255,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 42.169650342858226,
+      "slip_relative_error": 0.0017010527030594247,
+      "diffusion_relative_error": 0.0008403966219143744,
+      "penetration_absolute_error": 0.00036922010516982073,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 56.23413251903491,
+      "slip_relative_error": 0.004373300197557217,
+      "diffusion_relative_error": 0.0018386538263573948,
+      "penetration_absolute_error": 0.00023341657926401194,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 74.98942093324558,
+      "slip_relative_error": 0.00715483743606915,
+      "diffusion_relative_error": 0.004627272246269354,
+      "penetration_absolute_error": 0.00014821638815387672,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 100.0,
+      "slip_relative_error": 0.009762190753454414,
+      "diffusion_relative_error": 0.007241263311141499,
+      "penetration_absolute_error": 9.522749541213127e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 133.3521432163324,
+      "slip_relative_error": 0.011824632030248972,
+      "diffusion_relative_error": 0.009308955109340267,
+      "penetration_absolute_error": 6.24723603729338e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 177.82794100389228,
+      "slip_relative_error": 0.01298077562683042,
+      "diffusion_relative_error": 0.010468041992971355,
+      "penetration_absolute_error": 4.225931262380467e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 237.13737056616552,
+      "slip_relative_error": 0.01303127298356166,
+      "diffusion_relative_error": 0.010518667904854673,
+      "penetration_absolute_error": 2.969351952164523e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 316.2277660168379,
+      "slip_relative_error": 0.012062118640554398,
+      "diffusion_relative_error": 0.009547046308268303,
+      "penetration_absolute_error": 2.1699612359760145e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 421.6965034285822,
+      "slip_relative_error": 0.010426844651518885,
+      "diffusion_relative_error": 0.007907609271693872,
+      "penetration_absolute_error": 1.6396850582744982e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 562.341325190349,
+      "slip_relative_error": 0.008571191276238288,
+      "diffusion_relative_error": 0.0060472318114774826,
+      "penetration_absolute_error": 1.2687216321749517e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 749.8942093324558,
+      "slip_relative_error": 0.006830782607707531,
+      "diffusion_relative_error": 0.0043023924456616625,
+      "penetration_absolute_error": 9.963188315920135e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1000.0,
+      "slip_relative_error": 0.005352810387113105,
+      "diffusion_relative_error": 0.0028206576331979427,
+      "penetration_absolute_error": 7.89580728621786e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1333.521432163324,
+      "slip_relative_error": 0.004152453229004149,
+      "diffusion_relative_error": 0.0016172446300464216,
+      "penetration_absolute_error": 6.296623207169283e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1778.2794100389228,
+      "slip_relative_error": 0.003196929001582305,
+      "diffusion_relative_error": 0.0006592878483185904,
+      "penetration_absolute_error": 5.045064587982928e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 2371.373705661655,
+      "slip_relative_error": 0.0024463477789872234,
+      "diffusion_relative_error": 9.320418881442194e-05,
+      "penetration_absolute_error": 4.057280559077725e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 3162.2776601683795,
+      "slip_relative_error": 0.0018630549557331344,
+      "diffusion_relative_error": 0.0006779819471729454,
+      "penetration_absolute_error": 3.2726008623029657e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 4216.965034285822,
+      "slip_relative_error": 0.00141359314281031,
+      "diffusion_relative_error": 0.0011285879909141983,
+      "penetration_absolute_error": 2.6460975605102632e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 5623.413251903491,
+      "slip_relative_error": 0.0010695168415808531,
+      "diffusion_relative_error": 0.0014735402346515158,
+      "penetration_absolute_error": 2.143878401694721e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 7498.942093324558,
+      "slip_relative_error": 0.0008074345579321962,
+      "diffusion_relative_error": 0.0017362897220916107,
+      "penetration_absolute_error": 1.7399891139024959e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 293.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 10000.0,
+      "slip_relative_error": 0.0006085689000691064,
+      "diffusion_relative_error": 0.0019356616481356337,
+      "penetration_absolute_error": 1.4143167136326795e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 10.0,
+      "slip_relative_error": 0.007812456083514885,
+      "diffusion_relative_error": 0.010307294598012273,
+      "penetration_absolute_error": 0.003917359237327611,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 13.33521432163324,
+      "slip_relative_error": 0.007004953339267761,
+      "diffusion_relative_error": 0.009497792881699718,
+      "penetration_absolute_error": 0.0027128865274198555,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 17.78279410038923,
+      "slip_relative_error": 0.005966768110852394,
+      "diffusion_relative_error": 0.008457037627008779,
+      "penetration_absolute_error": 0.0018132805650260542,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 23.71373705661655,
+      "slip_relative_error": 0.004648919780936733,
+      "diffusion_relative_error": 0.007135926965148309,
+      "penetration_absolute_error": 0.0011824282377562723,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 31.622776601683793,
+      "slip_relative_error": 0.0030049976347743534,
+      "diffusion_relative_error": 0.005487935291704327,
+      "penetration_absolute_error": 0.0007583187530111335,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 42.169650342858226,
+      "slip_relative_error": 0.001002977664470217,
+      "diffusion_relative_error": 0.0034809593233879887,
+      "penetration_absolute_error": 0.00048125425984080206,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 56.23413251903491,
+      "slip_relative_error": 0.0013551572146047741,
+      "diffusion_relative_error": 0.0011169868842757502,
+      "penetration_absolute_error": 0.00030376952300048554,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 74.98942093324558,
+      "slip_relative_error": 0.004005463724429337,
+      "diffusion_relative_error": 0.0015398804561040924,
+      "penetration_absolute_error": 0.00019161613994944648,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 100.0,
+      "slip_relative_error": 0.006790477424298502,
+      "diffusion_relative_error": 0.004331788454014607,
+      "penetration_absolute_error": 0.00012144326620533441,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 133.3521432163324,
+      "slip_relative_error": 0.009439326282709493,
+      "diffusion_relative_error": 0.006987194534566421,
+      "penetration_absolute_error": 7.786878191073932e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 177.82794100389228,
+      "slip_relative_error": 0.01158763667260676,
+      "diffusion_relative_error": 0.009140823064232473,
+      "penetration_absolute_error": 5.096233174328724e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 237.13737056616552,
+      "slip_relative_error": 0.012865751029512151,
+      "diffusion_relative_error": 0.010422101391680316,
+      "penetration_absolute_error": 3.438090324148213e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 316.2277660168379,
+      "slip_relative_error": 0.01304804552318728,
+      "diffusion_relative_error": 0.01060484715515364,
+      "penetration_absolute_error": 2.4097870518935416e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 421.6965034285822,
+      "slip_relative_error": 0.01218560206800512,
+      "diffusion_relative_error": 0.009740268722242762,
+      "penetration_absolute_error": 1.758230151716056e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 562.341325190349,
+      "slip_relative_error": 0.010608001838796954,
+      "diffusion_relative_error": 0.008158763145577397,
+      "penetration_absolute_error": 1.3281600566683593e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 749.8942093324558,
+      "slip_relative_error": 0.008761553281440682,
+      "diffusion_relative_error": 0.006307743707053781,
+      "penetration_absolute_error": 1.0285410276811291e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1000.0,
+      "slip_relative_error": 0.007001168026968929,
+      "diffusion_relative_error": 0.004543000621016757,
+      "penetration_absolute_error": 8.089204197925248e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1333.521432163324,
+      "slip_relative_error": 0.00549424555041067,
+      "diffusion_relative_error": 0.003032347759692411,
+      "penetration_absolute_error": 6.421625501240591e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 1778.2794100389228,
+      "slip_relative_error": 0.0042662886701225755,
+      "diffusion_relative_error": 0.0018013510736343274,
+      "penetration_absolute_error": 5.129625857414055e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 2371.373705661655,
+      "slip_relative_error": 0.0032870910296129985,
+      "diffusion_relative_error": 0.0008197294305516412,
+      "penetration_absolute_error": 4.11657013332789e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 3162.2776601683795,
+      "slip_relative_error": 0.0025168783691016383,
+      "diffusion_relative_error": 4.7610109532025824e-05,
+      "penetration_absolute_error": 3.3155291052633373e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 4216.965034285822,
+      "slip_relative_error": 0.0019176809799823502,
+      "diffusion_relative_error": 0.0005530705919982726,
+      "penetration_absolute_error": 2.6780523948444213e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 5623.413251903491,
+      "slip_relative_error": 0.0014555745378626028,
+      "diffusion_relative_error": 0.001016320978055818,
+      "penetration_absolute_error": 2.168208734332211e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 7498.942093324558,
+      "slip_relative_error": 0.0011015891646968257,
+      "diffusion_relative_error": 0.00137118264158409,
+      "penetration_absolute_error": 1.7588452688732659e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 80000.0,
+      "diameter_nm": 10000.0,
+      "slip_relative_error": 0.0008318256669108681,
+      "diffusion_relative_error": 0.0016416139385821982,
+      "penetration_absolute_error": 1.4291288178425177e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 10.0,
+      "slip_relative_error": 0.007165055190081482,
+      "diffusion_relative_error": 0.009658291064451374,
+      "penetration_absolute_error": 0.003385210540124972,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 13.33521432163324,
+      "slip_relative_error": 0.006171709855414598,
+      "diffusion_relative_error": 0.008662486704611227,
+      "penetration_absolute_error": 0.0023073212035178425,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 17.78279410038923,
+      "slip_relative_error": 0.004907518494983609,
+      "diffusion_relative_error": 0.007395165839998663,
+      "penetration_absolute_error": 0.001525228810664192,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 23.71373705661655,
+      "slip_relative_error": 0.0033249360354445923,
+      "diffusion_relative_error": 0.005808665699497562,
+      "penetration_absolute_error": 0.0009872559589012564,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 31.622776601683793,
+      "slip_relative_error": 0.0013881703573423998,
+      "diffusion_relative_error": 0.0038671055603047844,
+      "penetration_absolute_error": 0.0006303099301046,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 42.169650342858226,
+      "slip_relative_error": 0.0009087144706549921,
+      "diffusion_relative_error": 0.001564534796697492,
+      "penetration_absolute_error": 0.0003992473728336998,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 56.23413251903491,
+      "slip_relative_error": 0.0035152057195900754,
+      "diffusion_relative_error": 0.00104840881816759,
+      "penetration_absolute_error": 0.0002522105853889345,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 74.98942093324558,
+      "slip_relative_error": 0.006292679032643189,
+      "diffusion_relative_error": 0.0038327577630438148,
+      "penetration_absolute_error": 0.00015977880361550678,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 100.0,
+      "slip_relative_error": 0.008990688367832234,
+      "diffusion_relative_error": 0.006537446017074178,
+      "penetration_absolute_error": 0.00010219968377755961,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 133.3521432163324,
+      "slip_relative_error": 0.011257323945920161,
+      "diffusion_relative_error": 0.008809692648790612,
+      "penetration_absolute_error": 6.657144477029142e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 177.82794100389228,
+      "slip_relative_error": 0.012714085656576724,
+      "diffusion_relative_error": 0.010270060571297979,
+      "penetration_absolute_error": 4.4596724283918476e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 237.13737056616552,
+      "slip_relative_error": 0.013097795765547704,
+      "diffusion_relative_error": 0.01065472055417871,
+      "penetration_absolute_error": 3.098699302794827e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 316.2277660168379,
+      "slip_relative_error": 0.01240483822078342,
+      "diffusion_relative_error": 0.009960047593851495,
+      "penetration_absolute_error": 2.2405382259282902e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 421.6965034285822,
+      "slip_relative_error": 0.01092285594634479,
+      "diffusion_relative_error": 0.008474396674087448,
+      "penetration_absolute_error": 1.6791570540908296e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 562.341325190349,
+      "slip_relative_error": 0.009093600177591421,
+      "diffusion_relative_error": 0.00664061258489379,
+      "penetration_absolute_error": 1.2924609740783133e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 749.8942093324558,
+      "slip_relative_error": 0.007300071725191315,
+      "diffusion_relative_error": 0.0048426442549817095,
+      "penetration_absolute_error": 1.0119519379458985e-05,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1000.0,
+      "slip_relative_error": 0.0057430463829525324,
+      "diffusion_relative_error": 0.003281764498394235,
+      "penetration_absolute_error": 8.005951468881278e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1333.521432163324,
+      "slip_relative_error": 0.004466671731138572,
+      "diffusion_relative_error": 0.002002230182675202,
+      "penetration_absolute_error": 6.3772732527001e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 1778.2794100389228,
+      "slip_relative_error": 0.003445854243832369,
+      "diffusion_relative_error": 0.0009788856629153742,
+      "penetration_absolute_error": 5.105581903364076e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 2371.373705661655,
+      "slip_relative_error": 0.002641120010128395,
+      "diffusion_relative_error": 0.00017215931059066936,
+      "penetration_absolute_error": 4.1035534030786636e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 3162.2776601683795,
+      "slip_relative_error": 0.002013939404688081,
+      "diffusion_relative_error": 0.00045657387967890095,
+      "penetration_absolute_error": 3.3085099658825e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 4216.965034285822,
+      "slip_relative_error": 0.0015295726326578496,
+      "diffusion_relative_error": 0.0009421397010664911,
+      "penetration_absolute_error": 2.6742839408511188e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 5623.413251903491,
+      "slip_relative_error": 0.0011581342063451405,
+      "diffusion_relative_error": 0.0013144976227537075,
+      "penetration_absolute_error": 2.166196163999601e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 7498.942093324558,
+      "slip_relative_error": 0.000874836222988784,
+      "diffusion_relative_error": 0.0015984969099247515,
+      "penetration_absolute_error": 1.757777466138144e-06,
+      "passed": true
+    },
+    {
+      "temperature_k": 313.15,
+      "pressure_pa": 101325.0,
+      "diameter_nm": 10000.0,
+      "slip_relative_error": 0.0006596560904988946,
+      "diffusion_relative_error": 0.001814209720572002,
+      "penetration_absolute_error": 1.4285669466262974e-06,
+      "passed": true
+    }
+  ],
+  "AeroSampleR": {
+    "status": "not_run",
+    "reason": "Rscript not installed in execution environment"
+  },
+  "PLC": {
+    "status": "not_run",
+    "reason": "requires external IGOR Pro user; no PLC software inspected"
+  },
+  "experimental_validation": false,
+  "maximum_slip_relative_error": 0.01318472640060031,
+  "maximum_diffusion_relative_error": 0.01065472055417871,
+  "maximum_penetration_absolute_error": 0.003917359237327611
+}

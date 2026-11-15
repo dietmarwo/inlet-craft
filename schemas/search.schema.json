@@ -1,0 +1,775 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "Air": {
+      "additionalProperties": false,
+      "properties": {
+        "pressure_pa": {
+          "format": "double",
+          "type": "number"
+        },
+        "temperature_k": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "pressure_pa",
+        "temperature_k"
+      ],
+      "type": "object"
+    },
+    "AspirationMode": {
+      "enum": [
+        "auto",
+        "moving",
+        "slow",
+        "calm"
+      ],
+      "type": "string"
+    },
+    "Candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "case": {
+          "$ref": "#/definitions/Case"
+        },
+        "cold_rechecked": {
+          "type": "boolean"
+        },
+        "distance_reference_speed_m_s": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "distance_resolution_objective_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "feasible": {
+          "type": "boolean"
+        },
+        "maximum_distance_resolution_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "maximum_pm10_relative_deviation": {
+          "format": "double",
+          "type": "number"
+        },
+        "normalized_violation": {
+          "format": "double",
+          "type": "number"
+        },
+        "objectives": {
+          "description": "All minimized: max PM10 absolute relative bias, max 10\u201390% distance, total flow in L/min. Units retained in names below.",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "total_flow_l_min": {
+          "format": "double",
+          "type": "number"
+        },
+        "violations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "warning_count": {
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "x": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "case",
+        "cold_rechecked",
+        "distance_resolution_objective_m",
+        "feasible",
+        "maximum_distance_resolution_m",
+        "maximum_pm10_relative_deviation",
+        "normalized_violation",
+        "objectives",
+        "total_flow_l_min",
+        "violations",
+        "warning_count",
+        "x"
+      ],
+      "type": "object"
+    },
+    "Case": {
+      "additionalProperties": false,
+      "properties": {
+        "air": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Air"
+            }
+          ],
+          "default": {
+            "pressure_pa": 101325.0,
+            "temperature_k": 293.15
+          }
+        },
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Distribution"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "elements": {
+          "items": {
+            "$ref": "#/definitions/Element"
+          },
+          "type": "array"
+        },
+        "flow": {
+          "$ref": "#/definitions/Flow"
+        },
+        "options": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Options"
+            }
+          ],
+          "default": {
+            "aspiration_mode": "auto",
+            "extend_laminar_transition": false
+          }
+        },
+        "particles": {
+          "$ref": "#/definitions/Particles"
+        },
+        "platform": {
+          "$ref": "#/definitions/Platform"
+        },
+        "schema": {
+          "type": "string"
+        },
+        "sensor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Sensor"
+            }
+          ],
+          "default": {
+            "response_time_s": 0.0,
+            "sampling_interval_s": 0.0
+          }
+        }
+      },
+      "required": [
+        "elements",
+        "flow",
+        "particles",
+        "platform",
+        "schema"
+      ],
+      "type": "object"
+    },
+    "Diagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "formula": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "path"
+      ],
+      "type": "object"
+    },
+    "Distribution": {
+      "additionalProperties": false,
+      "properties": {
+        "modes": {
+          "description": "Number-lognormal modes in PHYSICAL diameter.",
+          "items": {
+            "$ref": "#/definitions/Mode"
+          },
+          "type": "array"
+        },
+        "quadrature_bins": {
+          "default": 64,
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "modes"
+      ],
+      "type": "object"
+    },
+    "Element": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "angle_to_heading_deg": {
+              "default": 0.0,
+              "format": "double",
+              "type": "number"
+            },
+            "angle_to_vertical_deg": {
+              "default": 90.0,
+              "format": "double",
+              "type": "number"
+            },
+            "inner_diameter_m": {
+              "format": "double",
+              "type": "number"
+            },
+            "kind": {
+              "enum": [
+                "probe"
+              ],
+              "type": "string"
+            },
+            "outer_diameter_m": {
+              "default": null,
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "upward_sampling": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "inner_diameter_m",
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "inclination_deg": {
+              "default": 0.0,
+              "format": "double",
+              "type": "number"
+            },
+            "inner_diameter_m": {
+              "format": "double",
+              "type": "number"
+            },
+            "kind": {
+              "enum": [
+                "tube"
+              ],
+              "type": "string"
+            },
+            "length_m": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "inner_diameter_m",
+            "kind",
+            "length_m"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "angle_deg": {
+              "format": "double",
+              "type": "number"
+            },
+            "inner_diameter_m": {
+              "default": null,
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "kind": {
+              "enum": [
+                "bend"
+              ],
+              "type": "string"
+            },
+            "radius_m": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "angle_deg",
+            "kind",
+            "radius_m"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "half_angle_deg": {
+              "format": "double",
+              "type": "number"
+            },
+            "kind": {
+              "enum": [
+                "contraction"
+              ],
+              "type": "string"
+            },
+            "length_m": {
+              "default": 0.0,
+              "format": "double",
+              "type": "number"
+            },
+            "outlet_diameter_m": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "half_angle_deg",
+            "kind",
+            "outlet_diameter_m"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "buffer"
+              ],
+              "type": "string"
+            },
+            "volume_m3": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "volume_m3"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "split"
+              ],
+              "type": "string"
+            },
+            "sensor_m3_s": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "sensor_m3_s"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "FailedRow": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/Diagnostic"
+        },
+        "evaluation": {
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "x": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "error",
+        "evaluation",
+        "x"
+      ],
+      "type": "object"
+    },
+    "Flow": {
+      "additionalProperties": false,
+      "properties": {
+        "sensor_m3_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "total_m3_s": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "sensor_m3_s",
+        "total_m3_s"
+      ],
+      "type": "object"
+    },
+    "Mode": {
+      "additionalProperties": false,
+      "properties": {
+        "geometric_mean_diameter_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "geometric_std_dev": {
+          "format": "double",
+          "type": "number"
+        },
+        "number_concentration_m3": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "geometric_mean_diameter_m",
+        "geometric_std_dev",
+        "number_concentration_m3"
+      ],
+      "type": "object"
+    },
+    "Options": {
+      "additionalProperties": false,
+      "properties": {
+        "aspiration_mode": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/AspirationMode"
+            }
+          ],
+          "default": "auto"
+        },
+        "extend_laminar_transition": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "Particles": {
+      "additionalProperties": false,
+      "properties": {
+        "aerodynamic_diameter_m": {
+          "default": [],
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "density_kg_m3": {
+          "default": 1000.0,
+          "format": "double",
+          "type": "number"
+        },
+        "physical_diameter_m": {
+          "default": [],
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "shape_factor": {
+          "default": 1.0,
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "Platform": {
+      "additionalProperties": false,
+      "properties": {
+        "crosswind_m_s": {
+          "default": [
+            0.0
+          ],
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "crosswind_weights": {
+          "default": null,
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "headwind_m_s": {
+          "default": [
+            0.0
+          ],
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "headwind_weights": {
+          "default": null,
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "speed_m_s": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "speed_weights": {
+          "default": null,
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "wind_samples": {
+          "default": null,
+          "items": {
+            "$ref": "#/definitions/WindSample"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "speed_m_s"
+      ],
+      "type": "object"
+    },
+    "Sensor": {
+      "additionalProperties": false,
+      "properties": {
+        "response_time_s": {
+          "default": 0.0,
+          "description": "First-order time constant, not t90.",
+          "format": "double",
+          "type": "number"
+        },
+        "sampling_interval_s": {
+          "default": 0.0,
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "WindSample": {
+      "additionalProperties": false,
+      "properties": {
+        "direction_from_heading_deg": {
+          "format": "double",
+          "type": "number"
+        },
+        "speed_m_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "weight": {
+          "default": 1.0,
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "direction_from_heading_deg",
+        "speed_m_s"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "baseline": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Candidate"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "best": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Candidate"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "claim": {
+      "type": "string"
+    },
+    "cold_recheck_evaluations": {
+      "format": "uint",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "elapsed_seconds": {
+      "format": "double",
+      "type": "number"
+    },
+    "engine": {
+      "type": "string"
+    },
+    "evaluations": {
+      "format": "uint",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "failed_evaluations": {
+      "format": "uint",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "failed_rows": {
+      "items": {
+        "$ref": "#/definitions/FailedRow"
+      },
+      "type": "array"
+    },
+    "failed_rows_omitted": {
+      "format": "uint",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "pareto": {
+      "items": {
+        "$ref": "#/definitions/Candidate"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "seed": {
+      "format": "uint64",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "termination": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "claim",
+    "cold_recheck_evaluations",
+    "elapsed_seconds",
+    "engine",
+    "evaluations",
+    "failed_evaluations",
+    "failed_rows",
+    "failed_rows_omitted",
+    "pareto",
+    "schema",
+    "seed",
+    "status",
+    "termination"
+  ],
+  "title": "SearchResult",
+  "type": "object"
+}

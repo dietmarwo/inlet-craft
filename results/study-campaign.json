@@ -1,0 +1,110 @@
+{
+  "schema": "inlet-craft.study-campaign/0.1",
+  "date": "2026-11-14",
+  "distribution": "explicit example assumptions, not measured site data",
+  "rows": [
+    {
+      "study": "full-distribution-seed42",
+      "status": "no_feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 8.102748731,
+      "worst_pm10_bias": 0.14593693077676706,
+      "resolution_at_reference_m": 11.808266321595875,
+      "flow_l_min": 3.0,
+      "warning_count": 14,
+      "violations": [
+        "nonphysical extrapolation cannot be accepted by search"
+      ],
+      "pareto_points": 0
+    },
+    {
+      "study": "full-distribution-seed7",
+      "status": "no_feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 7.62499836,
+      "worst_pm10_bias": 0.1453790811043989,
+      "resolution_at_reference_m": 12.147084477386032,
+      "flow_l_min": 3.0,
+      "warning_count": 13,
+      "violations": [
+        "nonphysical extrapolation cannot be accepted by search"
+      ],
+      "pareto_points": 0
+    },
+    {
+      "study": "full-distribution-seed123",
+      "status": "no_feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 8.069499298,
+      "worst_pm10_bias": 0.14423452744197263,
+      "resolution_at_reference_m": 14.712377360688285,
+      "flow_l_min": 3.0,
+      "warning_count": 13,
+      "violations": [
+        "nonphysical extrapolation cannot be accepted by search"
+      ],
+      "pareto_points": 0
+    },
+    {
+      "study": "mode-full-distribution",
+      "status": "no_feasible_design_found",
+      "evaluations": 256,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 3.828727385,
+      "worst_pm10_bias": 0.15319016443866273,
+      "resolution_at_reference_m": 13.139486277103654,
+      "flow_l_min": 2.827592976727861,
+      "warning_count": 13,
+      "violations": [
+        "PM10 relative deviation: 1.531902e-1 > 1.500000e-1",
+        "nonphysical extrapolation cannot be accepted by search"
+      ],
+      "pareto_points": 0
+    },
+    {
+      "study": "coarse-monodisperse-sensitivity",
+      "status": "feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 0.324747363,
+      "worst_pm10_bias": 0.09922800078170313,
+      "resolution_at_reference_m": 13.565539781186061,
+      "flow_l_min": 3.0,
+      "warning_count": 10,
+      "violations": [],
+      "pareto_points": 20
+    },
+    {
+      "study": "mode-coarse-monodisperse-sensitivity",
+      "status": "feasible_design_found",
+      "evaluations": 256,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 0.182011194,
+      "worst_pm10_bias": 0.10044386268293748,
+      "resolution_at_reference_m": 12.19064733674406,
+      "flow_l_min": 2.9390911017419357,
+      "warning_count": 9,
+      "violations": [],
+      "pareto_points": 25
+    },
+    {
+      "study": "deliberately-impossible-zero-resolution",
+      "status": "no_feasible_design_found",
+      "evaluations": 64,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 0.039663361,
+      "worst_pm10_bias": 0.10953781059807488,
+      "resolution_at_reference_m": 15.18254190822419,
+      "flow_l_min": 2.8712362480490525,
+      "warning_count": 9,
+      "violations": [
+        "distance resolution m: 1.518254e1 > 0.000000e0"
+      ],
+      "pareto_points": 0
+    }
+  ],
+  "experimental_validation": false
+}
