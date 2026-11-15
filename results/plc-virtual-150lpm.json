@@ -171,6 +171,7 @@
               "reynolds": 21135.41168295808
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9379869383536251,
           "physical_diameter_m": 1e-07,
           "relaxation_time_s": 8.648898476941251e-08,
@@ -330,6 +331,7 @@
               "reynolds": 21135.41168295808
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9445766430589612,
           "physical_diameter_m": 3e-07,
           "relaxation_time_s": 4.189750416431106e-07,
@@ -489,6 +491,7 @@
               "reynolds": 21135.41168295808
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9043372847242386,
           "physical_diameter_m": 1e-06,
           "relaxation_time_s": 3.5189030738870484e-06,
@@ -648,6 +651,7 @@
               "reynolds": 21135.41168295808
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.05524359591923614,
           "physical_diameter_m": 3e-06,
           "relaxation_time_s": 2.8937443475200574e-05,
@@ -807,6 +811,7 @@
               "reynolds": 21135.41168295808
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 4.4220836749832724e-141,
           "physical_diameter_m": 1e-05,
           "relaxation_time_s": 0.0003109036544081689,
@@ -1025,7 +1030,7 @@
       "diagnostic": {
         "code": "W_REGIME_BOUNDARY",
         "formula": "aspiration.durham_lundgren",
-        "message": "empirical endpoint jumps: 0deg -1.257276e-5; 60 to 61deg -1.641316e-6; no smoothing",
+        "message": "empirical endpoint jumps: 0deg -1.257276e-5; 60 to 61deg 1.523118e-4; no smoothing",
         "path": "elements[0]"
       },
       "maximum_value": null,

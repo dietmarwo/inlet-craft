@@ -123,6 +123,15 @@
             "null"
           ]
         },
+        "max_nonphysical_pm10_excess": {
+          "default": null,
+          "description": "Explicit allowance for transport correlations extrapolated above one. Absent: any such value rejects the candidate. Present: accepted only if, in every scenario, the share of the PM10 ratio resting on efficiencies above one (PmResult.nonphysical_excess) is at most this value. Negative efficiencies are always rejected. Nothing is clipped.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
         "max_pm10_relative_deviation": {
           "default": null,
           "format": "double",
@@ -602,6 +611,7 @@
       "default": {
         "distance_reference_speed_m_s": null,
         "max_distance_resolution_m": null,
+        "max_nonphysical_pm10_excess": null,
         "max_pm10_relative_deviation": null,
         "max_total_flow_m3_s": null,
         "max_warning_count": null,

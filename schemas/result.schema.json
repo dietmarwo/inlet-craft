@@ -179,6 +179,11 @@
           "format": "double",
           "type": "number"
         },
+        "nonphysical_excess": {
+          "description": "Mass-weighted nonphysical_transport_excess divided by ideal mass: the share of `efficiency` that rests on transport efficiencies above one.",
+          "format": "double",
+          "type": "number"
+        },
         "quadrature_bins": {
           "format": "uint",
           "minimum": 0.0,
@@ -192,6 +197,7 @@
       "required": [
         "ideal_mass_kg_m3",
         "nominal_cut_m",
+        "nonphysical_excess",
         "quadrature_bins",
         "sampled_mass_kg_m3"
       ],
@@ -300,6 +306,11 @@
           },
           "type": "array"
         },
+        "nonphysical_transport_excess": {
+          "description": "overall_efficiency minus the same product with every transport mechanism above one replaced by one. Zero unless an extrapolated correlation exceeds its physical bound. A reported sensitivity; the efficiencies themselves are never clipped.",
+          "format": "double",
+          "type": "number"
+        },
         "overall_efficiency": {
           "format": "double",
           "type": "number"
@@ -339,6 +350,7 @@
         "bypass_particle_flux_fraction",
         "diffusion_coefficient_m2_s",
         "elements",
+        "nonphysical_transport_excess",
         "overall_efficiency",
         "physical_diameter_m",
         "relaxation_time_s",

@@ -1,6 +1,16 @@
 {
   "schema": "inlet-craft.published-system-comparison/0.1",
-  "source": "von der Weiden2009 Figure7 p492",
+  "log_loss_flow_exponent_40_to_150": {
+    "0.1um": {
+      "computed": 0.6052393851068775,
+      "published": 1.5970465024114555
+    },
+    "0.3um": {
+      "computed": 0.73444595993132,
+      "published": 1.738950710428325
+    }
+  },
+  "source": "von der Weiden 2009 Figure 7 p492",
   "source_url": "https://doi.org/10.5194/amt-2-479-2009",
   "evidence_kind": "published_approximate_curve_with_incomplete_geometry",
   "all_passed": false,
@@ -11,7 +21,11 @@
       "published_approximate_loss": 0.01,
       "actual_loss": 0.013796624448280226,
       "absolute_tolerance": 0.02,
-      "passed": true
+      "passed": true,
+      "computed_loss_share_by_mechanism": {
+        "tube.diffusion_holman": 0.8691050856207019,
+        "tube.settling_heyder": 0.13851988056800282
+      }
     },
     {
       "flow_l_min": 10,
@@ -19,7 +33,12 @@
       "published_approximate_loss": 0.0032,
       "actual_loss": 0.01250403111365661,
       "absolute_tolerance": 0.02,
-      "passed": true
+      "passed": true,
+      "computed_loss_share_by_mechanism": {
+        "tube.settling_heyder": 0.7392226839233706,
+        "tube.diffusion_holman": 0.30154437406096996,
+        "aspiration": -0.04235579431046491
+      }
     },
     {
       "flow_l_min": 40,
@@ -27,7 +46,13 @@
       "published_approximate_loss": 0.06,
       "actual_loss": 0.028356506965439343,
       "absolute_tolerance": 0.02,
-      "passed": false
+      "passed": false,
+      "computed_loss_share_by_mechanism": {
+        "tube.inertia_lee_gieseke": 0.5293256749471728,
+        "tube.diffusion_friedlander": 0.3494238806331337,
+        "tube.diffusion_holman": 0.10535436978021075,
+        "tube.settling_heyder": 0.014531827557582502
+      }
     },
     {
       "flow_l_min": 40,
@@ -35,7 +60,14 @@
       "published_approximate_loss": 0.05,
       "actual_loss": 0.021366769840937883,
       "absolute_tolerance": 0.02,
-      "passed": false
+      "passed": false,
+      "computed_loss_share_by_mechanism": {
+        "tube.inertia_lee_gieseke": 0.7052962032913442,
+        "tube.diffusion_friedlander": 0.14804445392092183,
+        "tube.settling_heyder": 0.09362691597597647,
+        "tube.diffusion_holman": 0.04420838048749625,
+        "tube.settling_schwendiman": 0.014267557794655661
+      }
     },
     {
       "flow_l_min": 150,
@@ -43,7 +75,11 @@
       "published_approximate_loss": 0.4,
       "actual_loss": 0.06201306164637488,
       "absolute_tolerance": 0.02,
-      "passed": false
+      "passed": false,
+      "computed_loss_share_by_mechanism": {
+        "tube.inertia_lee_gieseke": 0.8119403343881462,
+        "tube.diffusion_friedlander": 0.1858319927829911
+      }
     },
     {
       "flow_l_min": 150,
@@ -51,14 +87,20 @@
       "published_approximate_loss": 0.4,
       "actual_loss": 0.05542335694103884,
       "absolute_tolerance": 0.02,
-      "passed": false
+      "passed": false,
+      "computed_loss_share_by_mechanism": {
+        "tube.inertia_lee_gieseke": 0.921468163452053,
+        "tube.diffusion_friedlander": 0.06637299727067206,
+        "tube.settling_schwendiman": 0.010921174259579981
+      }
     }
   ],
   "limitations": [
-    "air state unspecified, assumed293.15K/101325Pa",
+    "air state unspecified, assumed 293.15 K / 101325 Pa",
     "bend arc diffusion/impaction included, arc settling orientation unspecified",
     "taper wall losses unmodeled; conical volume only",
-    "primary Brockmann contraction factor2 differs from PLC printed Eq32",
+    "primary Brockmann contraction factor 2 differs from PLC printed Eq 32",
+    "150 L/min: 10 mm tube Re about 21000 exceeds the Lee-Gieseke fitted range 4000-15600",
     "possible remaining convention/source discrepancy: not tuned or resolved"
   ],
   "gate_g1": "open",

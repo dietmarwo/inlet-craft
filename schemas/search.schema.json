@@ -60,6 +60,11 @@
           "format": "double",
           "type": "number"
         },
+        "nonphysical_pm10_excess": {
+          "description": "Largest PM10 nonphysical_excess over scenarios (0 if none).",
+          "format": "double",
+          "type": "number"
+        },
         "normalized_violation": {
           "format": "double",
           "type": "number"
@@ -104,6 +109,7 @@
         "feasible",
         "maximum_distance_resolution_m",
         "maximum_pm10_relative_deviation",
+        "nonphysical_pm10_excess",
         "normalized_violation",
         "objectives",
         "total_flow_l_min",

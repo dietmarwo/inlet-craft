@@ -1,7 +1,7 @@
 {
   "task_id": 0,
-  "spec_digest": "d9808c969d954c5d58ce88be57acb20030c6dc467da2a2bda4b0fba66a0578af",
-  "elapsed_seconds": 0.015681823,
+  "spec_digest": "ba92a445c43e5e74907f64384f8724eaaf9dc7743d4c6807323dbc232e0e4792",
+  "elapsed_seconds": 0.014924326,
   "work": {
     "cold_rechecks": 1,
     "evaluations": 12
@@ -113,19 +113,18 @@
         "cold_rechecked": false,
         "distance_reference_speed_m_s": 5.0,
         "distance_resolution_objective_m": 14.152714200707324,
-        "feasible": false,
+        "feasible": true,
         "maximum_distance_resolution_m": 14.152714200707324,
         "maximum_pm10_relative_deviation": 0.14149735871736657,
-        "normalized_violation": 1000000.0,
+        "nonphysical_pm10_excess": 0.00018482800608130614,
+        "normalized_violation": 0.0,
         "objectives": [
           0.14149735871736657,
           14.152714200707324,
           2.0
         ],
         "total_flow_l_min": 2.0,
-        "violations": [
-          "nonphysical extrapolation cannot be accepted by search"
-        ],
+        "violations": [],
         "warning_count": 9,
         "x": []
       },
@@ -226,7 +225,8 @@
         "feasible": false,
         "maximum_distance_resolution_m": 16.834910041564374,
         "maximum_pm10_relative_deviation": 0.019151949864564144,
-        "normalized_violation": 1000000.1223273361,
+        "nonphysical_pm10_excess": 0.00034990149756668605,
+        "normalized_violation": 0.1223273361042916,
         "objectives": [
           0.019151949864564144,
           16.834910041564374,
@@ -234,8 +234,7 @@
         ],
         "total_flow_l_min": 1.61770904326397,
         "violations": [
-          "distance resolution m: 1.683491e1 > 1.500000e1",
-          "nonphysical extrapolation cannot be accepted by search"
+          "distance resolution m: 1.683491e1 > 1.500000e1"
         ],
         "warning_count": 9,
         "x": [
@@ -248,7 +247,7 @@
       },
       "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
       "cold_recheck_evaluations": 1,
-      "elapsed_seconds": 0.015548552,
+      "elapsed_seconds": 0.014856223,
       "engine": "fcmaes-core DE ask/tell",
       "evaluations": 12,
       "failed_evaluations": 0,

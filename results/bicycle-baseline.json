@@ -38,6 +38,7 @@
           "efficiency": 0.9993922565280144,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 4.99250557498421e-05,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 3.971395343255538e-09
         },
@@ -45,6 +46,7 @@
           "efficiency": 0.8067544029220235,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 1.168805665910945e-05,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.3710289523981498e-08
         }
@@ -130,6 +132,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 4.537113405678195e-05,
           "overall_efficiency": 0.999466449694931,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -219,6 +222,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9944312482980714,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -308,6 +312,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9333316865884266,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -397,6 +402,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.3549973494181574,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -437,6 +443,7 @@
           "efficiency": 0.9965218526238865,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 3.959988902367433e-09
         },
@@ -444,6 +451,7 @@
           "efficiency": 0.7269885326544444,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.2354718148678375e-08
         }
@@ -529,6 +537,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9952662194264061,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -618,6 +627,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9713886537695628,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -707,6 +717,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.8533094012839876,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -796,6 +807,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.2501111107366422,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -836,6 +848,7 @@
           "efficiency": 1.002636494453053,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0005552951372751938,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 3.98428732966403e-09
         },
@@ -843,6 +856,7 @@
           "efficiency": 0.834079862657516,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.00012984354961512586,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.4174668724135315e-08
         }
@@ -928,6 +942,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 9.422547103654644e-05,
           "overall_efficiency": 1.0041773083244094,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -1017,6 +1032,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.009145023086986,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -1106,6 +1122,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9659579990055426,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -1195,6 +1212,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.38304411596482374,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -1235,6 +1253,7 @@
           "efficiency": 0.9998460942394287,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 3.973198808273334e-09
         },
@@ -1242,6 +1261,7 @@
           "efficiency": 0.822915712413607,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.3984940931415706e-08
         }
@@ -1327,6 +1347,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0001339437079506,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -1416,6 +1437,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9990218451113291,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -1505,6 +1527,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.9504027000411366,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -1594,6 +1617,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.37382465855747915,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -1634,6 +1658,7 @@
           "efficiency": 1.0068803037588312,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0009462436241445604,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 4.001151423221432e-09
         },
@@ -1641,6 +1666,7 @@
           "efficiency": 0.8674982077800731,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.000219919349787276,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.4742592723537248e-08
         }
@@ -1726,6 +1752,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0103261117631737,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -1815,6 +1842,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0273153135699502,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -1904,6 +1932,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0053060390379898,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -1993,6 +2022,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.41787711290777224,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -2033,6 +2063,7 @@
           "efficiency": 1.0018704745353237,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 3.981243311747902e-09
         },
@@ -2040,6 +2071,7 @@
           "efficiency": 0.8861298030058116,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.5059225101263727e-08
         }
@@ -2125,6 +2157,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.003091369735249,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -2214,6 +2247,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0160116557289705,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -2303,6 +2337,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.012108470626606,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -2392,6 +2427,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.4596472142112349,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -2432,6 +2468,7 @@
           "efficiency": 1.0119729778976314,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0012210940441043324,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 4.021388744680989e-09
         },
@@ -2439,6 +2476,7 @@
           "efficiency": 0.9076946185054637,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.0002851761255568603,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.5425705733982445e-08
         }
@@ -2524,6 +2562,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0176826874564102,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -2613,6 +2652,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0485414982091974,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -2702,6 +2742,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0521696155992242,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -2791,6 +2832,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.45996814914084216,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -2831,6 +2873,7 @@
           "efficiency": 1.0038166503788137,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 3.9889770455561305e-09
         },
@@ -2838,6 +2881,7 @@
           "efficiency": 0.9462658711793629,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
+          "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
           "sampled_mass_kg_m3": 1.6081200193692157e-08
         }
@@ -2923,6 +2967,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0059329133300197,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
@@ -3012,6 +3057,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0323825322415412,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
@@ -3101,6 +3147,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 1.0715855470523008,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
@@ -3190,6 +3237,7 @@
               "reynolds": null
             }
           ],
+          "nonphysical_transport_excess": 0.0,
           "overall_efficiency": 0.5393493265746389,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
@@ -3282,12 +3330,19 @@
     },
     {
       "diagnostic": {
+        "allowed": [
+          0.0,
+          1.0
+        ],
         "code": "W_NONPHYSICAL",
+        "formula": "transmission.liu",
         "message": "extrapolated efficiency 1.0000453974155938; returned unmodified",
-        "path": "elements[0]"
+        "path": "elements[0]",
+        "quantity": "efficiency",
+        "value": 1.0000453974155938
       },
-      "maximum_value": null,
-      "minimum_value": null,
+      "maximum_value": 1.0021999491949511,
+      "minimum_value": 1.000000000650113,
       "occurrences": 534
     },
     {
@@ -3413,7 +3468,7 @@
       "diagnostic": {
         "code": "W_REGIME_BOUNDARY",
         "formula": "aspiration.belyaev_levin",
-        "message": "empirical endpoint jumps: 0deg -2.340301e-4; 60 to 61deg -7.711983e-4; no smoothing",
+        "message": "empirical endpoint jumps: 0deg -2.340301e-4; 60 to 61deg -1.773935e-3; no smoothing",
         "path": "elements[0]"
       },
       "maximum_value": null,
@@ -3424,7 +3479,7 @@
       "diagnostic": {
         "code": "W_REGIME_BOUNDARY",
         "formula": "aspiration.durham_lundgren",
-        "message": "empirical endpoint jumps: 0deg -1.695712e-3; 60 to 61deg 5.429758e-4; no smoothing",
+        "message": "empirical endpoint jumps: 0deg -1.695712e-3; 60 to 61deg -4.696591e-3; no smoothing",
         "path": "elements[0]"
       },
       "maximum_value": null,

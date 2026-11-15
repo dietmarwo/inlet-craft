@@ -92,6 +92,7 @@
     "feasible": true,
     "maximum_distance_resolution_m": 19.656547500856593,
     "maximum_pm10_relative_deviation": 0.14669059871601242,
+    "nonphysical_pm10_excess": 0.0,
     "normalized_violation": 0.0,
     "objectives": [
       0.14669059871601242,
@@ -196,6 +197,7 @@
     "feasible": true,
     "maximum_distance_resolution_m": 16.93145463425839,
     "maximum_pm10_relative_deviation": 0.10044386268293748,
+    "nonphysical_pm10_excess": 0.0,
     "normalized_violation": 0.0,
     "objectives": [
       0.10044386268293748,
@@ -215,7 +217,7 @@
   },
   "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
   "cold_recheck_evaluations": 26,
-  "elapsed_seconds": 0.182011194,
+  "elapsed_seconds": 0.125377046,
   "engine": "fcmaes-core MODE ask/tell (3 objectives, 1 aggregate constraint)",
   "evaluations": 256,
   "failed_evaluations": 0,
@@ -315,6 +317,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.80667739633136,
       "maximum_pm10_relative_deviation": 0.10195481561504827,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10195481561504827,
@@ -425,6 +428,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.64712182716996,
       "maximum_pm10_relative_deviation": 0.10238628017840079,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10238628017840079,
@@ -535,6 +539,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.479192674319876,
       "maximum_pm10_relative_deviation": 0.12353915671489413,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.12353915671489413,
@@ -645,6 +650,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.289831946224435,
       "maximum_pm10_relative_deviation": 0.10571890516967108,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10571890516967108,
@@ -755,6 +761,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 19.77125197193411,
       "maximum_pm10_relative_deviation": 0.13834969756897708,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.13834969756897708,
@@ -865,6 +872,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 16.93145463425839,
       "maximum_pm10_relative_deviation": 0.10044386268293748,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10044386268293748,
@@ -975,6 +983,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 16.416001849095135,
       "maximum_pm10_relative_deviation": 0.11431001596551038,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.11431001596551038,
@@ -1085,6 +1094,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.457998499287267,
       "maximum_pm10_relative_deviation": 0.10231926135249958,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10231926135249958,
@@ -1195,6 +1205,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 16.534252253144633,
       "maximum_pm10_relative_deviation": 0.1460343968150044,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.1460343968150044,
@@ -1305,6 +1316,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.859524480984902,
       "maximum_pm10_relative_deviation": 0.12256345293413384,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.12256345293413384,
@@ -1415,6 +1427,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.01590945521254,
       "maximum_pm10_relative_deviation": 0.13475010732512838,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.13475010732512838,
@@ -1525,6 +1538,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.806677396331363,
       "maximum_pm10_relative_deviation": 0.10191113581389788,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10191113581389788,
@@ -1635,6 +1649,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 16.436583123216113,
       "maximum_pm10_relative_deviation": 0.11891019211561338,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.11891019211561338,
@@ -1745,6 +1760,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.28083632980875,
       "maximum_pm10_relative_deviation": 0.10625149818545043,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10625149818545043,
@@ -1855,6 +1871,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.928474418522953,
       "maximum_pm10_relative_deviation": 0.13217069108533264,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.13217069108533264,
@@ -1965,6 +1982,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.171873833401083,
       "maximum_pm10_relative_deviation": 0.14310094517402372,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.14310094517402372,
@@ -2075,6 +2093,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.89502891214739,
       "maximum_pm10_relative_deviation": 0.12244032911635394,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.12244032911635394,
@@ -2185,6 +2204,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.351027425183428,
       "maximum_pm10_relative_deviation": 0.10243482490428624,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10243482490428624,
@@ -2295,6 +2315,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.949427021051196,
       "maximum_pm10_relative_deviation": 0.13206666213517526,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.13206666213517526,
@@ -2405,6 +2426,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.726942754058026,
       "maximum_pm10_relative_deviation": 0.10996613850806858,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10996613850806858,
@@ -2515,6 +2537,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 16.42998529964582,
       "maximum_pm10_relative_deviation": 0.11891048189630149,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.11891048189630149,
@@ -2625,6 +2648,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 19.77125197193411,
       "maximum_pm10_relative_deviation": 0.13835005032520753,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.13835005032520753,
@@ -2735,6 +2759,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 18.551289721286626,
       "maximum_pm10_relative_deviation": 0.11427659357075437,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.11427659357075437,
@@ -2845,6 +2870,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.88302896289567,
       "maximum_pm10_relative_deviation": 0.1170161355782039,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.1170161355782039,
@@ -2955,6 +2981,7 @@
       "feasible": true,
       "maximum_distance_resolution_m": 17.902880633169197,
       "maximum_pm10_relative_deviation": 0.10190974929887353,
+      "nonphysical_pm10_excess": 0.0,
       "normalized_violation": 0.0,
       "objectives": [
         0.10190974929887353,

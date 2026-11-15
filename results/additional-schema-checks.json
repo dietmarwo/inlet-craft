@@ -13,6 +13,11 @@
     },
     {
       "schema": "search",
+      "file": "results/strict-nonphysical-guard.json",
+      "passed": true
+    },
+    {
+      "schema": "search",
       "file": "results/mode-coarse-monodisperse-sensitivity.json",
       "passed": true
     },

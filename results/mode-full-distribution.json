@@ -100,7 +100,8 @@
     "feasible": false,
     "maximum_distance_resolution_m": 19.656547500856593,
     "maximum_pm10_relative_deviation": 0.2730114673455556,
-    "normalized_violation": 1000000.820076449,
+    "nonphysical_pm10_excess": 0.0002851761255568603,
+    "normalized_violation": 0.8200764489703707,
     "objectives": [
       0.2730114673455556,
       14.152714200707324,
@@ -108,8 +109,7 @@
     ],
     "total_flow_l_min": 2.0,
     "violations": [
-      "PM10 relative deviation: 2.730115e-1 > 1.500000e-1",
-      "nonphysical extrapolation cannot be accepted by search"
+      "PM10 relative deviation: 2.730115e-1 > 1.500000e-1"
     ],
     "warning_count": 13,
     "x": []
@@ -139,26 +139,26 @@
         {
           "angle_to_heading_deg": 0.0,
           "angle_to_vertical_deg": 90.0,
-          "inner_diameter_m": 0.005633588935904303,
+          "inner_diameter_m": 0.005660884621037808,
           "kind": "probe",
-          "outer_diameter_m": 0.0059152683826995175,
+          "outer_diameter_m": 0.005943928852089697,
           "upward_sampling": false
         },
         {
           "inclination_deg": 0.0,
-          "inner_diameter_m": 0.005633588935904303,
+          "inner_diameter_m": 0.005660884621037808,
           "kind": "tube",
-          "length_m": 0.15817982579448836
+          "length_m": 0.15818869631633933
         },
         {
           "angle_deg": 90.0,
           "inner_diameter_m": null,
           "kind": "bend",
-          "radius_m": 0.03669451805166768
+          "radius_m": 0.03837159595414663
         },
         {
           "kind": "buffer",
-          "volume_m3": 2.0631036761748152e-05
+          "volume_m3": 3.129138343602823e-05
         },
         {
           "kind": "split",
@@ -167,7 +167,7 @@
       ],
       "flow": {
         "sensor_m3_s": 4.7e-06,
-        "total_m3_s": 4.712654961213102e-05
+        "total_m3_s": 4.758693048374418e-05
       },
       "options": {
         "aspiration_mode": "auto",
@@ -211,33 +211,33 @@
     },
     "cold_rechecked": true,
     "distance_reference_speed_m_s": 5.0,
-    "distance_resolution_objective_m": 13.139486277103654,
+    "distance_resolution_objective_m": 14.55001426524802,
     "feasible": false,
-    "maximum_distance_resolution_m": 18.249286495860503,
-    "maximum_pm10_relative_deviation": 0.15319016443866273,
-    "normalized_violation": 1000000.0212677629,
+    "maximum_distance_resolution_m": 20.20835314604847,
+    "maximum_pm10_relative_deviation": 0.15233992394565588,
+    "nonphysical_pm10_excess": 0.0005741060850507115,
+    "normalized_violation": 0.015599492971039205,
     "objectives": [
-      0.15319016443866273,
-      13.139486277103654,
-      2.827592976727861
+      0.15233992394565588,
+      14.55001426524802,
+      2.855215829024651
     ],
-    "total_flow_l_min": 2.827592976727861,
+    "total_flow_l_min": 2.855215829024651,
     "violations": [
-      "PM10 relative deviation: 1.531902e-1 > 1.500000e-1",
-      "nonphysical extrapolation cannot be accepted by search"
+      "PM10 relative deviation: 1.523399e-1 > 1.500000e-1"
     ],
     "warning_count": 13,
     "x": [
-      0.005633588935904303,
-      4.712654961213102e-05,
-      0.15817982579448836,
-      0.03669451805166768,
-      2.0631036761748152e-05
+      0.005660884621037808,
+      4.758693048374418e-05,
+      0.15818869631633933,
+      0.03837159595414663,
+      3.129138343602823e-05
     ]
   },
   "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
   "cold_recheck_evaluations": 1,
-  "elapsed_seconds": 3.828727385,
+  "elapsed_seconds": 4.099451679,
   "engine": "fcmaes-core MODE ask/tell (3 objectives, 1 aggregate constraint)",
   "evaluations": 256,
   "failed_evaluations": 0,

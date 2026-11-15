@@ -322,6 +322,25 @@
       "passed": true
     },
     {
+      "actual": 0.41113672019483316,
+      "error": null,
+      "fixture": {
+        "absolute_tolerance": 1e-13,
+        "evidence_kind": "independent_equation_arithmetic",
+        "expected": 0.41113672019483316,
+        "formula": "aspiration.hangal_willeke",
+        "id": "hangal-90-r2",
+        "inputs": [
+          0.1,
+          2.0,
+          90.0
+        ],
+        "relative_tolerance": 1e-11,
+        "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+      },
+      "passed": true
+    },
+    {
       "actual": 0.7673777633170167,
       "error": null,
       "fixture": {

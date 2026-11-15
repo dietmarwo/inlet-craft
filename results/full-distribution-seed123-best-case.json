@@ -22,26 +22,26 @@
     {
       "angle_to_heading_deg": 0.0,
       "angle_to_vertical_deg": 90.0,
-      "inner_diameter_m": 0.005623445336419709,
+      "inner_diameter_m": 0.005621133255414601,
       "kind": "probe",
-      "outer_diameter_m": 0.0059046176032406935,
+      "outer_diameter_m": 0.00590218991818533,
       "upward_sampling": false
     },
     {
       "inclination_deg": 0.0,
-      "inner_diameter_m": 0.005623445336419709,
+      "inner_diameter_m": 0.005621133255414601,
       "kind": "tube",
-      "length_m": 0.030085067920850035
+      "length_m": 0.03
     },
     {
       "angle_deg": 90.0,
       "inner_diameter_m": null,
       "kind": "bend",
-      "radius_m": 0.015394893634190703
+      "radius_m": 0.01
     },
     {
       "kind": "buffer",
-      "volume_m3": 3.402268366493852e-05
+      "volume_m3": 7.753042379468983e-06
     },
     {
       "kind": "split",
@@ -50,7 +50,7 @@
   ],
   "flow": {
     "sensor_m3_s": 4.7e-06,
-    "total_m3_s": 5e-05
+    "total_m3_s": 4.9963677629160814e-05
   },
   "options": {
     "aspiration_mode": "auto",
