@@ -1,0 +1,183 @@
+{
+  "schema": "inlet-craft.study-campaign/0.1",
+  "date": "2026-11-15",
+  "distribution": "explicit example assumptions, not measured site data",
+  "max_nonphysical_pm10_excess": 0.001,
+  "rows": [
+    {
+      "study": "full-distribution-seed42",
+      "status": "feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 8.11679572,
+      "worst_pm10_bias": 0.14433176034929707,
+      "resolution_at_reference_m": 11.806262180018228,
+      "flow_l_min": 3.0,
+      "warning_count": 14,
+      "nonphysical_pm10_excess": 0.00052514545754413,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005624384179404637,
+        "/flow/total_m3_s": 5e-05,
+        "/elements/1/length_m": 0.03,
+        "/elements/2/radius_m": 0.01010874870201782,
+        "/elements/3/volume_m3": 1e-06
+      },
+      "violations": [],
+      "pareto_points": 9
+    },
+    {
+      "study": "full-distribution-seed7",
+      "status": "feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 8.174349007,
+      "worst_pm10_bias": 0.14462988168647994,
+      "resolution_at_reference_m": 12.113997136494808,
+      "flow_l_min": 3.0,
+      "warning_count": 13,
+      "nonphysical_pm10_excess": 0.0005289582845840787,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005637042125192835,
+        "/flow/total_m3_s": 5e-05,
+        "/elements/1/length_m": 0.04183456495400455,
+        "/elements/2/radius_m": 0.02892457581805238,
+        "/elements/3/volume_m3": 1.0339312542288879e-05
+      },
+      "violations": [],
+      "pareto_points": 8
+    },
+    {
+      "study": "full-distribution-seed123",
+      "status": "feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 8.558116968,
+      "worst_pm10_bias": 0.14430163061155354,
+      "resolution_at_reference_m": 11.977048133669467,
+      "flow_l_min": 2.997820657749649,
+      "warning_count": 14,
+      "nonphysical_pm10_excess": 0.0005246935035514302,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005621133255414601,
+        "/flow/total_m3_s": 4.9963677629160814e-05,
+        "/elements/1/length_m": 0.03,
+        "/elements/2/radius_m": 0.01,
+        "/elements/3/volume_m3": 7.753042379468983e-06
+      },
+      "violations": [],
+      "pareto_points": 9
+    },
+    {
+      "study": "mode-full-distribution",
+      "status": "no_feasible_design_found",
+      "evaluations": 256,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 4.099451679,
+      "worst_pm10_bias": 0.15233992394565588,
+      "resolution_at_reference_m": 14.55001426524802,
+      "flow_l_min": 2.855215829024651,
+      "warning_count": 13,
+      "nonphysical_pm10_excess": 0.0005741060850507115,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005660884621037808,
+        "/flow/total_m3_s": 4.758693048374418e-05,
+        "/elements/1/length_m": 0.15818869631633933,
+        "/elements/2/radius_m": 0.03837159595414663,
+        "/elements/3/volume_m3": 3.129138343602823e-05
+      },
+      "violations": [
+        "PM10 relative deviation: 1.523399e-1 > 1.500000e-1"
+      ],
+      "pareto_points": 0
+    },
+    {
+      "study": "strict-nonphysical-guard",
+      "status": "no_feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 8.616710331,
+      "worst_pm10_bias": 0.14593693077676706,
+      "resolution_at_reference_m": 11.808266321595875,
+      "flow_l_min": 3.0,
+      "warning_count": 14,
+      "nonphysical_pm10_excess": 0.0005456014212231318,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005691470926353472,
+        "/flow/total_m3_s": 5e-05,
+        "/elements/1/length_m": 0.0833509361378939,
+        "/elements/2/radius_m": 0.01,
+        "/elements/3/volume_m3": 1.3225619513309904e-06
+      },
+      "violations": [
+        "nonphysical extrapolation cannot be accepted by search without constraints.max_nonphysical_pm10_excess"
+      ],
+      "pareto_points": 0
+    },
+    {
+      "study": "coarse-monodisperse-sensitivity",
+      "status": "feasible_design_found",
+      "evaluations": 512,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 0.273826356,
+      "worst_pm10_bias": 0.09922800078170313,
+      "resolution_at_reference_m": 13.565539781186061,
+      "flow_l_min": 3.0,
+      "warning_count": 10,
+      "nonphysical_pm10_excess": 0.0,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005152025782965091,
+        "/flow/total_m3_s": 5e-05,
+        "/elements/1/length_m": 0.11330814370219125,
+        "/elements/2/radius_m": 0.01,
+        "/elements/3/volume_m3": 2.5477324560861748e-05
+      },
+      "violations": [],
+      "pareto_points": 20
+    },
+    {
+      "study": "mode-coarse-monodisperse-sensitivity",
+      "status": "feasible_design_found",
+      "evaluations": 256,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 0.125377046,
+      "worst_pm10_bias": 0.10044386268293748,
+      "resolution_at_reference_m": 12.19064733674406,
+      "flow_l_min": 2.9390911017419357,
+      "warning_count": 9,
+      "nonphysical_pm10_excess": 0.0,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005004288466634237,
+        "/flow/total_m3_s": 4.898485169569893e-05,
+        "/elements/1/length_m": 0.05829197082969163,
+        "/elements/2/radius_m": 0.024078020112226,
+        "/elements/3/volume_m3": 1.130897795009906e-05
+      },
+      "violations": [],
+      "pareto_points": 25
+    },
+    {
+      "study": "deliberately-impossible-zero-resolution",
+      "status": "no_feasible_design_found",
+      "evaluations": 64,
+      "failed_evaluations": 0,
+      "elapsed_seconds": 0.026213703,
+      "worst_pm10_bias": 0.10953781059807488,
+      "resolution_at_reference_m": 15.18254190822419,
+      "flow_l_min": 2.8712362480490525,
+      "warning_count": 9,
+      "nonphysical_pm10_excess": 0.0,
+      "design": {
+        "/elements/0/inner_diameter_m": 0.005278360009919828,
+        "/flow/total_m3_s": 4.7853937467484206e-05,
+        "/elements/1/length_m": 0.20550606406830496,
+        "/elements/2/radius_m": 0.020667889434643157,
+        "/elements/3/volume_m3": 3.565441787497603e-05
+      },
+      "violations": [
+        "distance resolution m: 1.518254e1 > 0.000000e0"
+      ],
+      "pareto_points": 0
+    }
+  ],
+  "experimental_validation": false
+}

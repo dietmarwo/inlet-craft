@@ -1,0 +1,1321 @@
+{
+  "baseline": {
+    "case": {
+      "air": {
+        "pressure_pa": 101325.0,
+        "temperature_k": 293.15
+      },
+      "distribution": {
+        "modes": [
+          {
+            "geometric_mean_diameter_m": 3e-07,
+            "geometric_std_dev": 1.6,
+            "number_concentration_m3": 100000000.0
+          },
+          {
+            "geometric_mean_diameter_m": 4e-06,
+            "geometric_std_dev": 1.7,
+            "number_concentration_m3": 200000.0
+          }
+        ],
+        "quadrature_bins": 48
+      },
+      "elements": [
+        {
+          "angle_to_heading_deg": 0.0,
+          "angle_to_vertical_deg": 90.0,
+          "inner_diameter_m": 0.004,
+          "kind": "probe",
+          "outer_diameter_m": 0.0042,
+          "upward_sampling": false
+        },
+        {
+          "inclination_deg": 0.0,
+          "inner_diameter_m": 0.004,
+          "kind": "tube",
+          "length_m": 0.15
+        },
+        {
+          "angle_deg": 90.0,
+          "inner_diameter_m": null,
+          "kind": "bend",
+          "radius_m": 0.02
+        },
+        {
+          "kind": "buffer",
+          "volume_m3": 2e-05
+        },
+        {
+          "kind": "split",
+          "sensor_m3_s": 4.7e-06
+        }
+      ],
+      "flow": {
+        "sensor_m3_s": 4.7e-06,
+        "total_m3_s": 3.3333333333333335e-05
+      },
+      "options": {
+        "aspiration_mode": "auto",
+        "extend_laminar_transition": false
+      },
+      "particles": {
+        "aerodynamic_diameter_m": [
+          1e-06,
+          2.5e-06,
+          5e-06,
+          1e-05
+        ],
+        "density_kg_m3": 1000.0,
+        "physical_diameter_m": [],
+        "shape_factor": 1.0
+      },
+      "platform": {
+        "crosswind_m_s": [
+          0.0,
+          2.0
+        ],
+        "crosswind_weights": null,
+        "headwind_m_s": [
+          0.0
+        ],
+        "headwind_weights": null,
+        "speed_m_s": [
+          2.7777777778,
+          4.1666666667,
+          5.5555555556,
+          6.9444444444
+        ],
+        "speed_weights": null,
+        "wind_samples": null
+      },
+      "schema": "inlet-craft.case/0.1",
+      "sensor": {
+        "response_time_s": 1.0,
+        "sampling_interval_s": 1.0
+      }
+    },
+    "cold_rechecked": false,
+    "distance_reference_speed_m_s": 5.0,
+    "distance_resolution_objective_m": 14.152714200707324,
+    "feasible": false,
+    "maximum_distance_resolution_m": 19.656547500856593,
+    "maximum_pm10_relative_deviation": 0.2730114673455556,
+    "nonphysical_pm10_excess": 0.0002851761255568603,
+    "normalized_violation": 0.8200764489703707,
+    "objectives": [
+      0.2730114673455556,
+      14.152714200707324,
+      2.0
+    ],
+    "total_flow_l_min": 2.0,
+    "violations": [
+      "PM10 relative deviation: 2.730115e-1 > 1.500000e-1"
+    ],
+    "warning_count": 13,
+    "x": []
+  },
+  "best": {
+    "case": {
+      "air": {
+        "pressure_pa": 101325.0,
+        "temperature_k": 293.15
+      },
+      "distribution": {
+        "modes": [
+          {
+            "geometric_mean_diameter_m": 3e-07,
+            "geometric_std_dev": 1.6,
+            "number_concentration_m3": 100000000.0
+          },
+          {
+            "geometric_mean_diameter_m": 4e-06,
+            "geometric_std_dev": 1.7,
+            "number_concentration_m3": 200000.0
+          }
+        ],
+        "quadrature_bins": 48
+      },
+      "elements": [
+        {
+          "angle_to_heading_deg": 0.0,
+          "angle_to_vertical_deg": 90.0,
+          "inner_diameter_m": 0.005621133255414601,
+          "kind": "probe",
+          "outer_diameter_m": 0.00590218991818533,
+          "upward_sampling": false
+        },
+        {
+          "inclination_deg": 0.0,
+          "inner_diameter_m": 0.005621133255414601,
+          "kind": "tube",
+          "length_m": 0.03
+        },
+        {
+          "angle_deg": 90.0,
+          "inner_diameter_m": null,
+          "kind": "bend",
+          "radius_m": 0.01
+        },
+        {
+          "kind": "buffer",
+          "volume_m3": 7.753042379468983e-06
+        },
+        {
+          "kind": "split",
+          "sensor_m3_s": 4.7e-06
+        }
+      ],
+      "flow": {
+        "sensor_m3_s": 4.7e-06,
+        "total_m3_s": 4.9963677629160814e-05
+      },
+      "options": {
+        "aspiration_mode": "auto",
+        "extend_laminar_transition": false
+      },
+      "particles": {
+        "aerodynamic_diameter_m": [
+          1e-06,
+          2.5e-06,
+          5e-06,
+          1e-05
+        ],
+        "density_kg_m3": 1000.0,
+        "physical_diameter_m": [],
+        "shape_factor": 1.0
+      },
+      "platform": {
+        "crosswind_m_s": [
+          0.0,
+          2.0
+        ],
+        "crosswind_weights": null,
+        "headwind_m_s": [
+          0.0
+        ],
+        "headwind_weights": null,
+        "speed_m_s": [
+          2.7777777778,
+          4.1666666667,
+          5.5555555556,
+          6.9444444444
+        ],
+        "speed_weights": null,
+        "wind_samples": null
+      },
+      "schema": "inlet-craft.case/0.1",
+      "sensor": {
+        "response_time_s": 1.0,
+        "sampling_interval_s": 1.0
+      }
+    },
+    "cold_rechecked": true,
+    "distance_reference_speed_m_s": 5.0,
+    "distance_resolution_objective_m": 11.977048133669467,
+    "feasible": true,
+    "maximum_distance_resolution_m": 16.63478907443446,
+    "maximum_pm10_relative_deviation": 0.14430163061155354,
+    "nonphysical_pm10_excess": 0.0005246935035514302,
+    "normalized_violation": 0.0,
+    "objectives": [
+      0.14430163061155354,
+      11.977048133669467,
+      2.997820657749649
+    ],
+    "total_flow_l_min": 2.997820657749649,
+    "violations": [],
+    "warning_count": 14,
+    "x": [
+      0.005621133255414601,
+      4.9963677629160814e-05,
+      0.03,
+      0.01,
+      7.753042379468983e-06
+    ]
+  },
+  "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
+  "cold_recheck_evaluations": 10,
+  "elapsed_seconds": 8.558116968,
+  "engine": "fcmaes-core DE ask/tell",
+  "evaluations": 512,
+  "failed_evaluations": 0,
+  "failed_rows": [],
+  "failed_rows_omitted": 0,
+  "pareto": [
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005644426415974069,
+            "kind": "probe",
+            "outer_diameter_m": 0.005926647736772771,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005644426415974069,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 1e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.9943498534250156e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.806268213450775,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.397594740798908,
+      "maximum_pm10_relative_deviation": 0.14790647509623822,
+      "nonphysical_pm10_excess": 0.0005320945563378393,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14790647509623822,
+        11.806268213450775,
+        2.9966099120550096
+      ],
+      "total_flow_l_min": 2.9966099120550096,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005644426415974069,
+        4.9943498534250156e-05,
+        0.03,
+        0.01,
+        1e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005621133255414601,
+            "kind": "probe",
+            "outer_diameter_m": 0.00590218991818533,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005621133255414601,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 7.753042379468983e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.9963677629160814e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.977048133669467,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.63478907443446,
+      "maximum_pm10_relative_deviation": 0.14430163061155354,
+      "nonphysical_pm10_excess": 0.0005246935035514302,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14430163061155354,
+        11.977048133669467,
+        2.997820657749649
+      ],
+      "total_flow_l_min": 2.997820657749649,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005621133255414601,
+        4.9963677629160814e-05,
+        0.03,
+        0.01,
+        7.753042379468983e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005588118366850935,
+            "kind": "probe",
+            "outer_diameter_m": 0.005867524285193481,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005588118366850935,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 1e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.995964181017868e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.806266487508669,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.3975923436571,
+      "maximum_pm10_relative_deviation": 0.14622937742677145,
+      "nonphysical_pm10_excess": 0.000514742735551002,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14622937742677145,
+        11.806266487508669,
+        2.997578508610721
+      ],
+      "total_flow_l_min": 2.997578508610721,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005588118366850935,
+        4.995964181017868e-05,
+        0.03,
+        0.01,
+        1e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005637680194223033,
+            "kind": "probe",
+            "outer_diameter_m": 0.005919564203934183,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005637680194223033,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 3.2657237661623524e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.993946271526802e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.832918472758735,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.434608989837507,
+      "maximum_pm10_relative_deviation": 0.14691270430701553,
+      "nonphysical_pm10_excess": 0.0005300943033844833,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14691270430701553,
+        11.832918472758735,
+        2.996367762916081
+      ],
+      "total_flow_l_min": 2.996367762916081,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005637680194223033,
+        4.993946271526802e-05,
+        0.03,
+        0.01,
+        3.2657237661623524e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005531136636060977,
+            "kind": "probe",
+            "outer_diameter_m": 0.005807693467864025,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005531136636060977,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 1e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.994753435323228e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.8062677818073,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.397594141294086,
+      "maximum_pm10_relative_deviation": 0.14971687562567582,
+      "nonphysical_pm10_excess": 0.0004977864130980839,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14971687562567582,
+        11.8062677818073,
+        2.9968520611939367
+      ],
+      "total_flow_l_min": 2.9968520611939367,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005531136636060977,
+        4.994753435323228e-05,
+        0.03,
+        0.01,
+        1e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005620330582285879,
+            "kind": "probe",
+            "outer_diameter_m": 0.005901347111400172,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005620330582285879,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 1.721527776993464e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.995157017221441e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.811557949395208,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.404941596277244,
+      "maximum_pm10_relative_deviation": 0.14433012383638077,
+      "nonphysical_pm10_excess": 0.0005246282264448536,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14433012383638077,
+        11.811557949395208,
+        2.9970942103328646
+      ],
+      "total_flow_l_min": 2.9970942103328646,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005620330582285879,
+        4.995157017221441e-05,
+        0.03,
+        0.01,
+        1.721527776993464e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005628704971594044,
+            "kind": "probe",
+            "outer_diameter_m": 0.005910140220173745,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005628704971594044,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 3.1105089608326863e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.994349853425015e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.83012879089306,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.43073443169076,
+      "maximum_pm10_relative_deviation": 0.14550061206293696,
+      "nonphysical_pm10_excess": 0.0005272971482830192,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14550061206293696,
+        11.83012879089306,
+        2.996609912055009
+      ],
+      "total_flow_l_min": 2.996609912055009,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005628704971594044,
+        4.994349853425015e-05,
+        0.03,
+        0.01,
+        3.1105089608326863e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005585062635145788,
+            "kind": "probe",
+            "outer_diameter_m": 0.005864315766903077,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005585062635145788,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 1e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.994148062475908e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.806268429312102,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.39759504060631,
+      "maximum_pm10_relative_deviation": 0.14638401186313454,
+      "nonphysical_pm10_excess": 0.0005140836195180619,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.14638401186313454,
+        11.806268429312102,
+        2.9964888374855447
+      ],
+      "total_flow_l_min": 2.9964888374855447,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005585062635145788,
+        4.994148062475908e-05,
+        0.03,
+        0.01,
+        1e-06
+      ]
+    },
+    {
+      "case": {
+        "air": {
+          "pressure_pa": 101325.0,
+          "temperature_k": 293.15
+        },
+        "distribution": {
+          "modes": [
+            {
+              "geometric_mean_diameter_m": 3e-07,
+              "geometric_std_dev": 1.6,
+              "number_concentration_m3": 100000000.0
+            },
+            {
+              "geometric_mean_diameter_m": 4e-06,
+              "geometric_std_dev": 1.7,
+              "number_concentration_m3": 200000.0
+            }
+          ],
+          "quadrature_bins": 48
+        },
+        "elements": [
+          {
+            "angle_to_heading_deg": 0.0,
+            "angle_to_vertical_deg": 90.0,
+            "inner_diameter_m": 0.005587405904926519,
+            "kind": "probe",
+            "outer_diameter_m": 0.005866776200172844,
+            "upward_sampling": false
+          },
+          {
+            "inclination_deg": 0.0,
+            "inner_diameter_m": 0.005587405904926519,
+            "kind": "tube",
+            "length_m": 0.03
+          },
+          {
+            "angle_deg": 90.0,
+            "inner_diameter_m": null,
+            "kind": "bend",
+            "radius_m": 0.01
+          },
+          {
+            "kind": "buffer",
+            "volume_m3": 1e-06
+          },
+          {
+            "kind": "split",
+            "sensor_m3_s": 4.7e-06
+          }
+        ],
+        "flow": {
+          "sensor_m3_s": 4.7e-06,
+          "total_m3_s": 4.9947534353232284e-05
+        },
+        "options": {
+          "aspiration_mode": "auto",
+          "extend_laminar_transition": false
+        },
+        "particles": {
+          "aerodynamic_diameter_m": [
+            1e-06,
+            2.5e-06,
+            5e-06,
+            1e-05
+          ],
+          "density_kg_m3": 1000.0,
+          "physical_diameter_m": [],
+          "shape_factor": 1.0
+        },
+        "platform": {
+          "crosswind_m_s": [
+            0.0,
+            2.0
+          ],
+          "crosswind_weights": null,
+          "headwind_m_s": [
+            0.0
+          ],
+          "headwind_weights": null,
+          "speed_m_s": [
+            2.7777777778,
+            4.1666666667,
+            5.5555555556,
+            6.9444444444
+          ],
+          "speed_weights": null,
+          "wind_samples": null
+        },
+        "schema": "inlet-craft.case/0.1",
+        "sensor": {
+          "response_time_s": 1.0,
+          "sampling_interval_s": 1.0
+        }
+      },
+      "cold_rechecked": true,
+      "distance_reference_speed_m_s": 5.0,
+      "distance_resolution_objective_m": 11.806267781807303,
+      "feasible": true,
+      "maximum_distance_resolution_m": 16.397594141294086,
+      "maximum_pm10_relative_deviation": 0.1462533293549355,
+      "nonphysical_pm10_excess": 0.0005147037113404398,
+      "normalized_violation": 0.0,
+      "objectives": [
+        0.1462533293549355,
+        11.806267781807303,
+        2.996852061193937
+      ],
+      "total_flow_l_min": 2.996852061193937,
+      "violations": [],
+      "warning_count": 14,
+      "x": [
+        0.005587405904926519,
+        4.9947534353232284e-05,
+        0.03,
+        0.01,
+        1e-06
+      ]
+    }
+  ],
+  "schema": "inlet-craft.search/0.1",
+  "seed": 123,
+  "status": "feasible_design_found",
+  "termination": "evaluation_limit"
+}

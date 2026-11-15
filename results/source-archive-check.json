@@ -1,0 +1,6 @@
+{
+  "zip_integrity": true,
+  "extracted_source_check": "cargo check --workspace --locked --offline",
+  "passed": true,
+  "manifest_verified": true
+}

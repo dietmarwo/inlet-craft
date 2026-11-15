@@ -1,0 +1,17 @@
+[package]
+name = "inlet-craft-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+default-run = "inlet-craft"
+[dependencies]
+inlet-craft = { path = "../inlet-craft" }
+serde_json.workspace = true
+optimization-job-api = { path = "../../vendor/optimization-job-api" }
+[[bin]]
+name = "inlet-craft"
+path = "src/main.rs"
+[[bin]]
+name = "inlet-craft-worker"
+path = "src/bin/worker.rs"

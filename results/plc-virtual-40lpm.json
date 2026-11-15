@@ -1,0 +1,1069 @@
+{
+  "assumed_distribution": null,
+  "assumptions": [
+    "Independent mechanism efficiencies multiplied; no coupled particle trajectories",
+    "Conductive clean tubes, dry air; no electrostatics, humidity, sensor optics or platform wake",
+    "PM compares mass below an ideal aerodynamic hard cut; distribution is number-lognormal in physical diameter; sensor cut response not modeled",
+    "Position offset is mean sample age; resolution is distance traveled during 10\u201390% modeled step rise; sensor response_time_s is tau",
+    "Warnings are grouped by code/path/formula/quantity; minimum/maximum preserve evaluated range and occurrence count includes PM quadrature"
+  ],
+  "scenarios": [
+    {
+      "conditions": {
+        "apparent_speed_m_s": 3.0,
+        "crosswind_m_s": 0.0,
+        "headwind_m_s": 0.0,
+        "riding_speed_m_s": 3.0,
+        "weight": 1.0,
+        "yaw_from_heading_deg": 0.0
+      },
+      "distance_resolution_10_90_m": 0.0,
+      "mean_position_offset_m": 74.06697379919638,
+      "pm": [],
+      "sizes": [
+        {
+          "aerodynamic_diameter_m": 1e-07,
+          "aspiration_efficiency": 1.0000255970374823,
+          "bypass_particle_flux_fraction": 0.9473524057086966,
+          "diffusion_coefficient_m2_s": 6.685522552471897e-10,
+          "elements": [
+            {
+              "efficiency": 0.9999989821072951,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 0,
+              "kind": "probe",
+              "mechanisms": [
+                {
+                  "efficiency": 1.0000255970374823,
+                  "formula": "aspiration.durham_lundgren",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999989821072951,
+                  "formula": "transmission.hangal_willeke_angle",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9974358707663451,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 1,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.997852913232216,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9995820601810741,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9997414983166873,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 2,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999999999995632,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.999741498317124,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9996358742155703,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 3,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9996358742155703,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 1.0,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9997414983165626,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 4,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999999999994384,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.999741498317124,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999997893584565,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 5,
+              "kind": "contraction",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999997893584565,
+                  "formula": "contraction.muyshondt",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            },
+            {
+              "efficiency": 0.974976410973625,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 6,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9899987102355333,
+                  "formula": "tube.diffusion_friedlander",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9999363894830481,
+                  "formula": "tube.settling_schwendiman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9848885898451977,
+                  "formula": "tube.inertia_lee_gieseke",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            }
+          ],
+          "nonphysical_transport_excess": 0.0,
+          "overall_efficiency": 0.9716434930345607,
+          "physical_diameter_m": 1e-07,
+          "relaxation_time_s": 8.648898476941251e-08,
+          "sensor_particle_flux_fraction": 0.02429108732586402,
+          "settling_re": 5.631733030822806e-09,
+          "settling_velocity_m_s": 8.481672024889591e-07,
+          "slip_correction": 2.823201543472471,
+          "transport_efficiency": 0.9716186224762626
+        },
+        {
+          "aerodynamic_diameter_m": 3e-07,
+          "aspiration_efficiency": 1.0001239996279594,
+          "bypass_particle_flux_fraction": 0.9541673994050855,
+          "diffusion_coefficient_m2_s": 1.1994963962840951e-10,
+          "elements": [
+            {
+              "efficiency": 0.9999950690737652,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 0,
+              "kind": "probe",
+              "mechanisms": [
+                {
+                  "efficiency": 1.0001239996279594,
+                  "formula": "aspiration.durham_lundgren",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999950690737652,
+                  "formula": "transmission.hangal_willeke_angle",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9973054110810724,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 1,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9993241889313261,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9979798569146889,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999181879456858,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 2,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999999999849849,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999181879606996,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9998848491308284,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 3,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9998848491308284,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 1.0,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999181879413961,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 4,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999999999806949,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999181879606996,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999985098657699,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 5,
+              "kind": "contraction",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999985098657699,
+                  "formula": "contraction.muyshondt",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            },
+            {
+              "efficiency": 0.9814355810621884,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 6,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9968075915833174,
+                  "formula": "tube.diffusion_friedlander",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9996918918556564,
+                  "formula": "tube.settling_schwendiman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9848822088077123,
+                  "formula": "tube.inertia_lee_gieseke",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            }
+          ],
+          "nonphysical_transport_excess": 0.0,
+          "overall_efficiency": 0.9786332301590621,
+          "physical_diameter_m": 3e-07,
+          "relaxation_time_s": 4.189750416431106e-07,
+          "sensor_particle_flux_fraction": 0.024465830753976556,
+          "settling_re": 8.184472002079767e-08,
+          "settling_velocity_m_s": 4.10874159212941e-06,
+          "slip_correction": 1.5195910495254403,
+          "transport_efficiency": 0.9785118950481223
+        },
+        {
+          "aerodynamic_diameter_m": 1.0000000000000002e-06,
+          "aspiration_efficiency": 1.0010415268645785,
+          "bypass_particle_flux_fraction": 0.9407286200965458,
+          "diffusion_coefficient_m2_s": 2.720081166770105e-11,
+          "elements": [
+            {
+              "efficiency": 0.9999585867098374,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 0,
+              "kind": "probe",
+              "mechanisms": [
+                {
+                  "efficiency": 1.0010415268645785,
+                  "formula": "aspiration.durham_lundgren",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999585867098374,
+                  "formula": "transmission.hangal_willeke_angle",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9829696081061049,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 1,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9997503519042504,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9832150658750128,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999696584690287,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 2,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999999982281801,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999696602407949,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.999957316244459,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 3,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.999957316244459,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 1.0,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999696579628099,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 4,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999999977219458,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999696602407949,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999791431494894,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 5,
+              "kind": "contraction",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999791431494894,
+                  "formula": "contraction.muyshondt",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            },
+            {
+              "efficiency": 0.9807074932429262,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 6,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9988116536670352,
+                  "formula": "tube.diffusion_friedlander",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.997415197557332,
+                  "formula": "tube.settling_schwendiman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9844188281583561,
+                  "formula": "tube.inertia_lee_gieseke",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            }
+          ],
+          "nonphysical_transport_excess": 0.0,
+          "overall_efficiency": 0.964849866765688,
+          "physical_diameter_m": 1e-06,
+          "relaxation_time_s": 3.5189030738870484e-06,
+          "sensor_particle_flux_fraction": 0.0241212466691422,
+          "settling_re": 2.2913348707131798e-06,
+          "settling_velocity_m_s": 3.450865082953442e-05,
+          "slip_correction": 1.14865177525374,
+          "transport_efficiency": 0.9638459952682996
+        },
+        {
+          "aerodynamic_diameter_m": 3e-06,
+          "aspiration_efficiency": 1.0085698576911108,
+          "bypass_particle_flux_fraction": 0.7959841553910137,
+          "diffusion_coefficient_m2_s": 8.284588750215962e-12,
+          "elements": [
+            {
+              "efficiency": 0.9996594917546713,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 0,
+              "kind": "probe",
+              "mechanisms": [
+                {
+                  "efficiency": 1.0085698576911108,
+                  "formula": "aspiration.durham_lundgren",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9996594917546713,
+                  "formula": "transmission.hangal_willeke_angle",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.8681514229701968,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 1,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9998874112302915,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.8682491780769569,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999860867181732,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 2,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.999999801077188,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999862856382571,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999807106992676,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 3,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999807106992676,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 1.0,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999860298838708,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 4,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999997442421061,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999862856382571,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9997156849605636,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 5,
+              "kind": "contraction",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9997156849605636,
+                  "formula": "contraction.muyshondt",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            },
+            {
+              "efficiency": 0.9330184422914335,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 6,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.999461882575509,
+                  "formula": "tube.diffusion_friedlander",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9789414408569603,
+                  "formula": "tube.settling_schwendiman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.9536022760210816,
+                  "formula": "tube.inertia_lee_gieseke",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            }
+          ],
+          "nonphysical_transport_excess": 0.0,
+          "overall_efficiency": 0.8163940055292449,
+          "physical_diameter_m": 3e-06,
+          "relaxation_time_s": 2.8937443475200574e-05,
+          "sensor_particle_flux_fraction": 0.020409850138231125,
+          "settling_re": 5.652787693647083e-05,
+          "settling_velocity_m_s": 0.0002837793800560757,
+          "slip_correction": 1.0495393694243031,
+          "transport_efficiency": 0.8094570736014177
+        },
+        {
+          "aerodynamic_diameter_m": 1.0000000000000003e-05,
+          "aspiration_efficiency": 1.0925828873403445,
+          "bypass_particle_flux_fraction": 0.0007121669206237456,
+          "diffusion_coefficient_m2_s": 2.4032579394166244e-12,
+          "elements": [
+            {
+              "efficiency": 0.9963476453463188,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 0,
+              "kind": "probe",
+              "mechanisms": [
+                {
+                  "efficiency": 1.0925828873403445,
+                  "formula": "aspiration.durham_lundgren",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9963476453463188,
+                  "formula": "transmission.hangal_willeke_angle",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.0357680641567051,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 1,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999507971340986,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.03576982413456531,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999540559391223,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 2,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999600593709915,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999939963283404,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999915573540956,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 3,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9999915573540956,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 1.0,
+                  "formula": "tube.settling_heyder",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9999426446923526,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 4,
+              "kind": "bend",
+              "mechanisms": [
+                {
+                  "efficiency": 0.999948648055712,
+                  "formula": "bend.pui_laminar",
+                  "validity": "warning"
+                },
+                {
+                  "efficiency": 0.9999939963283404,
+                  "formula": "tube.diffusion_holman",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 1127.2219564244313
+            },
+            {
+              "efficiency": 0.9946268503919561,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 5,
+              "kind": "contraction",
+              "mechanisms": [
+                {
+                  "efficiency": 0.9946268503919561,
+                  "formula": "contraction.muyshondt",
+                  "validity": "warning"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            },
+            {
+              "efficiency": 0.01886274110552808,
+              "flow_m3_s": 0.0006666666666666666,
+              "index": 6,
+              "kind": "tube",
+              "mechanisms": [
+                {
+                  "efficiency": 0.999764153736159,
+                  "formula": "tube.diffusion_friedlander",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.7955916325713601,
+                  "formula": "tube.settling_schwendiman",
+                  "validity": "within_declared_range"
+                },
+                {
+                  "efficiency": 0.02371466728605869,
+                  "formula": "tube.inertia_lee_gieseke",
+                  "validity": "within_declared_range"
+                }
+              ],
+              "reynolds": 5636.109782122154
+            }
+          ],
+          "nonphysical_transport_excess": 0.0,
+          "overall_efficiency": 0.0007304276108961494,
+          "physical_diameter_m": 1e-05,
+          "relaxation_time_s": 0.0003109036544081689,
+          "sensor_particle_flux_fraction": 1.8260690272403735e-05,
+          "settling_re": 0.0020244501477293697,
+          "settling_velocity_m_s": 0.0030489233225018692,
+          "slip_correction": 1.0148618108265672,
+          "transport_efficiency": 0.0006685329043311457
+        }
+      ],
+      "time_response": {
+        "age_std_s": 0.0,
+        "averaging_interval_s": 0.0,
+        "mean_age_s": 24.688991266398794,
+        "mixed_time_constants_s": [],
+        "plug_delay_s": 24.688991266398794,
+        "rise_10_90_s": 0.0,
+        "sensor_time_constant_s": 0.0,
+        "t10_s": 24.688991266398794,
+        "t90_s": 24.688991266398794
+      }
+    }
+  ],
+  "schema": "inlet-craft.result/0.1",
+  "size_statistics": [
+    {
+      "aerodynamic_diameter_m": 1e-07,
+      "maximum": 0.9716434930345607,
+      "minimum": 0.9716434930345607,
+      "weighted_mean": 0.9716434930345607,
+      "weighted_std": 0.0
+    },
+    {
+      "aerodynamic_diameter_m": 3e-07,
+      "maximum": 0.9786332301590621,
+      "minimum": 0.9786332301590621,
+      "weighted_mean": 0.9786332301590621,
+      "weighted_std": 0.0
+    },
+    {
+      "aerodynamic_diameter_m": 1.0000000000000002e-06,
+      "maximum": 0.964849866765688,
+      "minimum": 0.964849866765688,
+      "weighted_mean": 0.964849866765688,
+      "weighted_std": 0.0
+    },
+    {
+      "aerodynamic_diameter_m": 3e-06,
+      "maximum": 0.8163940055292449,
+      "minimum": 0.8163940055292449,
+      "weighted_mean": 0.8163940055292449,
+      "weighted_std": 0.0
+    },
+    {
+      "aerodynamic_diameter_m": 1.0000000000000003e-05,
+      "maximum": 0.0007304276108961494,
+      "minimum": 0.0007304276108961494,
+      "weighted_mean": 0.0007304276108961494,
+      "weighted_std": 0.0
+    }
+  ],
+  "verification_status": "provisional_literature_equations; G0/G1 evidence incomplete; no on-bike validation",
+  "warning_count": 16,
+  "warning_event_count": 74,
+  "warnings": [
+    {
+      "diagnostic": {
+        "code": "W_BEND_SETTLING",
+        "message": "bend arc diffusion and impaction included; gravitational/inertial interaction and arc inclination unknown, settling omitted",
+        "path": "elements[2]"
+      },
+      "maximum_value": null,
+      "minimum_value": null,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "code": "W_BEND_SETTLING",
+        "message": "bend arc diffusion and impaction included; gravitational/inertial interaction and arc inclination unknown, settling omitted",
+        "path": "elements[4]"
+      },
+      "maximum_value": null,
+      "minimum_value": null,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "code": "W_CONTRACTION_TRANSPORT",
+        "message": "conical volume included in travel time; wall diffusion/settling inside taper unmodeled",
+        "path": "elements[5]"
+      },
+      "maximum_value": null,
+      "minimum_value": null,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.02,
+          4.0
+        ],
+        "code": "W_RANGE",
+        "formula": "aspiration.durham_lundgren",
+        "message": "aspiration.durham_lundgren: Stk_freestream=5.189339e-6 outside [2.000000e-2, 4.000000e0]; extrapolated without clamping",
+        "path": "elements[0]",
+        "quantity": "Stk_freestream",
+        "value": 5.18933908616475e-06
+      },
+      "maximum_value": 0.01865421926449013,
+      "minimum_value": 5.18933908616475e-06,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.5,
+          2.0
+        ],
+        "code": "W_RANGE",
+        "formula": "aspiration.durham_lundgren",
+        "message": "aspiration.durham_lundgren: U0/U=8.835729e0 outside [5.000000e-1, 2.000000e0]; extrapolated without clamping",
+        "path": "elements[0]",
+        "quantity": "U0/U",
+        "value": 8.835729338221293
+      },
+      "maximum_value": 8.835729338221293,
+      "minimum_value": 8.835729338221293,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.02,
+          4.0
+        ],
+        "code": "W_RANGE",
+        "formula": "transmission.hangal_willeke_angle",
+        "message": "transmission.hangal_willeke_angle: Stk_freestream=5.189339e-6 outside [2.000000e-2, 4.000000e0]; extrapolated without clamping",
+        "path": "elements[0]",
+        "quantity": "Stk_freestream",
+        "value": 5.18933908616475e-06
+      },
+      "maximum_value": 0.01865421926449013,
+      "minimum_value": 5.18933908616475e-06,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.25,
+          4.0
+        ],
+        "code": "W_RANGE",
+        "formula": "transmission.hangal_willeke_angle",
+        "message": "transmission.hangal_willeke_angle: U0/U=8.835729e0 outside [2.500000e-1, 4.000000e0]; extrapolated without clamping",
+        "path": "elements[0]",
+        "quantity": "U0/U",
+        "value": 8.835729338221293
+      },
+      "maximum_value": 8.835729338221293,
+      "minimum_value": 8.835729338221293,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          1000.0,
+          1000.0
+        ],
+        "code": "W_RANGE",
+        "formula": "bend.pui_laminar",
+        "message": "bend.pui_laminar: fit_Re=1.127222e3 outside [1.000000e3, 1.000000e3]; extrapolated without clamping",
+        "path": "elements[2]",
+        "quantity": "fit_Re",
+        "value": 1127.2219564244313
+      },
+      "maximum_value": 1127.2219564244313,
+      "minimum_value": 1127.2219564244313,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.004,
+          0.0085
+        ],
+        "code": "W_RANGE",
+        "formula": "bend.pui_laminar",
+        "message": "bend.pui_laminar: fit_tube_diameter_m=5.000000e-2 outside [4.000000e-3, 8.500000e-3]; extrapolated without clamping",
+        "path": "elements[2]",
+        "quantity": "fit_tube_diameter_m",
+        "value": 0.05
+      },
+      "maximum_value": 0.05,
+      "minimum_value": 0.05,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          1000.0,
+          1000.0
+        ],
+        "code": "W_RANGE",
+        "formula": "bend.pui_laminar",
+        "message": "bend.pui_laminar: fit_Re=1.127222e3 outside [1.000000e3, 1.000000e3]; extrapolated without clamping",
+        "path": "elements[4]",
+        "quantity": "fit_Re",
+        "value": 1127.2219564244313
+      },
+      "maximum_value": 1127.2219564244313,
+      "minimum_value": 1127.2219564244313,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.004,
+          0.0085
+        ],
+        "code": "W_RANGE",
+        "formula": "bend.pui_laminar",
+        "message": "bend.pui_laminar: fit_tube_diameter_m=5.000000e-2 outside [4.000000e-3, 8.500000e-3]; extrapolated without clamping",
+        "path": "elements[4]",
+        "quantity": "fit_tube_diameter_m",
+        "value": 0.05
+      },
+      "maximum_value": 0.05,
+      "minimum_value": 0.05,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.001,
+          100.0
+        ],
+        "code": "W_RANGE",
+        "formula": "contraction.muyshondt",
+        "message": "contraction.muyshondt: 2St*(1-Ao/Ai)=5.638205e-6 outside [1.000000e-3, 1.000000e2]; extrapolated without clamping",
+        "path": "elements[5]",
+        "quantity": "2St*(1-Ao/Ai)",
+        "value": 5.638205214331556e-06
+      },
+      "maximum_value": 0.0002293968152454712,
+      "minimum_value": 5.638205214331556e-06,
+      "occurrences": 3
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.062,
+          0.571
+        ],
+        "code": "W_RANGE",
+        "formula": "contraction.muyshondt",
+        "message": "contraction.muyshondt: Ao/Ai=4.000000e-2 outside [6.200000e-2, 5.710000e-1]; extrapolated without clamping",
+        "path": "elements[5]",
+        "quantity": "Ao/Ai",
+        "value": 0.039999999999999994
+      },
+      "maximum_value": 0.039999999999999994,
+      "minimum_value": 0.039999999999999994,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "allowed": [
+          0.03,
+          7.2
+        ],
+        "code": "W_RANGE",
+        "formula": "particle.allen_raabe",
+        "message": "particle.allen_raabe: Kn=1.301384e-2 outside [3.000000e-2, 7.200000e0]; extrapolated without clamping",
+        "path": "particles",
+        "quantity": "Kn",
+        "value": 0.013013844856889056
+      },
+      "maximum_value": 0.013013844856889056,
+      "minimum_value": 0.013013844856889056,
+      "occurrences": 1
+    },
+    {
+      "diagnostic": {
+        "code": "W_REGIME_BOUNDARY",
+        "formula": "aspiration.durham_lundgren",
+        "message": "empirical endpoint jumps: 0deg -6.647478e-5; 60 to 61deg 1.642372e-1; no smoothing",
+        "path": "elements[0]"
+      },
+      "maximum_value": null,
+      "minimum_value": null,
+      "occurrences": 5
+    },
+    {
+      "diagnostic": {
+        "code": "W_SOURCE_CONFLICT",
+        "message": "contraction uses Brockmann factor2; PLC paper Eq32 omits factor2. Original validation interval not fully resolved",
+        "path": "elements[5]"
+      },
+      "maximum_value": null,
+      "minimum_value": null,
+      "occurrences": 5
+    }
+  ]
+}

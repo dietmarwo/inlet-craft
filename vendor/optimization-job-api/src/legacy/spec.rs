@@ -1,0 +1,431 @@
+//! The job format `fcmaes.job/0.1`: one registered scalar problem, solved by
+//! independent BiteOpt or DE retries.
+use crate::Result;
+use serde::{Deserialize, Serialize};
+/// Declares a strict serde struct with public fields, keeping the attributes,
+/// such as doc comments, of the struct and of each field.
+macro_rules! contract {
+    ($(#[$meta:meta])* $name:ident { $($(#[$field_meta:meta])* $field:ident : $ty:ty),* $(,)? }) => {
+        $(#[$meta])*
+        #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+        #[serde(deny_unknown_fields)]
+        pub struct $name { $($(#[$field_meta])* pub $field: $ty),* }
+    };
+}
+contract!(
+    /// A job of the format `fcmaes.job/0.1`, which the native fcmaes worker runs.
+    JobSpec {
+        /// Exactly `fcmaes.job/0.1`.
+        schema_version: String,
+        /// The caller-chosen idempotency key, 1 to 200 bytes.
+        request_key: String,
+        /// The registered problem.
+        problem: Problem,
+        /// The optimizer of the retries.
+        optimizer: Optimizer,
+        /// The seed and parallelism of the retries.
+        execution: Execution,
+        /// The retries, evaluations and time of the job.
+        budget: Budget,
+        /// What the job reports as progress.
+        outputs: Outputs
+    }
+);
+contract!(
+    /// A registered problem: `benchmark.sphere`, `benchmark.rosenbrock` or
+    /// `gtop.cassini1`.
+    Problem {
+        /// The problem's identifier.
+        id: String,
+        /// The problem's version, `1`.
+        version: String,
+        /// The problem's configuration.
+        config: ProblemConfig,
+        /// The search box.
+        bounds: Bounds
+    }
+);
+contract!(
+    /// The configuration of a registered problem.
+    ProblemConfig {
+        /// The number of variables: 1 to 10,000, at least 2 for Rosenbrock
+        /// and 6 for Cassini1.
+        dimension: usize
+    }
+);
+contract!(
+    /// A search box.
+    Bounds {
+        /// The lower bounds, one per variable, or one value with `broadcast`.
+        lower: Vec<f64>,
+        /// The upper bounds, one per variable, or one value with `broadcast`.
+        upper: Vec<f64>,
+        /// Whether one lower and one upper bound apply to every variable;
+        /// [`Bounds::resolve`] expands them.
+        broadcast: bool
+    }
+);
+contract!(
+    /// The optimizer of the retries.
+    Optimizer {
+        /// `biteopt`, with a hard evaluation limit, or `de`, with a soft one.
+        kind: String,
+        /// The optimizer's parameters.
+        parameters: Parameters
+    }
+);
+/// The optimizer's parameters.
+#[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct Parameters {
+    /// The population size, 4 to 1,000,000; by default 9 + 3 * dimension for
+    /// BiteOpt and 31 for DE. `population * dimension` must not exceed
+    /// [`MAX_POPULATION_CELLS`].
+    pub population: Option<usize>,
+}
+contract!(
+    /// How the retries run.
+    Execution {
+        /// Exactly `independent_retry`.
+        strategy: String,
+        /// The root seed; each retry's seed derives from it and the retry's
+        /// index.
+        seed: u64,
+        /// The retries that run at the same time; the job's CPU slots.
+        workers: usize,
+        /// The retries started together; no new wave starts after the wall
+        /// time.
+        retry_wave_size: usize
+    }
+);
+/// Evaluation and time budget of one job.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct Budget {
+    /// The number of independent retries.
+    pub retries: usize,
+    /// The objective evaluations of each retry.
+    pub evaluations_per_retry: u64,
+    /// `hard` for BiteOpt, which never exceeds the evaluations, or `soft` for
+    /// DE, which may exceed them by `2 * population - 1` per retry.
+    pub evaluation_limit_mode: String,
+    /// No new retry wave starts after this execution time.
+    pub wall_time_seconds: f64,
+    /// Declared interval between the wall-time deadline and killing the
+    /// worker. A retry wave still running after it is lost and the job's
+    /// accounting becomes incomplete.
+    #[serde(default = "default_grace_seconds")]
+    pub grace_seconds: f64,
+}
+fn default_grace_seconds() -> f64 {
+    1.0
+}
+contract!(
+    /// What the job reports as progress.
+    Outputs {
+        /// Exactly `completed_retries`.
+        progress: String
+    }
+);
+impl Bounds {
+    /// Expands broadcast bounds to `n` coordinates and checks that every
+    /// bound is finite with `lower < upper` and a finite span.
+    pub fn resolve(mut self, n: usize) -> Result<Self> {
+        if self.broadcast {
+            if self.lower.len() != 1 || self.upper.len() != 1 {
+                return Err("broadcast requires scalar bounds".into());
+            }
+            self.lower = vec![self.lower[0]; n];
+            self.upper = vec![self.upper[0]; n];
+            self.broadcast = false;
+        }
+        if self.lower.len() != n
+            || self.upper.len() != n
+            || self
+                .lower
+                .iter()
+                .zip(&self.upper)
+                .any(|(l, u)| !l.is_finite() || !u.is_finite() || l >= u || !(u - l).is_finite())
+        {
+            return Err("invalid bounds".into());
+        }
+        Ok(self)
+    }
+    /// Whether every coordinate lies inside the box `[lower, upper]`.
+    pub fn within(&self, lower: &[f64], upper: &[f64]) -> bool {
+        self.lower.len() == lower.len()
+            && self.upper.len() == upper.len()
+            && self.lower.iter().zip(lower).all(|(l, c)| l >= c)
+            && self.upper.iter().zip(upper).all(|(u, c)| u <= c)
+    }
+}
+impl Problem {
+    /// Validates a registered scalar problem (version, dimension, identifier
+    /// and bounds) and expands broadcast bounds. Used by `fcmaes.job/0.1` and
+    /// by the scalar retry profile of the common fcmaes worker.
+    pub fn resolve(mut self) -> Result<Self> {
+        if self.version != "1" {
+            return Err("unsupported schema/problem version".into());
+        }
+        let n = self.config.dimension;
+        if !(1..=10000).contains(&n) {
+            return Err("dimension must be 1..10000".into());
+        }
+        match self.id.as_str() {
+            "benchmark.sphere" => (),
+            "benchmark.rosenbrock" if n >= 2 => (),
+            "gtop.cassini1" if n == 6 => (),
+            _ => return Err("unknown problem or invalid dimension".into()),
+        }
+        self.bounds = self.bounds.resolve(n)?;
+        if self.id == "gtop.cassini1" && !self.bounds.within(&CASSINI1_LOWER, &CASSINI1_UPPER) {
+            return Err("gtop.cassini1 bounds must lie inside the canonical Cassini1 box".into());
+        }
+        Ok(self)
+    }
+}
+/// Largest population x dimension of a BiteOpt or DE run: each of the
+/// optimizer's population tables then holds at most 80 MB of coordinates.
+/// The default BiteOpt population, 9 + 3 * dimension, exceeds it from
+/// dimension 1825 on; set a smaller population there.
+pub const MAX_POPULATION_CELLS: usize = 10_000_000;
+/// Canonical Cassini1 box; job bounds must lie inside it.
+pub const CASSINI1_LOWER: [f64; 6] = [-1000.0, 30.0, 100.0, 30.0, 400.0, 1000.0];
+/// Canonical Cassini1 box; job bounds must lie inside it.
+pub const CASSINI1_UPPER: [f64; 6] = [0.0, 400.0, 470.0, 400.0, 2000.0, 6000.0];
+impl JobSpec {
+    /// Checks the job and resolves its defaults: the schema and problem, the
+    /// bounds, positive counts, the time limits, the progress mode, the
+    /// population and the optimizer's limit mode. The evaluation totals must
+    /// not overflow.
+    pub fn resolve(mut self) -> Result<Self> {
+        if self.schema_version != "fcmaes.job/0.1" || self.problem.version != "1" {
+            return Err("unsupported schema/problem version".into());
+        }
+        if self.request_key.is_empty() || self.request_key.len() > 200 {
+            return Err("request_key must be 1..200 bytes".into());
+        }
+        self.problem = self.problem.resolve()?;
+        let n = self.problem.config.dimension;
+        let e = &self.execution;
+        let k = &self.budget;
+        if e.strategy != "independent_retry"
+            || e.workers == 0
+            || e.retry_wave_size == 0
+            || k.retries == 0
+            || k.evaluations_per_retry == 0
+        {
+            return Err(
+                "positive explicit workers, retries, wave size and evaluations required".into(),
+            );
+        }
+        if !k.wall_time_seconds.is_finite()
+            || k.wall_time_seconds <= 0.0
+            || k.wall_time_seconds > 31_536_000.0
+        {
+            return Err("wall_time_seconds must be in (0,31536000]".into());
+        }
+        if !k.grace_seconds.is_finite() || !(0.0..=86_400.0).contains(&k.grace_seconds) {
+            return Err("grace_seconds must be in [0,86400]".into());
+        }
+        if self.outputs.progress != "completed_retries" {
+            return Err("only completed_retries progress is supported".into());
+        }
+        let p = self
+            .optimizer
+            .parameters
+            .population
+            .unwrap_or(if self.optimizer.kind == "de" {
+                31
+            } else {
+                9 + 3 * n
+            });
+        if !(4..=1_000_000).contains(&p) {
+            return Err("population must be 4..1000000".into());
+        }
+        // The optimizer keeps several population x dimension tables; the
+        // evaluation budget does not bound them, as they are allocated first.
+        if p.saturating_mul(n) > MAX_POPULATION_CELLS {
+            return Err(format!(
+                "population * dimension must be at most {MAX_POPULATION_CELLS} (population {p}, dimension {n}); set a smaller optimizer.parameters.population"
+            )
+            .into());
+        }
+        match (
+            self.optimizer.kind.as_str(),
+            k.evaluation_limit_mode.as_str(),
+        ) {
+            ("biteopt", "hard") | ("de", "soft") => (),
+            _ => {
+                return Err(
+                    "supported paths: biteopt/hard, de/soft; DE hard cap is unavailable".into(),
+                );
+            }
+        }
+        self.optimizer.parameters.population = Some(p);
+        self.requested()?;
+        self.maximum_evaluations()?;
+        Ok(self)
+    }
+    /// The evaluations the job requests: `retries * evaluations_per_retry`.
+    pub fn requested(&self) -> Result<u64> {
+        (self.budget.retries as u64)
+            .checked_mul(self.budget.evaluations_per_retry)
+            .ok_or_else(|| "requested evaluations overflow".into())
+    }
+    /// The most evaluations the job can use: DE may exceed each retry's
+    /// evaluations by `2 * population - 1`.
+    pub fn maximum_evaluations(&self) -> Result<u64> {
+        let extra = if self.optimizer.kind == "de" {
+            2 * self.optimizer.parameters.population.unwrap_or(31) as u64 - 1
+        } else {
+            0
+        };
+        self.budget
+            .evaluations_per_retry
+            .checked_add(extra)
+            .and_then(|x| x.checked_mul(self.budget.retries as u64))
+            .ok_or_else(|| "actual budget bound overflow".into())
+    }
+    /// Digest of the execution specification. The request key is excluded:
+    /// it names a submission, not an experiment, so identical experiments
+    /// submitted under different keys share a digest.
+    pub fn digest(&self) -> Result<String> {
+        let mut value = serde_json::to_value(self)?;
+        if let Some(object) = value.as_object_mut() {
+            object.remove("request_key");
+        }
+        Ok(crate::storage::digest(&serde_json::to_vec(&value)?))
+    }
+}
+/// The description of the native worker: its problems, optimizers and
+/// population rules.
+pub fn discovery() -> serde_json::Value {
+    serde_json::json!({
+        "protocol":"fcmaes.worker/0.1", "problems":[
+        {"id":"benchmark.sphere","version":"1","dimensions":"1..10000"},
+        {"id":"benchmark.rosenbrock","version":"1","dimensions":"2..10000"},
+        {"id":"gtop.cassini1","version":"1","dimensions":6,
+        "lower":CASSINI1_LOWER,"upper":CASSINI1_UPPER,"bounds":"must lie inside lower/upper"}],
+        "optimizers":{"biteopt":{"limit":"hard"},"de":{"limit":"soft","maximum_overshoot_per_retry":"2*population-1"}},
+        "population":"4..1000000; population * dimension <= 1e7 (default: biteopt 9 + 3 * dimension, de 31)",
+        "parallelism":"independent retries; one evaluation thread per retry"
+    })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    fn base() -> serde_json::Value {
+        json!({
+            "schema_version": "fcmaes.job/0.1",
+            "request_key": "k1",
+            "problem": {"id": "benchmark.sphere", "version": "1", "config": {"dimension": 3},
+                        "bounds": {"lower": [-5.0], "upper": [5.0], "broadcast": true}},
+            "optimizer": {"kind": "biteopt", "parameters": {}},
+            "execution": {"strategy": "independent_retry", "seed": 1, "workers": 2, "retry_wave_size": 2},
+            "budget": {"retries": 4, "evaluations_per_retry": 100, "evaluation_limit_mode": "hard",
+                       "wall_time_seconds": 10.0},
+            "outputs": {"progress": "completed_retries"}
+        })
+    }
+    fn resolve(v: serde_json::Value) -> Result<JobSpec> {
+        serde_json::from_value::<JobSpec>(v)?.resolve()
+    }
+
+    #[test]
+    fn resolves_defaults_and_broadcast_bounds() {
+        let s = resolve(base()).unwrap();
+        assert_eq!(s.problem.bounds.lower, vec![-5.0; 3]);
+        assert!(!s.problem.bounds.broadcast);
+        assert_eq!(s.budget.grace_seconds, 1.0);
+        assert_eq!(s.optimizer.parameters.population, Some(9 + 3 * 3));
+        assert_eq!(s.requested().unwrap(), 400);
+        assert_eq!(s.maximum_evaluations().unwrap(), 400);
+    }
+
+    #[test]
+    fn population_tables_are_bounded_before_allocation() {
+        // Review FC-01: 10000 x 1000000 coordinates would be 80 GB per table.
+        let mut v = base();
+        v["problem"]["config"]["dimension"] = json!(10000);
+        v["optimizer"] = json!({"kind": "de", "parameters": {"population": 1000000}});
+        v["budget"]["evaluation_limit_mode"] = json!("soft");
+        v["budget"]["evaluations_per_retry"] = json!(1);
+        let error = resolve(v.clone()).unwrap_err().to_string();
+        assert!(error.contains("population * dimension"), "{error}");
+        // The limit itself is accepted, one cell more is not.
+        v["optimizer"]["parameters"]["population"] = json!(1000);
+        assert!(resolve(v.clone()).is_ok());
+        v["problem"]["config"]["dimension"] = json!(10001);
+        assert!(resolve(v.clone()).is_err());
+        // The default BiteOpt population: dimension 1824 fits, 1825 does not.
+        let mut v = base();
+        v["problem"]["config"]["dimension"] = json!(1824);
+        assert_eq!(
+            resolve(v.clone()).unwrap().optimizer.parameters.population,
+            Some(9 + 3 * 1824)
+        );
+        v["problem"]["config"]["dimension"] = json!(1825);
+        assert!(resolve(v).is_err());
+    }
+
+    #[test]
+    fn de_is_soft_with_declared_overshoot_bound() {
+        let mut v = base();
+        v["optimizer"] = json!({"kind": "de", "parameters": {"population": 10}});
+        assert!(resolve(v.clone()).is_err(), "DE must reject a hard cap");
+        v["budget"]["evaluation_limit_mode"] = json!("soft");
+        let s = resolve(v).unwrap();
+        assert_eq!(s.maximum_evaluations().unwrap(), 4 * (100 + 2 * 10 - 1));
+    }
+
+    #[test]
+    fn rejects_zero_unknown_and_overflowing_inputs() {
+        for (path, value) in [
+            (vec!["execution", "workers"], json!(0)),
+            (vec!["execution", "retry_wave_size"], json!(0)),
+            (vec!["budget", "retries"], json!(0)),
+            (vec!["budget", "evaluations_per_retry"], json!(0)),
+            (vec!["budget", "grace_seconds"], json!(-1.0)),
+            (vec!["budget", "wall_time_seconds"], json!(0.0)),
+        ] {
+            let mut v = base();
+            v[path[0]][path[1]] = value;
+            assert!(resolve(v).is_err(), "{path:?} accepted");
+        }
+        let mut v = base();
+        v["budget"]["total"] = json!(5);
+        assert!(resolve(v).is_err(), "unknown field accepted");
+        let mut v = base();
+        v["budget"]["retries"] = json!(usize::MAX);
+        v["budget"]["evaluations_per_retry"] = json!(u64::MAX);
+        assert!(resolve(v).is_err(), "overflow accepted");
+    }
+
+    #[test]
+    fn cassini1_bounds_must_stay_in_the_canonical_box() {
+        let mut v = base();
+        v["problem"] = json!({"id": "gtop.cassini1", "version": "1", "config": {"dimension": 6},
+            "bounds": {"lower": CASSINI1_LOWER, "upper": CASSINI1_UPPER, "broadcast": false}});
+        assert!(resolve(v.clone()).is_ok());
+        v["problem"]["bounds"]["upper"][5] = json!(7000.0);
+        assert!(resolve(v.clone()).is_err());
+        v["problem"]["bounds"] = json!({"lower": [-1e6], "upper": [1e6], "broadcast": true});
+        assert!(resolve(v).is_err());
+    }
+
+    #[test]
+    fn digest_ignores_request_key_but_not_the_experiment() {
+        let a = resolve(base()).unwrap();
+        let mut v = base();
+        v["request_key"] = json!("another-key");
+        let b = resolve(v).unwrap();
+        assert_eq!(a.digest().unwrap(), b.digest().unwrap());
+        let mut v = base();
+        v["execution"]["seed"] = json!(2);
+        assert_ne!(a.digest().unwrap(), resolve(v).unwrap().digest().unwrap());
+    }
+}

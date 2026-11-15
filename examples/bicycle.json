@@ -1,0 +1,77 @@
+{
+  "schema": "inlet-craft.case/0.1",
+  "air": {
+    "temperature_k": 293.15,
+    "pressure_pa": 101325.0
+  },
+  "platform": {
+    "speed_m_s": [
+      2.7777777778,
+      4.1666666667,
+      5.5555555556,
+      6.9444444444
+    ],
+    "crosswind_m_s": [
+      0.0,
+      2.0
+    ]
+  },
+  "particles": {
+    "aerodynamic_diameter_m": [
+      1e-06,
+      2.5e-06,
+      5e-06,
+      1e-05
+    ]
+  },
+  "elements": [
+    {
+      "kind": "probe",
+      "inner_diameter_m": 0.004,
+      "outer_diameter_m": 0.0042,
+      "angle_to_heading_deg": 0.0
+    },
+    {
+      "kind": "tube",
+      "length_m": 0.15,
+      "inner_diameter_m": 0.004,
+      "inclination_deg": 0.0
+    },
+    {
+      "kind": "bend",
+      "angle_deg": 90.0,
+      "radius_m": 0.02
+    },
+    {
+      "kind": "buffer",
+      "volume_m3": 2e-05
+    },
+    {
+      "kind": "split",
+      "sensor_m3_s": 4.7e-06
+    }
+  ],
+  "flow": {
+    "total_m3_s": 3.3333333333333335e-05,
+    "sensor_m3_s": 4.7e-06
+  },
+  "sensor": {
+    "response_time_s": 1.0,
+    "sampling_interval_s": 1.0
+  },
+  "distribution": {
+    "modes": [
+      {
+        "number_concentration_m3": 100000000.0,
+        "geometric_mean_diameter_m": 3e-07,
+        "geometric_std_dev": 1.6
+      },
+      {
+        "number_concentration_m3": 200000.0,
+        "geometric_mean_diameter_m": 4e-06,
+        "geometric_std_dev": 1.7
+      }
+    ],
+    "quadrature_bins": 48
+  }
+}

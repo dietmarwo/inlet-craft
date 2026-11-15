@@ -1,0 +1,444 @@
+[
+  {
+    "id": "sutherland-standard",
+    "formula": "air.viscosity",
+    "inputs": [
+      273.15
+    ],
+    "expected": 1.716e-05,
+    "absolute_tolerance": 1e-18,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "reference_parameter",
+    "source": "Sutherland reference viscosity at273.15K"
+  },
+  {
+    "id": "mean-free-path",
+    "formula": "air.mean_free_path",
+    "inputs": [
+      293.15,
+      101325.0
+    ],
+    "expected": 6.506922428444529e-08,
+    "absolute_tolerance": 1e-19,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "slip-0.00000001",
+    "formula": "particle.slip",
+    "inputs": [
+      1e-08
+    ],
+    "expected": 22.586952974806437,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "settling-0.00000001",
+    "formula": "particle.settling",
+    "inputs": [
+      1e-08,
+      1000.0
+    ],
+    "expected": 6.785740381052628e-08,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "diffusion-0.00000001",
+    "formula": "particle.diffusion",
+    "inputs": [
+      1e-08
+    ],
+    "expected": 5.3487355110665376e-08,
+    "absolute_tolerance": 1e-20,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "slip-0.0000001",
+    "formula": "particle.slip",
+    "inputs": [
+      1e-07
+    ],
+    "expected": 2.8232015434724707,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "settling-0.0000001",
+    "formula": "particle.settling",
+    "inputs": [
+      1e-07,
+      1000.0
+    ],
+    "expected": 8.481672024889593e-07,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "diffusion-0.0000001",
+    "formula": "particle.diffusion",
+    "inputs": [
+      1e-07
+    ],
+    "expected": 6.685522552471897e-10,
+    "absolute_tolerance": 1e-20,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "slip-0.000001",
+    "formula": "particle.slip",
+    "inputs": [
+      1e-06
+    ],
+    "expected": 1.14865177525374,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "settling-0.000001",
+    "formula": "particle.settling",
+    "inputs": [
+      1e-06,
+      1000.0
+    ],
+    "expected": 3.4508650829534426e-05,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "diffusion-0.000001",
+    "formula": "particle.diffusion",
+    "inputs": [
+      1e-06
+    ],
+    "expected": 2.7200811667701053e-11,
+    "absolute_tolerance": 1e-20,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "slip-0.00001",
+    "formula": "particle.slip",
+    "inputs": [
+      1e-05
+    ],
+    "expected": 1.0148618108265672,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "settling-0.00001",
+    "formula": "particle.settling",
+    "inputs": [
+      1e-05,
+      1000.0
+    ],
+    "expected": 0.003048923322501869,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "diffusion-0.00001",
+    "formula": "particle.diffusion",
+    "inputs": [
+      1e-05
+    ],
+    "expected": 2.4032579394166244e-12,
+    "absolute_tolerance": 1e-20,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "belyaev-r2",
+    "formula": "aspiration.belyaev_levin",
+    "inputs": [
+      0.1,
+      2.0
+    ],
+    "expected": 1.1875533168135841,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "isokinetic",
+    "formula": "aspiration.belyaev_levin",
+    "inputs": [
+      0.1,
+      1.0
+    ],
+    "expected": 1.0,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "analytic_identity",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "durham-30",
+    "formula": "aspiration.durham_lundgren",
+    "inputs": [
+      0.1,
+      1.5,
+      30.0
+    ],
+    "expected": 1.028433350387182,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "hangal-90",
+    "formula": "aspiration.hangal_willeke",
+    "inputs": [
+      0.1,
+      1.0,
+      90.0
+    ],
+    "expected": 0.7,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "hangal-90-r2",
+    "formula": "aspiration.hangal_willeke",
+    "inputs": [
+      0.1,
+      2.0,
+      90.0
+    ],
+    "expected": 0.41113672019483316,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "calm-horizontal",
+    "formula": "aspiration.grinshpun_calm",
+    "inputs": [
+      0.1,
+      0.01,
+      90.0
+    ],
+    "expected": 0.7673777633170167,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "liu-r2",
+    "formula": "transmission.facing",
+    "inputs": [
+      0.1,
+      2.0
+    ],
+    "expected": 0.9009891686125665,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "hangal-rhalf",
+    "formula": "transmission.facing",
+    "inputs": [
+      0.1,
+      0.5
+    ],
+    "expected": 0.8584755313219539,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "oblique-transmission",
+    "formula": "transmission.hangal_willeke_angle",
+    "inputs": [
+      0.1,
+      0.5,
+      30.0,
+      0.0
+    ],
+    "expected": 0.7689623809133568,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "holman",
+    "formula": "tube.diffusion_holman",
+    "inputs": [
+      0.001
+    ],
+    "expected": 0.9726045526141264,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "friedlander",
+    "formula": "tube.diffusion_friedlander",
+    "inputs": [
+      0.001,
+      8000.0,
+      10000.0
+    ],
+    "expected": 0.516163706997216,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "heyder",
+    "formula": "tube.settling_heyder",
+    "inputs": [
+      0.2
+    ],
+    "expected": 0.6977775945538753,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "schwendiman",
+    "formula": "tube.settling_schwendiman",
+    "inputs": [
+      0.2
+    ],
+    "expected": 0.7751893871649144,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "lee-gieseke",
+    "formula": "tube.inertia_lee_gieseke",
+    "inputs": [
+      0.1,
+      8000.0,
+      10.0,
+      0.01,
+      0.2,
+      0.0007853981633974483
+    ],
+    "expected": 0.9651511758321666,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "pui-half",
+    "formula": "bend.pui_laminar",
+    "inputs": [
+      0.171,
+      1.5707963267948966
+    ],
+    "expected": 0.5,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "analytic_identity",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "pui-turbulent",
+    "formula": "bend.pui_turbulent",
+    "inputs": [
+      0.1,
+      1.5707963267948966
+    ],
+    "expected": 0.6418274357728477,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "muyshondt-factor2",
+    "formula": "contraction.muyshondt",
+    "inputs": [
+      0.1,
+      0.25,
+      45.0
+    ],
+    "expected": 0.9392871037617181,
+    "absolute_tolerance": 1e-13,
+    "relative_tolerance": 1e-11,
+    "evidence_kind": "independent_equation_arithmetic",
+    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+  },
+  {
+    "id": "published-bend-guide-0.05",
+    "formula": "bend.pui_laminar",
+    "inputs": [
+      0.05,
+      1.5707963267948966
+    ],
+    "expected": 1.0,
+    "absolute_tolerance": 0.06,
+    "relative_tolerance": 0,
+    "evidence_kind": "published_approximate_adjacent_geometry",
+    "source": "Brockmann SAND2010-7446P p17: approximate curvature8 guide; not exact Pui fit geometry"
+  },
+  {
+    "id": "published-bend-guide-0.16",
+    "formula": "bend.pui_laminar",
+    "inputs": [
+      0.16,
+      1.5707963267948966
+    ],
+    "expected": 0.5,
+    "absolute_tolerance": 0.06,
+    "relative_tolerance": 0,
+    "evidence_kind": "published_approximate_adjacent_geometry",
+    "source": "Brockmann SAND2010-7446P p17: approximate curvature8 guide; not exact Pui fit geometry"
+  },
+  {
+    "id": "published-bend-guide-0.32",
+    "formula": "bend.pui_laminar",
+    "inputs": [
+      0.32,
+      1.5707963267948966
+    ],
+    "expected": 0.1,
+    "absolute_tolerance": 0.06,
+    "relative_tolerance": 0,
+    "evidence_kind": "published_approximate_adjacent_geometry",
+    "source": "Brockmann SAND2010-7446P p17: approximate curvature8 guide; not exact Pui fit geometry"
+  }
+]

@@ -1,0 +1,3 @@
+# Release preparation
+
+0.1.0 is a local source candidate, not a published release. Do not tag or publish automatically. Before publishing: complete the declared evidence gates or narrow the advertised supported correlations; obtain practitioner review; rerun the workspace/native-wheel/schema/docs/cancellation checks; inspect the source archive; update provenance and changelog; verify package metadata/README inclusion. Replacing path-vendored dependencies for crates.io requires published compatible ecosystem versions or a deliberate packaging policy. The wheel is locally buildable now; a PyPI account/release is not configured. The documentation site is generated locally and no hosting deployment is configured.

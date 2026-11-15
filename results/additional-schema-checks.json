@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "schema": "study",
+      "file": "examples/bicycle-study.json",
+      "passed": true
+    },
+    {
+      "schema": "search",
+      "file": "results/full-distribution-seed42.json",
+      "passed": true
+    },
+    {
+      "schema": "search",
+      "file": "results/strict-nonphysical-guard.json",
+      "passed": true
+    },
+    {
+      "schema": "search",
+      "file": "results/mode-coarse-monodisperse-sensitivity.json",
+      "passed": true
+    },
+    {
+      "schema": "verification",
+      "file": "results/verification.json",
+      "passed": true
+    }
+  ]
+}

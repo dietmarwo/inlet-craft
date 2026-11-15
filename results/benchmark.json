@@ -1,0 +1,18 @@
+{
+  "schema": "inlet-craft.benchmark/0.1",
+  "operation": "full bicycle evaluate via Python dict/JSON bridge, including serialization",
+  "repetitions": 100,
+  "scenarios": 8,
+  "requested_particle_sizes": 4,
+  "distribution_modes": 2,
+  "quadrature_bins_per_mode_per_cut": 48,
+  "median_seconds": 0.015454072000011365,
+  "p95_seconds": 0.026264216000072338,
+  "evaluations_per_second": 57.362726046150186,
+  "peak_process_rss_mib": 16.1875,
+  "host_logical_cpus": 2,
+  "platform": "Linux-6.18.44-fc-v470-x86_64-with-glibc2.39",
+  "parallelism": "one process, no objective-level worker threads",
+  "comparative_speedup": null,
+  "note": "new project; no older baseline or external solver speed comparison"
+}

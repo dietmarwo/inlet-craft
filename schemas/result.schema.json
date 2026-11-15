@@ -1,0 +1,552 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "Diagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "formula": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "path"
+      ],
+      "type": "object"
+    },
+    "Distribution": {
+      "additionalProperties": false,
+      "properties": {
+        "modes": {
+          "description": "Number-lognormal modes in PHYSICAL diameter.",
+          "items": {
+            "$ref": "#/definitions/Mode"
+          },
+          "type": "array"
+        },
+        "quadrature_bins": {
+          "default": 64,
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "modes"
+      ],
+      "type": "object"
+    },
+    "ElementResult": {
+      "additionalProperties": false,
+      "properties": {
+        "efficiency": {
+          "format": "double",
+          "type": "number"
+        },
+        "flow_m3_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "index": {
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "mechanisms": {
+          "items": {
+            "$ref": "#/definitions/Mechanism"
+          },
+          "type": "array"
+        },
+        "reynolds": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "efficiency",
+        "flow_m3_s",
+        "index",
+        "kind",
+        "mechanisms"
+      ],
+      "type": "object"
+    },
+    "Mechanism": {
+      "additionalProperties": false,
+      "properties": {
+        "efficiency": {
+          "format": "double",
+          "type": "number"
+        },
+        "formula": {
+          "type": "string"
+        },
+        "validity": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "efficiency",
+        "formula",
+        "validity"
+      ],
+      "type": "object"
+    },
+    "Mode": {
+      "additionalProperties": false,
+      "properties": {
+        "geometric_mean_diameter_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "geometric_std_dev": {
+          "format": "double",
+          "type": "number"
+        },
+        "number_concentration_m3": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "geometric_mean_diameter_m",
+        "geometric_std_dev",
+        "number_concentration_m3"
+      ],
+      "type": "object"
+    },
+    "PmResult": {
+      "additionalProperties": false,
+      "properties": {
+        "efficiency": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ideal_mass_kg_m3": {
+          "format": "double",
+          "type": "number"
+        },
+        "nominal_cut_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "nonphysical_excess": {
+          "description": "Mass-weighted nonphysical_transport_excess divided by ideal mass: the share of `efficiency` that rests on transport efficiencies above one.",
+          "format": "double",
+          "type": "number"
+        },
+        "quadrature_bins": {
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "sampled_mass_kg_m3": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "ideal_mass_kg_m3",
+        "nominal_cut_m",
+        "nonphysical_excess",
+        "quadrature_bins",
+        "sampled_mass_kg_m3"
+      ],
+      "type": "object"
+    },
+    "Scenario": {
+      "additionalProperties": false,
+      "properties": {
+        "apparent_speed_m_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "crosswind_m_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "headwind_m_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "riding_speed_m_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "weight": {
+          "format": "double",
+          "type": "number"
+        },
+        "yaw_from_heading_deg": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "apparent_speed_m_s",
+        "crosswind_m_s",
+        "headwind_m_s",
+        "riding_speed_m_s",
+        "weight",
+        "yaw_from_heading_deg"
+      ],
+      "type": "object"
+    },
+    "ScenarioResult": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "$ref": "#/definitions/Scenario"
+        },
+        "distance_resolution_10_90_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "mean_position_offset_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "pm": {
+          "items": {
+            "$ref": "#/definitions/PmResult"
+          },
+          "type": "array"
+        },
+        "sizes": {
+          "items": {
+            "$ref": "#/definitions/SizeResult"
+          },
+          "type": "array"
+        },
+        "time_response": {
+          "$ref": "#/definitions/TimeResponse"
+        }
+      },
+      "required": [
+        "conditions",
+        "distance_resolution_10_90_m",
+        "mean_position_offset_m",
+        "pm",
+        "sizes",
+        "time_response"
+      ],
+      "type": "object"
+    },
+    "SizeResult": {
+      "additionalProperties": false,
+      "properties": {
+        "aerodynamic_diameter_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "aspiration_efficiency": {
+          "format": "double",
+          "type": "number"
+        },
+        "bypass_particle_flux_fraction": {
+          "format": "double",
+          "type": "number"
+        },
+        "diffusion_coefficient_m2_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "elements": {
+          "items": {
+            "$ref": "#/definitions/ElementResult"
+          },
+          "type": "array"
+        },
+        "nonphysical_transport_excess": {
+          "description": "overall_efficiency minus the same product with every transport mechanism above one replaced by one. Zero unless an extrapolated correlation exceeds its physical bound. A reported sensitivity; the efficiencies themselves are never clipped.",
+          "format": "double",
+          "type": "number"
+        },
+        "overall_efficiency": {
+          "format": "double",
+          "type": "number"
+        },
+        "physical_diameter_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "relaxation_time_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "sensor_particle_flux_fraction": {
+          "format": "double",
+          "type": "number"
+        },
+        "settling_re": {
+          "format": "double",
+          "type": "number"
+        },
+        "settling_velocity_m_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "slip_correction": {
+          "format": "double",
+          "type": "number"
+        },
+        "transport_efficiency": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "aerodynamic_diameter_m",
+        "aspiration_efficiency",
+        "bypass_particle_flux_fraction",
+        "diffusion_coefficient_m2_s",
+        "elements",
+        "nonphysical_transport_excess",
+        "overall_efficiency",
+        "physical_diameter_m",
+        "relaxation_time_s",
+        "sensor_particle_flux_fraction",
+        "settling_re",
+        "settling_velocity_m_s",
+        "slip_correction",
+        "transport_efficiency"
+      ],
+      "type": "object"
+    },
+    "SizeStatistics": {
+      "additionalProperties": false,
+      "properties": {
+        "aerodynamic_diameter_m": {
+          "format": "double",
+          "type": "number"
+        },
+        "maximum": {
+          "format": "double",
+          "type": "number"
+        },
+        "minimum": {
+          "format": "double",
+          "type": "number"
+        },
+        "weighted_mean": {
+          "format": "double",
+          "type": "number"
+        },
+        "weighted_std": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "aerodynamic_diameter_m",
+        "maximum",
+        "minimum",
+        "weighted_mean",
+        "weighted_std"
+      ],
+      "type": "object"
+    },
+    "TimeResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "age_std_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "averaging_interval_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "mean_age_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "mixed_time_constants_s": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "plug_delay_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "rise_10_90_s": {
+          "description": "Engineering definition: distance traveled during 10\u201390% step rise.",
+          "format": "double",
+          "type": "number"
+        },
+        "sensor_time_constant_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "t10_s": {
+          "format": "double",
+          "type": "number"
+        },
+        "t90_s": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "age_std_s",
+        "averaging_interval_s",
+        "mean_age_s",
+        "mixed_time_constants_s",
+        "plug_delay_s",
+        "rise_10_90_s",
+        "sensor_time_constant_s",
+        "t10_s",
+        "t90_s"
+      ],
+      "type": "object"
+    },
+    "WarningSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "diagnostic": {
+          "$ref": "#/definitions/Diagnostic"
+        },
+        "maximum_value": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "minimum_value": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "occurrences": {
+          "format": "uint",
+          "minimum": 0.0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "diagnostic",
+        "occurrences"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "assumed_distribution": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Distribution"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "scenarios": {
+      "items": {
+        "$ref": "#/definitions/ScenarioResult"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "size_statistics": {
+      "items": {
+        "$ref": "#/definitions/SizeStatistics"
+      },
+      "type": "array"
+    },
+    "verification_status": {
+      "type": "string"
+    },
+    "warning_count": {
+      "format": "uint",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "warning_event_count": {
+      "format": "uint",
+      "minimum": 0.0,
+      "type": "integer"
+    },
+    "warnings": {
+      "items": {
+        "$ref": "#/definitions/WarningSummary"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "assumptions",
+    "scenarios",
+    "schema",
+    "size_statistics",
+    "verification_status",
+    "warning_count",
+    "warning_event_count",
+    "warnings"
+  ],
+  "title": "Evaluation",
+  "type": "object"
+}

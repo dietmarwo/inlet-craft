@@ -1,0 +1,37 @@
+name: verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  rust-python-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt,clippy
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo test --workspace --release --locked
+      - run: cargo build --release --locked
+      - run: python3 -m pip install maturin jsonschema aerosolpy markdown
+      - run: maturin build --release --locked
+      - run: python3 -m pip install --no-deps --target target/python target/wheels/*.whl
+      - run: PYTHONPATH=target/python python3 scripts/check_integration.py
+      - run: PYTHONPATH=target/python python3 -O scripts/check_integration.py
+      - run: python3 scripts/check_oracles.py
+      - run: python3 scripts/run_studies.py
+      # Keeps published-system discrepancies visible as evidence; does not
+      # mislabel this provisional scientific gate as passed.
+      - run: python3 scripts/compare_virtual.py --report-only
+      - run: python3 scripts/check_docs.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: numerical-evidence
+          path: |
+            results/
+            schemas/
+            site/

@@ -1,0 +1,1252 @@
+// Numeric kernels index several parallel arrays by a shared loop counter, where
+// range loops read more clearly than zipped iterators.
+#![allow(clippy::needless_range_loop, clippy::manual_memcpy)]
+
+//! Multi-objective Differential Evolution (MODE).
+//!
+//! Multi-objective / constrained Differential Evolution (DE/all/1) with an
+//! optional NSGA-II-style population update. Features enhanced multiple
+//! constraint ranking, oscillating CR/F, SBX + polynomial variation, mixed
+//! integer handling, and normalized all-objective crowding distance.
+//!
+//! Ask/tell only (the caller evaluates objectives+constraints and feeds them
+//! back), so the optimizer can drive Rust threads, a GPU batch, or an external
+//! evaluator without embedding a callback.
+//!
+//! # References
+//!
+//! - R. Storn and K. Price, [Differential
+//!   Evolution](https://doi.org/10.1023/A:1008202821328) (1997).
+//! - K. Deb, A. Pratap, S. Agarwal, and T. Meyarivan, [“A Fast and Elitist
+//!   Multiobjective Genetic Algorithm:
+//!   NSGA-II”](https://doi.org/10.1109/4235.996017), *IEEE Transactions on
+//!   Evolutionary Computation* 6(2), 182–197 (2002).
+//!
+//! # Example
+//!
+//! ```
+//! use fcmaes_core::{Fitness, Mode, ModeParams};
+//!
+//! let fit = Fitness::bounded(2, 2, &[0.0; 2], &[2.0; 2]);
+//! let mut mode = Mode::new(fit, 2, 0, None, &ModeParams::default());
+//! for _ in 0..5 {
+//!     let xs = mode.ask();
+//!     let ys: Vec<Vec<f64>> = xs
+//!         .iter()
+//!         .map(|x| vec![
+//!             x.iter().map(|v| v * v).sum(),
+//!             x.iter().map(|v| (v - 2.0).powi(2)).sum(),
+//!         ])
+//!         .collect();
+//!     mode.tell(&ys);
+//! }
+//! assert_eq!(mode.population().len(), mode.popsize());
+//! ```
+
+use crate::fitness::Fitness;
+use crate::rng::Rng;
+
+const BIG: f64 = f64::MAX;
+
+/// Outcome/result snapshot of a MODE run.
+#[derive(Clone, Debug)]
+pub struct ModeResult {
+    /// Current population (rows = individuals, `dim` columns).
+    pub x: Vec<Vec<f64>>,
+    /// Objective+constraint values of the population.
+    pub y: Vec<Vec<f64>>,
+    /// Number of completed population updates.
+    pub iterations: i32,
+    /// Current termination code.
+    pub stop: i32,
+}
+
+/// Tunable inputs for [`Mode::new`].
+#[derive(Clone, Debug)]
+pub struct ModeParams {
+    /// Number of individuals in the population.
+    pub popsize: i32,
+    /// Differential mutation weight.
+    pub f: f64,
+    /// Differential crossover probability.
+    pub cr: f64,
+    /// Simulated-binary-crossover probability.
+    pub pro_c: f64,
+    /// Simulated-binary-crossover distribution index.
+    pub dis_c: f64,
+    /// Polynomial-mutation probability.
+    pub pro_m: f64,
+    /// Polynomial-mutation distribution index.
+    pub dis_m: f64,
+    /// Use the NSGA-II-style population update.
+    pub nsga_update: bool,
+    /// Probability of selecting the Pareto update when update modes are mixed.
+    pub pareto_update: f64,
+    /// Minimum mixed-integer mutation probability.
+    pub min_mutate: f64,
+    /// Maximum mixed-integer mutation probability.
+    pub max_mutate: f64,
+    /// Seed for the optimizer's independent random stream.
+    pub seed: u64,
+    /// Additional run identifier mixed into [`seed`](Self::seed).
+    pub runid: i64,
+}
+
+impl Default for ModeParams {
+    fn default() -> Self {
+        Self {
+            popsize: 64,
+            f: 0.5,
+            cr: 0.9,
+            pro_c: 0.5,
+            dis_c: 15.0,
+            pro_m: 0.9,
+            dis_m: 20.0,
+            nsga_update: true,
+            pareto_update: 0.0,
+            min_mutate: 0.1,
+            max_mutate: 0.5,
+            seed: 0,
+            runid: 0,
+        }
+    }
+}
+
+fn sort_index(v: &[f64]) -> Vec<usize> {
+    let mut idx: Vec<usize> = (0..v.len()).collect();
+    idx.sort_by(|&a, &b| v[a].total_cmp(&v[b]));
+    idx
+}
+
+fn validate_mode_inputs(
+    fitfun: &Fitness,
+    nobj: usize,
+    ncon: usize,
+    ints: Option<&[bool]>,
+    p: &ModeParams,
+) -> Result<(), &'static str> {
+    if fitfun.dim() == 0 || !fitfun.has_bounds() {
+        return Err("MODE requires a non-empty bounded decision space");
+    }
+    if fitfun
+        .lower()
+        .iter()
+        .zip(fitfun.upper())
+        .any(|(&lo, &hi)| !lo.is_finite() || !hi.is_finite() || lo >= hi)
+    {
+        return Err("MODE bounds must be finite and satisfy lower < upper");
+    }
+    if nobj == 0 || fitfun.nobj() != nobj + ncon {
+        return Err("MODE requires nobj > 0 and Fitness::nobj == nobj + ncon");
+    }
+    let popsize = if p.popsize > 0 { p.popsize } else { 128 };
+    if popsize < 4 {
+        return Err("MODE population size must be at least four");
+    }
+    if ints.is_some_and(|values| values.len() != fitfun.dim()) {
+        return Err("MODE integer mask length must equal the decision dimension");
+    }
+    if !p.f.is_finite()
+        || !p.cr.is_finite()
+        || !p.pro_c.is_finite()
+        || !p.dis_c.is_finite()
+        || !p.pro_m.is_finite()
+        || !p.dis_m.is_finite()
+        || !p.pareto_update.is_finite()
+        || !p.min_mutate.is_finite()
+        || !p.max_mutate.is_finite()
+    {
+        return Err("MODE parameters must be finite");
+    }
+    if !(0.0..=1.0).contains(&p.pro_c) || !(0.0..=1.0).contains(&p.pro_m) {
+        return Err("MODE crossover and mutation probabilities must be in [0, 1]");
+    }
+    if p.dis_c <= 0.0 || p.dis_m <= 0.0 {
+        return Err("MODE distribution indices must be positive");
+    }
+    if p.min_mutate > 0.0 && p.max_mutate > 0.0 && p.min_mutate > p.max_mutate {
+        return Err("MODE min_mutate must not exceed max_mutate");
+    }
+    Ok(())
+}
+
+/// Stateful constrained MODE optimizer.
+///
+/// Objective columns precede constraint columns in every row passed to
+/// [`tell`](Self::tell); constraints are feasible when they are non-positive.
+pub struct Mode {
+    fitfun: Fitness,
+    rng: Rng,
+    dim: usize,
+    nobj: usize,
+    ncon: usize,
+    nobj_ncon: usize,
+    popsize: usize,
+
+    f0: f64,
+    cr0: f64,
+    f: f64,
+    cr: f64,
+    pro_c: f64,
+    dis_c: f64,
+    pro_m: f64,
+    dis_m: f64,
+    nsga_update: bool,
+    pareto_update: f64,
+    min_mutate: f64,
+    max_mutate: f64,
+    is_int: Option<Vec<bool>>,
+
+    // population: [0..popsize] current, [popsize..2*popsize] offspring
+    pop_x: Vec<Vec<f64>>,
+    pop_y: Vec<Vec<f64>>,
+    v_x: Vec<Vec<f64>>, // NSGA variation buffer
+    vp: usize,
+
+    iterations: i32,
+    stop: i32,
+    pending: bool,
+}
+
+impl Mode {
+    /// Construct MODE after validating dimensions, bounds, population size,
+    /// probabilities, and the optional integer mask.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the fitness dimension or bounds are inconsistent,
+    /// if `nobj` is zero, if the population size is below four, if any
+    /// probability parameter is outside its valid range, or if a supplied
+    /// integer mask does not have one entry per decision variable.
+    pub fn try_new(
+        fitfun: Fitness,
+        nobj: usize,
+        ncon: usize,
+        ints: Option<Vec<bool>>,
+        p: &ModeParams,
+    ) -> Result<Self, &'static str> {
+        validate_mode_inputs(&fitfun, nobj, ncon, ints.as_deref(), p)?;
+        Ok(Self::new_unchecked(fitfun, nobj, ncon, ints, p))
+    }
+
+    /// Construct MODE, panicking on invalid configuration. Applications that
+    /// accept user input should prefer [`Mode::try_new`].
+    ///
+    /// # Panics
+    ///
+    /// Panics on any configuration [`Mode::try_new`] rejects.
+    pub fn new(
+        fitfun: Fitness,
+        nobj: usize,
+        ncon: usize,
+        ints: Option<Vec<bool>>,
+        p: &ModeParams,
+    ) -> Self {
+        Self::try_new(fitfun, nobj, ncon, ints, p).expect("invalid MODE configuration")
+    }
+
+    fn new_unchecked(
+        fitfun: Fitness,
+        nobj: usize,
+        ncon: usize,
+        ints: Option<Vec<bool>>,
+        p: &ModeParams,
+    ) -> Self {
+        let dim = fitfun.dim();
+        let popsize = if p.popsize > 0 {
+            p.popsize as usize
+        } else {
+            128
+        };
+        let f0 = if p.f > 0.0 { p.f } else { 0.5 };
+        let cr0 = if p.cr > 0.0 { p.cr } else { 0.9 };
+        let mut m = Mode {
+            dim,
+            nobj,
+            ncon,
+            nobj_ncon: nobj + ncon,
+            popsize,
+            f0,
+            cr0,
+            f: f0,
+            cr: cr0,
+            pro_c: p.pro_c,
+            dis_c: p.dis_c,
+            pro_m: p.pro_m,
+            dis_m: p.dis_m,
+            nsga_update: p.nsga_update,
+            pareto_update: p.pareto_update,
+            min_mutate: if p.min_mutate > 0.0 {
+                p.min_mutate
+            } else {
+                0.1
+            },
+            max_mutate: if p.max_mutate > 0.0 {
+                p.max_mutate
+            } else {
+                0.5
+            },
+            is_int: ints,
+            pop_x: vec![],
+            pop_y: vec![],
+            v_x: vec![],
+            vp: 0,
+            iterations: 0,
+            stop: 0,
+            pending: false,
+            rng: Rng::new(p.seed.wrapping_add(p.runid as u64)),
+            fitfun,
+        };
+        m.init();
+        m
+    }
+
+    fn init(&mut self) {
+        let n = 2 * self.popsize;
+        self.pop_x = (0..n)
+            .map(|i| {
+                if i < self.popsize {
+                    self.fitfun.sample(&mut self.rng)
+                } else {
+                    vec![0.0; self.dim]
+                }
+            })
+            .collect();
+        self.pop_y = vec![vec![BIG; self.nobj_ncon]; n];
+        self.v_x = self.pop_x[0..self.popsize].to_vec();
+        self.vp = 0;
+        self.pending = false;
+    }
+
+    /// Number of decision variables.
+    pub fn dim(&self) -> usize {
+        self.dim
+    }
+    /// Number of objective columns.
+    pub fn nobj(&self) -> usize {
+        self.nobj
+    }
+    /// Number of constraint columns.
+    pub fn ncon(&self) -> usize {
+        self.ncon
+    }
+    /// Number of individuals evaluated per batch.
+    pub fn popsize(&self) -> usize {
+        self.popsize
+    }
+    /// Current termination code.
+    pub fn stop(&self) -> i32 {
+        self.stop
+    }
+
+    // ---- variation (SBX crossover + polynomial mutation) ----
+
+    fn variation(&mut self, pop: &[Vec<f64>]) -> Vec<Vec<f64>> {
+        let dim = self.dim;
+        let dis_c = (0.5 * self.rng.uniform01() + 0.5) * self.dis_c;
+        let dis_m = (0.5 * self.rng.uniform01() + 0.5) * self.dis_m;
+        let n2 = pop.len() / 2;
+        let n = 2 * n2;
+        // beta[p][i]
+        let mut beta = vec![vec![0.0; dim]; n2];
+        for pb in beta.iter_mut() {
+            let cross_pair = self.rng.uniform01() < self.pro_c;
+            for i in 0..dim {
+                if !cross_pair || self.rng.uniform01() < 0.5 {
+                    pb[i] = 1.0;
+                } else {
+                    let r = self.rng.uniform01();
+                    // SBX spread factor (Deb & Agrawal 1995): contracting for
+                    // r <= 0.5, expanding (beta >= 1) for r > 0.5.
+                    let mut b = if r <= 0.5 {
+                        (2.0 * r).powf(1.0 / (dis_c + 1.0))
+                    } else {
+                        (2.0 - 2.0 * r).powf(-1.0 / (dis_c + 1.0))
+                    };
+                    if self.rng.uniform01() > 0.5 {
+                        b = -b;
+                    }
+                    pb[i] = b;
+                }
+            }
+        }
+        let mut offspring: Vec<Vec<f64>> = Vec::with_capacity(n);
+        let mut off2: Vec<Vec<f64>> = Vec::with_capacity(n2);
+        for p in 0..n2 {
+            let p1 = &pop[p];
+            let p2 = &pop[n2 + p];
+            let mut o1 = vec![0.0; dim];
+            let mut o2 = vec![0.0; dim];
+            for i in 0..dim {
+                let base = (p1[i] + p2[i]) * 0.5;
+                let delta = beta[p][i] * (p1[i] - p2[i]) * 0.5;
+                o1[i] = base + delta;
+                o2[i] = base - delta;
+            }
+            offspring.push(o1);
+            off2.push(o2);
+        }
+        offspring.extend(off2);
+
+        // The Python implementation truncates odd populations, which leaves
+        // the ask/tell batch one candidate short. Preserve the final parent so
+        // polynomial mutation can still produce exactly `pop.len()` children.
+        if offspring.len() < pop.len() {
+            offspring.push(pop[pop.len() - 1].clone());
+        }
+
+        let limit = self.pro_m / dim as f64;
+        for op in offspring.iter_mut() {
+            for i in 0..dim {
+                if self.rng.uniform01() < limit {
+                    let mu = self.rng.uniform01();
+                    let norm = self.fitfun.norm_i(i, op[i]);
+                    let scale = self.fitfun.scale()[i];
+                    if mu <= 0.5 {
+                        op[i] += scale
+                            * ((2.0 * mu + (1.0 - 2.0 * mu) * (1.0 - norm).powf(dis_m + 1.0))
+                                .powf(1.0 / (dis_m + 1.0))
+                                - 1.0);
+                    } else {
+                        op[i] += scale
+                            * (1.0
+                                - (2.0 * (1.0 - mu)
+                                    // upward branch uses 1 - delta2 = norm
+                                    + 2.0 * (mu - 0.5) * norm.powf(dis_m + 1.0))
+                                .powf(1.0 / (dis_m + 1.0)));
+                    }
+                }
+            }
+        }
+        for op in offspring.iter_mut() {
+            *op = self.fitfun.closest_feasible(op);
+        }
+        offspring
+    }
+
+    fn modify(&mut self, x: &mut [f64]) {
+        let Some(is_int) = self.is_int.clone() else {
+            return;
+        };
+        let n_ints = is_int.iter().filter(|&&b| b).count() as f64;
+        if n_ints == 0.0 {
+            return;
+        }
+        let to_mutate =
+            self.min_mutate + self.rng.uniform01() * (self.max_mutate - self.min_mutate);
+        for i in 0..self.dim {
+            if is_int[i] && self.rng.uniform01() < to_mutate / n_ints {
+                x[i] = self.fitfun.sample_i(i, &mut self.rng).trunc();
+            }
+        }
+    }
+
+    fn next_x(&mut self, p: usize) -> Vec<f64> {
+        if p == 0 {
+            self.iterations += 1;
+        }
+        if self.nsga_update {
+            let x = self.v_x[self.vp].clone();
+            self.vp = (self.vp + 1) % self.v_x.len();
+            return x;
+        }
+        if p == 0 {
+            self.cr = if self.iterations % 2 == 0 {
+                0.5 * self.cr0
+            } else {
+                self.cr0
+            };
+            self.f = if self.iterations % 2 == 0 {
+                0.5 * self.f0
+            } else {
+                self.f0
+            };
+        }
+        let ps = self.popsize;
+        let (mut r1, mut r2, mut r3);
+        loop {
+            r1 = self.rng.int_below(ps as i64) as usize;
+            r2 = self.rng.int_below(ps as i64) as usize;
+            r3 = if self.pareto_update > 0.0 {
+                (self.rng.uniform01().powf(1.0 + self.pareto_update) * ps as f64) as usize
+            } else {
+                self.rng.int_below(ps as i64) as usize
+            };
+            if r3 != p && r3 != r1 && r3 != r2 && r2 != p && r2 != r1 && r1 != p {
+                break;
+            }
+        }
+        let xp = self.pop_x[p].clone();
+        let x1 = &self.pop_x[r1];
+        let x2 = &self.pop_x[r2];
+        let x3 = &self.pop_x[r3];
+        let mut x: Vec<f64> = (0..self.dim)
+            .map(|j| x3[j] + (x1[j] - x2[j]) * self.f)
+            .collect();
+        let r = self.rng.int_below(self.dim as i64) as usize;
+        for j in 0..self.dim {
+            if j != r && self.rng.uniform01() > self.cr {
+                x[j] = xp[j];
+            }
+        }
+        self.modify(&mut x);
+        self.fitfun.closest_feasible(&x)
+    }
+
+    // ---- pareto ranking ----
+
+    /// Non-dominated sorting (Deb et al. 2002). Returns one level per point,
+    /// higher = better: the first front gets the highest level, the second
+    /// front one less, and so on. Dominated points are thus ranked by how far
+    /// they are from the front, which gives convergence pressure when the
+    /// first front is small.
+    fn pareto_levels(objs: &[Vec<f64>]) -> Vec<f64> {
+        let n = objs.len();
+        let mut dominated_by: Vec<Vec<usize>> = vec![Vec::new(); n];
+        let mut count = vec![0usize; n];
+        for p in 0..n {
+            for q in (p + 1)..n {
+                let (mut p_le, mut q_le, mut p_lt, mut q_lt) = (true, true, false, false);
+                for (a, b) in objs[p].iter().zip(objs[q].iter()) {
+                    if a > b {
+                        p_le = false;
+                    }
+                    if b > a {
+                        q_le = false;
+                    }
+                    if a < b {
+                        p_lt = true;
+                    }
+                    if b < a {
+                        q_lt = true;
+                    }
+                }
+                if p_le && p_lt {
+                    dominated_by[p].push(q);
+                    count[q] += 1;
+                } else if q_le && q_lt {
+                    dominated_by[q].push(p);
+                    count[p] += 1;
+                }
+            }
+        }
+        let mut rank = vec![0usize; n];
+        let mut front: Vec<usize> = (0..n).filter(|&i| count[i] == 0).collect();
+        let mut level = 0;
+        while !front.is_empty() {
+            let mut next = Vec::new();
+            for &p in &front {
+                rank[p] = level;
+                for &q in &dominated_by[p] {
+                    count[q] -= 1;
+                    if count[q] == 0 {
+                        next.push(q);
+                    }
+                }
+            }
+            front = next;
+            level += 1;
+        }
+        rank.iter().map(|&r| (level - 1 - r) as f64).collect()
+    }
+
+    fn objranks(objs: &[Vec<f64>]) -> Vec<f64> {
+        let n = objs.len();
+        let nobj = objs[0].len();
+        let mut rank_sum = vec![0.0; n];
+        for j in 0..nobj {
+            let col: Vec<f64> = objs.iter().map(|o| o[j]).collect();
+            let order = sort_index(&col);
+            for (pos, &idx) in order.iter().enumerate() {
+                rank_sum[idx] += pos as f64;
+            }
+        }
+        rank_sum
+    }
+
+    fn ranks(cons: &[Vec<f64>], eps: &[f64]) -> Vec<f64> {
+        let n = cons.len();
+        let ncon = eps.len();
+        let mut rank = vec![vec![0.0; ncon]; n];
+        let mut alpha = vec![0.0; n];
+        for j in 0..ncon {
+            let col: Vec<f64> = cons.iter().map(|c| c[j]).collect();
+            let order = sort_index(&col);
+            for (pos, &idx) in order.iter().enumerate() {
+                if cons[idx][j] <= eps[j] {
+                    rank[idx][j] = 0.0;
+                } else {
+                    rank[idx][j] = pos as f64;
+                    alpha[idx] += 1.0;
+                }
+            }
+        }
+        let mut csum = vec![0.0; n];
+        for i in 0..n {
+            for j in 0..ncon {
+                csum[i] += rank[i][j] * alpha[i] / ncon as f64;
+            }
+        }
+        csum
+    }
+
+    fn pareto(&self, ys: &[Vec<f64>]) -> Vec<f64> {
+        if self.ncon == 0 {
+            return Self::pareto_levels(ys);
+        }
+        let popn = ys.len();
+        let objs: Vec<Vec<f64>> = ys.iter().map(|y| y[0..self.nobj].to_vec()).collect();
+        let cons: Vec<Vec<f64>> = ys
+            .iter()
+            .map(|y| {
+                y[self.nobj..self.nobj_ncon]
+                    .iter()
+                    .map(|&c| c.max(0.0))
+                    .collect()
+            })
+            .collect();
+
+        // Feasibility first: a point counts as feasible only if it violates no
+        // constraint. An adaptive tolerance (eps, derived from the mean violation of
+        // the previous generation) let slightly infeasible points displace all
+        // strictly feasible ones once the population converged onto active
+        // constraints, so the final population could contain no feasible point.
+        let eps = vec![0.0; self.ncon];
+
+        let feasible: Vec<bool> = cons
+            .iter()
+            .map(|c| c.iter().zip(&eps).all(|(&cv, &ev)| cv <= ev))
+            .collect();
+        let has_feasible = feasible.iter().any(|&f| f);
+        let has_infeasible = feasible.iter().any(|&f| !f);
+
+        let mut csum = Self::ranks(&cons, &eps);
+        if has_feasible {
+            let orank = Self::objranks(&objs);
+            for i in 0..popn {
+                csum[i] += orank[i];
+            }
+        }
+        let ci = sort_index(&csum);
+        let mut fiv = vec![];
+        let mut viv = vec![];
+        for &i in &ci {
+            if feasible[i] {
+                fiv.push(i);
+            } else {
+                viv.push(i);
+            }
+        }
+        let mut domination = vec![0.0; popn];
+        if has_feasible {
+            let feas_objs: Vec<Vec<f64>> = fiv.iter().map(|&i| objs[i].clone()).collect();
+            let ypar = Self::pareto_levels(&feas_objs);
+            for (k, &i) in fiv.iter().enumerate() {
+                domination[i] += ypar[k];
+            }
+        }
+        if has_infeasible {
+            for (i, &vi) in viv.iter().enumerate() {
+                domination[vi] += (viv.len() - i) as f64;
+            }
+            for &fi in &fiv {
+                domination[fi] += (viv.len() + 1) as f64;
+            }
+        }
+        domination
+    }
+
+    fn crowd_dist(sub: &[Vec<f64>], nobj: usize) -> Vec<f64> {
+        let n = sub.len();
+        if n == 0 {
+            return Vec::new();
+        }
+        if n <= 2 {
+            return vec![BIG; n];
+        }
+        let mut distance = vec![0.0; n];
+        for objective in 0..nobj {
+            let values: Vec<f64> = sub.iter().map(|y| y[objective]).collect();
+            let order = sort_index(&values);
+            let lo = values[order[0]];
+            let hi = values[order[n - 1]];
+            let span = hi - lo;
+            if !span.is_finite() || span <= 0.0 {
+                continue;
+            }
+            distance[order[0]] = BIG;
+            distance[order[n - 1]] = BIG;
+            for position in 1..n - 1 {
+                let index = order[position];
+                if distance[index] != BIG {
+                    distance[index] +=
+                        (values[order[position + 1]] - values[order[position - 1]]) / span;
+                }
+            }
+        }
+        if distance.iter().all(|&value| value == 0.0) {
+            return vec![0.0; n];
+        }
+        distance
+    }
+
+    fn pop_update(&mut self) {
+        let n = 2 * self.popsize;
+        let mut x0 = self.pop_x[0..n].to_vec();
+        let mut y0 = self.pop_y[0..n].to_vec();
+        if self.nobj == 1 {
+            let col: Vec<f64> = y0.iter().map(|y| y[0]).collect();
+            let mut yi = sort_index(&col);
+            yi.reverse();
+            x0 = yi.iter().map(|&i| x0[i].clone()).collect();
+            y0 = yi.iter().map(|&i| y0[i].clone()).collect();
+        }
+        let domination = self.pareto(&y0);
+        let maxdom = domination.iter().cloned().fold(f64::MIN, f64::max) as i32;
+        let mut newx: Vec<Vec<f64>> = Vec::with_capacity(self.popsize);
+        let mut newy: Vec<Vec<f64>> = Vec::with_capacity(self.popsize);
+        for dom in (0..=maxdom).rev() {
+            let level: Vec<usize> = (0..n).filter(|&i| domination[i] as i32 == dom).collect();
+            if level.is_empty() {
+                continue;
+            }
+            if newx.len() + level.len() <= self.popsize {
+                for &i in &level {
+                    newx.push(x0[i].clone());
+                    newy.push(y0[i].clone());
+                }
+            } else {
+                if level.len() > 1 {
+                    let domy: Vec<Vec<f64>> = level.iter().map(|&i| y0[i].clone()).collect();
+                    let cd = Self::crowd_dist(&domy, self.nobj);
+                    let mut si = sort_index(&cd);
+                    si.reverse();
+                    for &k in &si {
+                        if newx.len() >= self.popsize {
+                            break;
+                        }
+                        let i = level[k];
+                        newx.push(x0[i].clone());
+                        newy.push(y0[i].clone());
+                    }
+                } else {
+                    newx.push(x0[level[0]].clone());
+                    newy.push(y0[level[0]].clone());
+                }
+                break;
+            }
+        }
+        for i in 0..self.popsize {
+            self.pop_x[i] = newx[i].clone();
+            self.pop_y[i] = newy[i].clone();
+        }
+        if self.nsga_update {
+            let cur = self.pop_x[0..self.popsize].to_vec();
+            self.v_x = self.variation(&cur);
+        }
+    }
+
+    // ---- ask/tell interface ----
+
+    /// Ask for `popsize` offspring rows.
+    ///
+    /// # Panics
+    ///
+    /// Panics if a previous batch is still pending, that is if `ask` is called
+    /// twice without an intervening `tell`. Use [`Mode::try_ask`] to receive
+    /// that as an error instead.
+    pub fn ask(&mut self) -> Vec<Vec<f64>> {
+        self.try_ask().expect("invalid MODE ask call")
+    }
+
+    /// Fallible ask variant for interfaces that need to report call-order
+    /// errors rather than panic.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the previously asked batch has not been told yet.
+    pub fn try_ask(&mut self) -> Result<Vec<Vec<f64>>, &'static str> {
+        if self.pending {
+            return Err("MODE ask called before telling the pending batch");
+        }
+        for p in 0..self.popsize {
+            let x = self.next_x(p);
+            self.pop_x[self.popsize + p] = x;
+        }
+        self.pending = true;
+        Ok(self.pop_x[self.popsize..2 * self.popsize].to_vec())
+    }
+
+    fn set_x(&mut self, xs: &[Vec<f64>]) {
+        for (p, row) in xs.iter().enumerate().take(self.popsize) {
+            self.pop_x[self.popsize + p] = row.clone();
+        }
+    }
+
+    /// Tell objective+constraint values for the offspring from [`ask`](Mode::ask).
+    ///
+    /// # Panics
+    ///
+    /// Panics if no batch is pending, if `ys` does not have `popsize` rows, or
+    /// if a row width differs from `nobj + ncon`. Use [`Mode::try_tell`] to
+    /// receive these as errors instead.
+    pub fn tell(&mut self, ys: &[Vec<f64>]) -> i32 {
+        self.try_tell(ys).expect("invalid MODE tell call")
+    }
+
+    /// Fallible tell variant validating call order and matrix shape.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if no batch is pending, if `ys` does not have
+    /// `popsize` rows, or if a row width differs from `nobj + ncon`.
+    pub fn try_tell(&mut self, ys: &[Vec<f64>]) -> Result<i32, &'static str> {
+        if !self.pending {
+            return Err("MODE tell called without a pending ask batch");
+        }
+        if ys.len() != self.popsize {
+            return Err("MODE tell batch length must equal popsize");
+        }
+        for (p, row) in ys.iter().enumerate() {
+            if row.len() != self.nobj_ncon {
+                return Err("MODE tell row width must equal nobj + ncon");
+            }
+            self.pop_y[self.popsize + p] = row
+                .iter()
+                .map(|&value| if value.is_finite() { value } else { BIG })
+                .collect();
+        }
+        self.pop_update();
+        self.pending = false;
+        Ok(self.stop)
+    }
+
+    /// Tell values while switching the population-update mode.
+    ///
+    /// # Panics
+    ///
+    /// Panics on everything [`Mode::tell`] panics on, and additionally if
+    /// `pareto_update` is not finite. Use [`Mode::try_tell_switch`] for the
+    /// fallible form.
+    pub fn tell_switch(&mut self, ys: &[Vec<f64>], nsga_update: bool, pareto_update: f64) -> i32 {
+        self.try_tell_switch(ys, nsga_update, pareto_update)
+            .expect("invalid MODE tell_switch call")
+    }
+
+    /// Fallible [`tell_switch`](Self::tell_switch) variant validating the
+    /// update probability and pending batch.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if `pareto_update` is not finite, or for any condition
+    /// [`Mode::try_tell`] rejects.
+    pub fn try_tell_switch(
+        &mut self,
+        ys: &[Vec<f64>],
+        nsga_update: bool,
+        pareto_update: f64,
+    ) -> Result<i32, &'static str> {
+        if !pareto_update.is_finite() {
+            return Err("MODE pareto_update must be finite");
+        }
+        self.nsga_update = nsga_update;
+        self.pareto_update = pareto_update;
+        self.try_tell(ys)
+    }
+
+    /// Replace the candidate population and tell its values.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the population size is below four, or if `xs`/`ys` shapes do
+    /// not match the configured dimension and value width. Use
+    /// [`Mode::try_set_population`] for the fallible form.
+    pub fn set_population(&mut self, xs: &[Vec<f64>], ys: &[Vec<f64>]) -> i32 {
+        self.try_set_population(xs, ys)
+            .expect("invalid MODE set_population call")
+    }
+
+    /// Fallible [`set_population`](Self::set_population) variant validating
+    /// dimensions and population sizes.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the population size is below four, if `xs` and `ys`
+    /// have different lengths, if a decision row width differs from the
+    /// configured dimension, or if a value row width differs from
+    /// `nobj + ncon`.
+    pub fn try_set_population(
+        &mut self,
+        xs: &[Vec<f64>],
+        ys: &[Vec<f64>],
+    ) -> Result<i32, &'static str> {
+        if xs.len() < 4 {
+            return Err("MODE population size must be at least four");
+        }
+        if xs.len() != ys.len() {
+            return Err("MODE population x/y length mismatch");
+        }
+        if xs.iter().any(|row| row.len() != self.dim) {
+            return Err("MODE population row width must equal dim");
+        }
+        if xs.len() != self.popsize {
+            self.popsize = xs.len();
+            self.init();
+        }
+        self.set_x(xs);
+        self.pending = true;
+        self.try_tell(ys)
+    }
+
+    /// Current population (rows = individuals).
+    pub fn population(&self) -> Vec<Vec<f64>> {
+        self.pop_x[0..self.popsize].to_vec()
+    }
+
+    /// Return a snapshot of the current population and its values.
+    pub fn result(&self) -> ModeResult {
+        ModeResult {
+            x: self.population(),
+            y: self.pop_y[0..self.popsize].to_vec(),
+            iterations: self.iterations,
+            stop: self.stop,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // Two-objective test: minimize (sum x^2, sum (x-2)^2) — a convex Pareto
+    // front between 0 and 2 in each coordinate.
+    fn eval(x: &[f64]) -> Vec<f64> {
+        let o1: f64 = x.iter().map(|v| v * v).sum();
+        let o2: f64 = x.iter().map(|v| (v - 2.0) * (v - 2.0)).sum();
+        vec![o1, o2]
+    }
+
+    fn run(nsga: bool) -> Mode {
+        let fit = Fitness::bounded(3, 2, &[-5.0; 3], &[5.0; 3]);
+        let params = ModeParams {
+            popsize: 32,
+            nsga_update: nsga,
+            seed: 1,
+            ..Default::default()
+        };
+        let mut opt = Mode::new(fit, 2, 0, None, &params);
+        for _ in 0..80 {
+            let xs = opt.ask();
+            let ys: Vec<Vec<f64>> = xs.iter().map(|x| eval(x)).collect();
+            opt.tell(&ys);
+        }
+        opt
+    }
+
+    #[test]
+    fn nsga_finds_pareto_front() {
+        let opt = run(true);
+        let r = opt.result();
+        // Front should contain points near both extremes (o1~0 and o2~0).
+        let min_o1 = r.y.iter().map(|y| y[0]).fold(f64::MAX, f64::min);
+        let min_o2 = r.y.iter().map(|y| y[1]).fold(f64::MAX, f64::min);
+        assert!(min_o1 < 0.1, "no low-o1 solution: {min_o1}");
+        assert!(min_o2 < 0.1, "no low-o2 solution: {min_o2}");
+    }
+
+    #[test]
+    fn de_update_finds_pareto_front() {
+        let opt = run(false);
+        let r = opt.result();
+        let min_o1 = r.y.iter().map(|y| y[0]).fold(f64::MAX, f64::min);
+        let min_o2 = r.y.iter().map(|y| y[1]).fold(f64::MAX, f64::min);
+        assert!(min_o1 < 0.2, "no low-o1 solution: {min_o1}");
+        assert!(min_o2 < 0.2, "no low-o2 solution: {min_o2}");
+    }
+
+    #[test]
+    fn constrained_run_progresses() {
+        // 1 objective, 1 constraint: minimize sum x^2 s.t. sum x >= 1
+        // (constraint value = 1 - sum x, feasible when <= 0).
+        let fit = Fitness::bounded(3, 2, &[-5.0; 3], &[5.0; 3]);
+        let params = ModeParams {
+            popsize: 24,
+            nsga_update: false,
+            seed: 2,
+            ..Default::default()
+        };
+        let mut opt = Mode::new(fit, 1, 1, None, &params);
+        for _ in 0..100 {
+            let xs = opt.ask();
+            let ys: Vec<Vec<f64>> = xs
+                .iter()
+                .map(|x| {
+                    let o: f64 = x.iter().map(|v| v * v).sum();
+                    let c: f64 = 1.0 - x.iter().sum::<f64>();
+                    vec![o, c]
+                })
+                .collect();
+            opt.tell(&ys);
+        }
+        let r = opt.result();
+        // Some feasible solution (sum x >= 1) should exist with small objective.
+        let best =
+            r.y.iter()
+                .filter(|y| y[1] <= 0.0)
+                .map(|y| y[0])
+                .fold(f64::MAX, f64::min);
+        assert!(best < 2.0, "constrained best too large: {best}");
+    }
+
+    #[test]
+    fn rejects_invalid_configuration() {
+        let fit = Fitness::bounded(2, 2, &[-1.0; 2], &[1.0; 2]);
+        let mut params = ModeParams {
+            popsize: 3,
+            ..Default::default()
+        };
+        assert!(Mode::try_new(fit.clone(), 2, 0, None, &params).is_err());
+        params.popsize = 5;
+        assert!(Mode::try_new(fit.clone(), 0, 2, None, &params).is_err());
+        assert!(Mode::try_new(fit.clone(), 2, 0, Some(vec![true]), &params).is_err());
+        params.pro_m = 1.5;
+        assert!(Mode::try_new(fit, 2, 0, None, &params).is_err());
+    }
+
+    #[test]
+    fn odd_population_preserves_batch_size() {
+        let fit = Fitness::bounded(2, 2, &[-1.0; 2], &[1.0; 2]);
+        let params = ModeParams {
+            popsize: 5,
+            nsga_update: true,
+            seed: 7,
+            ..Default::default()
+        };
+        let mut mode = Mode::try_new(fit, 2, 0, None, &params).unwrap();
+        for _ in 0..3 {
+            let xs = mode.ask();
+            assert_eq!(xs.len(), 5);
+            let ys: Vec<Vec<f64>> = xs.iter().map(|x| vec![x[0], x[1]]).collect();
+            mode.tell(&ys);
+        }
+    }
+
+    #[test]
+    fn crowding_uses_every_objective() {
+        let values = vec![
+            vec![0.0, 0.5],
+            vec![0.25, 0.0],
+            vec![0.5, 0.5],
+            vec![0.75, 1.0],
+            vec![1.0, 0.5],
+        ];
+        let distance = Mode::crowd_dist(&values, 2);
+        assert_eq!(distance.iter().filter(|&&d| d == BIG).count(), 4);
+        assert!(distance[2].is_finite() && distance[2] > 0.0);
+        assert_eq!(Mode::crowd_dist(&vec![vec![1.0, 1.0]; 4], 2), vec![0.0; 4]);
+    }
+
+    #[test]
+    fn zero_crossover_and_mutation_preserve_parents() {
+        let fit = Fitness::bounded(2, 2, &[-1.0; 2], &[1.0; 2]);
+        let params = ModeParams {
+            popsize: 5,
+            pro_c: 0.0,
+            pro_m: 0.0,
+            seed: 9,
+            ..Default::default()
+        };
+        let mut mode = Mode::try_new(fit, 2, 0, None, &params).unwrap();
+        let parents = vec![
+            vec![-0.8, -0.7],
+            vec![-0.4, -0.3],
+            vec![0.1, 0.2],
+            vec![0.5, 0.6],
+            vec![0.8, 0.9],
+        ];
+        let offspring = mode.variation(&parents);
+        for (child, parent) in offspring.iter().zip(&parents) {
+            for (&actual, &expected) in child.iter().zip(parent) {
+                assert!((actual - expected).abs() < 1e-14);
+            }
+        }
+    }
+
+    #[test]
+    fn tell_sanitizes_non_finite_values() {
+        let fit = Fitness::bounded(2, 1, &[-1.0; 2], &[1.0; 2]);
+        let params = ModeParams {
+            popsize: 4,
+            nsga_update: false,
+            ..Default::default()
+        };
+        let mut mode = Mode::try_new(fit, 1, 0, None, &params).unwrap();
+        mode.ask();
+        mode.tell(&[vec![f64::NAN], vec![1.0], vec![2.0], vec![3.0]]);
+        assert!(
+            mode.result()
+                .y
+                .iter()
+                .flatten()
+                .all(|value| !value.is_nan())
+        );
+    }
+
+    #[test]
+    fn ask_tell_enforces_call_order_and_shapes() {
+        let fit = Fitness::bounded(2, 1, &[-1.0; 2], &[1.0; 2]);
+        let params = ModeParams {
+            popsize: 4,
+            ..Default::default()
+        };
+        let mut mode = Mode::try_new(fit, 1, 0, None, &params).unwrap();
+        assert!(mode.try_tell(&vec![vec![0.0]; 4]).is_err());
+        mode.try_ask().unwrap();
+        assert!(mode.try_ask().is_err());
+        assert!(mode.try_tell(&vec![vec![0.0]; 3]).is_err());
+        assert!(mode.try_tell(&vec![vec![0.0, 1.0]; 4]).is_err());
+        assert_eq!(mode.try_tell(&vec![vec![0.0]; 4]).unwrap(), 0);
+    }
+
+    #[test]
+    fn pareto_levels_rank_successive_fronts() {
+        let ys = vec![
+            vec![1.0, 4.0],
+            vec![2.0, 2.0],
+            vec![4.0, 1.0],
+            vec![2.0, 4.0],
+            vec![3.0, 3.0],
+            vec![4.0, 4.0],
+        ];
+        // front 1: first three, front 2: (2,4) and (3,3), front 3: (4,4); higher = better
+        assert_eq!(Mode::pareto_levels(&ys), vec![2.0, 2.0, 2.0, 1.0, 1.0, 0.0]);
+    }
+
+    #[test]
+    fn sbx_can_expand_beyond_parents() {
+        let dim = 200;
+        let fit = Fitness::bounded(dim, 2, &vec![0.0; dim], &vec![1.0; dim]);
+        let params = ModeParams {
+            popsize: 4,
+            pro_c: 1.0,
+            pro_m: 0.0,
+            seed: 1,
+            ..Default::default()
+        };
+        let mut mode = Mode::try_new(fit, 2, 0, None, &params).unwrap();
+        let parents = vec![vec![0.4; dim], vec![0.6; dim]];
+        let offspring = mode.variation(&parents);
+        let outside = offspring
+            .iter()
+            .flatten()
+            .any(|&v| !(0.4 - 1e-12..=0.6 + 1e-12).contains(&v));
+        assert!(
+            outside,
+            "SBX never produced a child outside the parents' interval"
+        );
+    }
+
+    fn zdt2(x: &[f64]) -> Vec<f64> {
+        let g = 1.0 + 9.0 * x[1..].iter().sum::<f64>() / (x.len() - 1) as f64;
+        vec![x[0], g * (1.0 - (x[0] / g).powi(2))]
+    }
+
+    fn zdt4_g(x: &[f64]) -> f64 {
+        let k = (x.len() - 1) as f64;
+        1.0 + 10.0 * k
+            + x[1..]
+                .iter()
+                .map(|v| v * v - 10.0 * (4.0 * std::f64::consts::PI * v).cos())
+                .sum::<f64>()
+    }
+
+    fn zdt4(x: &[f64]) -> Vec<f64> {
+        let g = zdt4_g(x);
+        vec![x[0], g * (1.0 - (x[0] / g).sqrt())]
+    }
+
+    fn run_problem(
+        f: fn(&[f64]) -> Vec<f64>,
+        lower: &[f64],
+        upper: &[f64],
+        nsga: bool,
+        generations: usize,
+        seed: u64,
+    ) -> Vec<Vec<f64>> {
+        let fit = Fitness::bounded(lower.len(), 2, lower, upper);
+        let params = ModeParams {
+            popsize: 64,
+            nsga_update: nsga,
+            seed,
+            ..Default::default()
+        };
+        let mut mode = Mode::new(fit, 2, 0, None, &params);
+        for _ in 0..generations {
+            let xs = mode.ask();
+            let ys: Vec<Vec<f64>> = xs.iter().map(|x| f(x)).collect();
+            mode.tell(&ys);
+        }
+        mode.population()
+    }
+
+    #[test]
+    fn nsga_update_keeps_spread_on_zdt2() {
+        // seeds that collapsed to the single extreme point x0 = 0 before the
+        // SBX / polynomial-mutation fixes
+        for seed in [1000, 1001, 1002] {
+            let pop = run_problem(zdt2, &[0.0; 30], &[1.0; 30], true, 470, seed);
+            let lo = pop.iter().map(|x| x[0]).fold(f64::MAX, f64::min);
+            let hi = pop.iter().map(|x| x[0]).fold(f64::MIN, f64::max);
+            assert!(hi - lo > 0.5, "seed {seed}: x0 spread {}", hi - lo);
+        }
+    }
+
+    #[test]
+    fn de_update_converges_on_zdt4() {
+        let mut lower = vec![-5.0; 10];
+        let mut upper = vec![5.0; 10];
+        lower[0] = 0.0;
+        upper[0] = 1.0;
+        let pop = run_problem(zdt4, &lower, &upper, false, 940, 1000);
+        let mut g: Vec<f64> = pop.iter().map(|x| zdt4_g(x)).collect();
+        g.sort_by(|a, b| a.total_cmp(b));
+        // median distance function was ~170 before non-dominated sorting
+        assert!(g[g.len() / 2] < 5.0, "median g {}", g[g.len() / 2]);
+    }
+
+    #[test]
+    fn constrained_population_keeps_feasible_points() {
+        // min x^2 s.t. 1 - x <= 0 on [-2, 3]: the optimum x = 1 lies on the
+        // constraint. With an adaptive constraint tolerance the population drifted
+        // to slightly infeasible x < 1 and lost every strictly feasible point.
+        for nsga in [true, false] {
+            for seed in [1, 2, 42] {
+                let fit = Fitness::bounded(1, 2, &[-2.0], &[3.0]);
+                let params = ModeParams {
+                    popsize: 32,
+                    nsga_update: nsga,
+                    seed,
+                    ..Default::default()
+                };
+                let mut mode = Mode::new(fit, 1, 1, None, &params);
+                for _ in 0..40 {
+                    let xs = mode.ask();
+                    let ys: Vec<Vec<f64>> =
+                        xs.iter().map(|x| vec![x[0] * x[0], 1.0 - x[0]]).collect();
+                    mode.tell(&ys);
+                }
+                let result = mode.result();
+                let best = result
+                    .y
+                    .iter()
+                    .filter(|y| y[1] <= 0.0)
+                    .map(|y| y[0])
+                    .fold(f64::INFINITY, f64::min);
+                assert!(
+                    best < 1.05,
+                    "nsga={nsga} seed={seed}: best strictly feasible objective {best}"
+                );
+            }
+        }
+    }
+}
