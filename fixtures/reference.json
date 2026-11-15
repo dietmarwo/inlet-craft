@@ -238,7 +238,7 @@
     "absolute_tolerance": 1e-13,
     "relative_tolerance": 1e-11,
     "evidence_kind": "independent_equation_arithmetic",
-    "source": "Brockmann notes SAND2010-7446P / formula-registry.md"
+    "source": "Hangal & Willeke 1990a eq 18 (primary source), arithmetic"
   },
   {
     "id": "calm-horizontal",

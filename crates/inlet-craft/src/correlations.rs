@@ -16,9 +16,9 @@ pub fn aspiration_oblique(st: f64, r: f64, angle_deg: f64) -> f64 {
     let capture = if z.is_infinite() { 1. } else { z / (1. + z) };
     1. + (r * angle_deg.to_radians().cos() - 1.) * quotient * capture
 }
-/// Hangal and Willeke (1990a), 61..90deg. The Stokes exponent is sqrt(U/U0) =
-/// 1/sqrt(R): at 90deg aspiration must fall as wind outruns inlet velocity
-/// (R up). The 0.1.0 candidate used sqrt(R), which reversed that trend.
+/// Hangal and Willeke (1990a) eq 17-18: f = 3*St^(R^-0.5), R = U0/U, an
+/// extension of Laktionov's 90deg fit. The PLC paper (W eq 7) misprints the
+/// exponent as sqrt(U0/U), which the 0.1.0 candidate copied.
 pub fn aspiration_right_angle(st: f64, r: f64, angle_deg: f64) -> f64 {
     1. + (r * angle_deg.to_radians().cos() - 1.) * 3. * st.powf(1. / r.sqrt())
 }

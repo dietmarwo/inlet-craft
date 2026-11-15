@@ -1,7 +1,4 @@
-   Compiling pyo3-ffi v0.29.0
-   Compiling pyo3 v0.29.0
-   Compiling inlet-craft-py v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft-py)
-    Finished `release` profile [optimized] target(s) in 20.64s
+    Finished `release` profile [optimized] target(s) in 0.07s
      Running unittests src/lib.rs (target/release/deps/inlet_craft-da60eab8132028c2)
 
 running 0 tests
@@ -12,17 +9,17 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 running 38 tests
 test air_pressure_and_dimensional_relations ... ok
-test angles_symmetry_and_tailwind_gap_rejection ... ok
 test apparent_wind_vectors_and_stationary_case ... ok
 test bend_radius_must_exceed_tube_radius ... ok
+test calm_and_slow_modes_are_finite_and_reported ... ok
 test cancellation_prevents_solver_and_rechecks ... ok
 test contraction_uses_factor_two_and_upstream_velocity ... ok
-test calm_and_slow_modes_are_finite_and_reported ... ok
+test angles_symmetry_and_tailwind_gap_rejection ... ok
 test failed_reference_row_is_retained ... ok
-test downward_facing_aperture_rejected_for_calm_and_slow ... ok
 test general_tank_chain_conserves_probability ... ok
 test invalid_fixture_tolerance_cannot_pass ... ok
 test matched_speeds_and_small_particle_limits ... ok
+test downward_facing_aperture_rejected_for_calm_and_slow ... ok
 test monodisperse_pm_matches_size_resolved ... ok
 test negative_efficiency_is_rejected_even_with_allowance ... ok
 test mode_search_keeps_rechecked_nondominated_points ... ok
@@ -31,8 +28,8 @@ test nonphysical_allowance_is_explicit_and_bounded ... ok
 test oblique_wall_impaction_is_linear_in_stokes_as_printed ... ok
 test out_of_range_values_are_reported_without_clamping ... ok
 test particle_count_through_split_is_conserved ... ok
-test nonphysical_excess_is_reported_without_clipping ... ok
 test particle_diameter_roundtrips_and_relaxation_is_aerodynamic ... ok
+test nonphysical_excess_is_reported_without_clipping ... ok
 test references_are_reproduced_and_evidence_is_honest ... ok
 test pm_quadrature_converges ... ok
 test right_angle_aspiration_falls_as_wind_outruns_inlet ... ok

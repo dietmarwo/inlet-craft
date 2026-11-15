@@ -32,8 +32,8 @@
   {
     "id": "aspiration.hangal_willeke",
     "equation": "A=1+(R*cos(theta)-1)*3*St^sqrt(1/R)",
-    "source_and_validity": "W eq7 (prints exponent sqrt(U0/U)), Hangal & Willeke (1990a); implemented exponent sqrt(U/U0) is a declared source conflict (W_SOURCE_CONFLICT), see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2",
-    "verification_anchor_and_limit": "theta=90,R=1,St=.1 gives .7; R=2 arithmetic point; at 90deg A falls as R rises; 60\u201361deg interval is uncovered"
+    "source_and_validity": "Hangal & Willeke (1990a) eq 17\u201318, https://doi.org/10.1021/es00075a012 (primary, checked 2026-11-15); W eq7 misprints the exponent as sqrt(U0/U); implementation uses 61<=theta<=90deg (primary: about 45\u201390deg, Durham\u2013Lundgren below 60deg); primary validity .003<=St<=.2, 1.25<=R<=6.25 (Laktionov data range; W states .02\u2013.2 and .5\u20132)",
+    "verification_anchor_and_limit": "theta=90,R=1,St=.1 gives .7; R=2 primary-equation arithmetic point; at 90deg A falls as R rises; 60\u201361deg interval is uncovered"
   },
   {
     "id": "aspiration.grinshpun_calm",

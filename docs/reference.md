@@ -9,7 +9,7 @@ Generated from the current binary `describe`. Schemas are in schemas/. Registry 
 |particle.stokes|B slide5; Stokes drag; settling Rep<.1|
 |aspiration.belyaev_levin|B slide10; W eq5; St=tau*U0/d; 0.05<=St<=2.03, .17<=R<=5.6|
 |aspiration.durham_lundgren|W eq6; 0<theta<=60deg, .02<=St<=4, .5<=R<=2|
-|aspiration.hangal_willeke|W eq7 (prints exponent sqrt(U0/U)), Hangal & Willeke (1990a); implemented exponent sqrt(U/U0) is a declared source conflict (W_SOURCE_CONFLICT), see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2|
+|aspiration.hangal_willeke|Hangal & Willeke (1990a) eq 17–18, https://doi.org/10.1021/es00075a012 (primary, checked 2026-11-15); W eq7 misprints the exponent as sqrt(U0/U); implementation uses 61<=theta<=90deg (primary: about 45–90deg, Durham–Lundgren below 60deg); primary validity .003<=St<=.2, 1.25<=R<=6.25 (Laktionov data range; W states .02–.2 and .5–2)|
 |aspiration.grinshpun_calm|B slide20, W eq8; phi angle to upward-facing vertical 0–90deg, .001<=q<=1, .001<=s<=100|
 |aspiration.grinshpun_slow|W eq9–10; automatic switch at U0<=1.5m/s; extension of blend below.5m/s is an implementation policy, reported; underlying correlation ranges still checked|
 |transmission.liu|B slide13, W eq12; 1<=R<=10, .01<=St<=100|

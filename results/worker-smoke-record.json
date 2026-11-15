@@ -1,7 +1,7 @@
 {
   "task_id": 0,
   "spec_digest": "ba92a445c43e5e74907f64384f8724eaaf9dc7743d4c6807323dbc232e0e4792",
-  "elapsed_seconds": 0.014543253,
+  "elapsed_seconds": 0.014555301,
   "work": {
     "cold_rechecks": 1,
     "evaluations": 12
@@ -247,7 +247,7 @@
       },
       "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
       "cold_recheck_evaluations": 1,
-      "elapsed_seconds": 0.014474012,
+      "elapsed_seconds": 0.014489544,
       "engine": "fcmaes-core DE ask/tell",
       "evaluations": 12,
       "failed_evaluations": 0,
