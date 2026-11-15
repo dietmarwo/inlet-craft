@@ -221,7 +221,7 @@
   },
   "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
   "cold_recheck_evaluations": 1,
-  "elapsed_seconds": 0.027023541,
+  "elapsed_seconds": 0.029698897,
   "engine": "fcmaes-core DE ask/tell",
   "evaluations": 64,
   "failed_evaluations": 0,

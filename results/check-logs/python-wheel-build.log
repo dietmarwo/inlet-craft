@@ -6,5 +6,5 @@
    Compiling inlet-craft v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft)
    Compiling pyo3 v0.29.0
    Compiling inlet-craft-py v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft-py)
-    Finished `release` profile [optimized] target(s) in 21.34s
+    Finished `release` profile [optimized] target(s) in 19.20s
 📦 Built wheel for CPython 3.13 to /home/claude/inlet-craft/target/wheels/inlet_craft-0.1.0-cp313-cp313-manylinux_2_35_x86_64.whl

@@ -26,8 +26,8 @@ add('isokinetic','aspiration.belyaev_levin',[.1,1],1,'analytic_identity')
 st=s*m.exp(m.mpf('.022')*30);ratio=m.mpf('1.5');kk=2+m.mpf('.617')/ratio
 add('durham-30','aspiration.durham_lundgren',[s,ratio,30],1+(ratio*m.cos(m.pi/6)-1)*(1-1/(1+kk*st))/(1-1/(1+m.mpf('2.617')*st))*(1-1/(1+m.mpf('.55')*st*m.exp(m.mpf('.25')*st))))
 add('hangal-90','aspiration.hangal_willeke',[.1,1,90],m.mpf('.7'))
-# Exponent sqrt(1/R): pins the R dependence that R=1 cannot (see registry correction 2026-11-15).
-add('hangal-90-r2','aspiration.hangal_willeke',[.1,2,90],1+(2*m.cos(m.pi/2)-1)*3*m.mpf('.1')**(1/m.sqrt(2)))
+# Exponent R^-0.5 (primary eq 17-18): pins the R dependence that R=1 cannot.
+add('hangal-90-r2','aspiration.hangal_willeke',[.1,2,90],1+(2*m.cos(m.pi/2)-1)*3*m.mpf('.1')**(1/m.sqrt(2)),source='Hangal & Willeke 1990a eq 18 (primary source), arithmetic')
 q=m.mpf('.01');s=m.mpf('.1')
 add('calm-horizontal','aspiration.grinshpun_calm',[s,q,90],m.exp(-4*s**(1+m.sqrt(q))/(1+2*s)))
 add('liu-r2','transmission.facing',[s,2],(1+1/(1+m.mpf('2.66')*s**(-m.mpf(2)/3)))/(1+1/(1+m.mpf('.418')/s)))

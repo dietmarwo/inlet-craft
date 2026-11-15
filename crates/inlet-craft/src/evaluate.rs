@@ -221,16 +221,10 @@ fn probe(
             moving = c::aspiration_oblique(st, ratio, theta);
         } else if (61. - 1e-10..=90. + 1e-10).contains(&theta) {
             name = "aspiration.hangal_willeke";
-            range(w, path, name, "Stk_freestream", st, 0.02, 0.2);
-            range(w, path, name, "U0/U", ratio, 0.5, 2.);
+            // Primary validity (Hangal & Willeke 1990a, Laktionov data range).
+            range(w, path, name, "Stk_freestream", st, 0.003, 0.2);
+            range(w, path, name, "U0/U", ratio, 1.25, 6.25);
             moving = c::aspiration_right_angle(st, ratio, theta);
-            let mut d = Diagnostic::new(
-                "W_SOURCE_CONFLICT",
-                path,
-                "Stokes exponent sqrt(U/U0) deliberately differs from the printed W eq 7 sqrt(U0/U); see formula registry",
-            );
-            d.formula = Some(name.into());
-            w.push(d);
         } else {
             return Err(Diagnostic::new(
                 "E_ANGLE_UNCOVERED",
