@@ -48,7 +48,8 @@ pub fn transmission_oblique(st: f64, r: f64, angle_deg: f64, upward: bool) -> f6
     };
     let alpha = (12. * ((1. - angle_deg / 90.) - (-angle_deg).exp())).to_radians();
     let phi = theta + if upward { alpha } else { -alpha };
-    let iw = (st * r).sqrt() * phi.sin() * (phi / 2.).sin();
+    // W eq 17/18 as printed: Stk*sqrt(U0/U), not sqrt(Stk*U0/U) (0.1.0 error).
+    let iw = st * r.sqrt() * phi.sin() * (phi / 2.).sin();
     (-75. * (iv + iw).powi(2)).exp()
 }
 pub fn diffusion_laminar(xi: f64) -> f64 {
