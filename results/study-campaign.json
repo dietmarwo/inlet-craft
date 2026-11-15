@@ -9,104 +9,102 @@
       "status": "feasible_design_found",
       "evaluations": 512,
       "failed_evaluations": 0,
-      "elapsed_seconds": 8.11679572,
-      "worst_pm10_bias": 0.14433176034929707,
-      "resolution_at_reference_m": 11.806262180018228,
+      "elapsed_seconds": 6.816920845,
+      "worst_pm10_bias": 0.08782121932808917,
+      "resolution_at_reference_m": 12.773105308270976,
       "flow_l_min": 3.0,
-      "warning_count": 14,
-      "nonphysical_pm10_excess": 0.00052514545754413,
+      "warning_count": 13,
+      "nonphysical_pm10_excess": 0.0004472524558864464,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005624384179404637,
+        "/elements/0/inner_diameter_m": 0.005361972888042894,
         "/flow/total_m3_s": 5e-05,
-        "/elements/1/length_m": 0.03,
-        "/elements/2/radius_m": 0.01010874870201782,
-        "/elements/3/volume_m3": 1e-06
+        "/elements/1/length_m": 0.12990195583235983,
+        "/elements/2/radius_m": 0.02592347839560735,
+        "/elements/3/volume_m3": 1.8456898337613086e-05
       },
       "violations": [],
-      "pareto_points": 9
+      "pareto_points": 29
     },
     {
       "study": "full-distribution-seed7",
       "status": "feasible_design_found",
       "evaluations": 512,
       "failed_evaluations": 0,
-      "elapsed_seconds": 8.174349007,
-      "worst_pm10_bias": 0.14462988168647994,
-      "resolution_at_reference_m": 12.113997136494808,
+      "elapsed_seconds": 8.533238261,
+      "worst_pm10_bias": 0.0881684808536134,
+      "resolution_at_reference_m": 11.806274914928053,
       "flow_l_min": 3.0,
       "warning_count": 13,
-      "nonphysical_pm10_excess": 0.0005289582845840787,
+      "nonphysical_pm10_excess": 0.00044935782554172304,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005637042125192835,
+        "/elements/0/inner_diameter_m": 0.00536927558131684,
         "/flow/total_m3_s": 5e-05,
-        "/elements/1/length_m": 0.04183456495400455,
-        "/elements/2/radius_m": 0.02892457581805238,
-        "/elements/3/volume_m3": 1.0339312542288879e-05
+        "/elements/1/length_m": 0.1364398169736918,
+        "/elements/2/radius_m": 0.022205062296158838,
+        "/elements/3/volume_m3": 1.0023863482160855e-06
       },
       "violations": [],
-      "pareto_points": 8
+      "pareto_points": 87
     },
     {
       "study": "full-distribution-seed123",
       "status": "feasible_design_found",
       "evaluations": 512,
       "failed_evaluations": 0,
-      "elapsed_seconds": 8.558116968,
-      "worst_pm10_bias": 0.14430163061155354,
-      "resolution_at_reference_m": 11.977048133669467,
-      "flow_l_min": 2.997820657749649,
+      "elapsed_seconds": 8.812325596,
+      "worst_pm10_bias": 0.08669272025047348,
+      "resolution_at_reference_m": 13.489337088091666,
+      "flow_l_min": 3.0,
       "warning_count": 14,
-      "nonphysical_pm10_excess": 0.0005246935035514302,
+      "nonphysical_pm10_excess": 0.0004240994498441659,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005621133255414601,
-        "/flow/total_m3_s": 4.9963677629160814e-05,
+        "/elements/0/inner_diameter_m": 0.005280589453430766,
+        "/flow/total_m3_s": 5e-05,
         "/elements/1/length_m": 0.03,
         "/elements/2/radius_m": 0.01,
-        "/elements/3/volume_m3": 7.753042379468983e-06
+        "/elements/3/volume_m3": 2.4858819617367192e-05
       },
       "violations": [],
-      "pareto_points": 9
+      "pareto_points": 15
     },
     {
       "study": "mode-full-distribution",
-      "status": "no_feasible_design_found",
+      "status": "feasible_design_found",
       "evaluations": 256,
       "failed_evaluations": 0,
-      "elapsed_seconds": 4.099451679,
-      "worst_pm10_bias": 0.15233992394565588,
-      "resolution_at_reference_m": 14.55001426524802,
-      "flow_l_min": 2.855215829024651,
+      "elapsed_seconds": 4.25704132,
+      "worst_pm10_bias": 0.10175444691655411,
+      "resolution_at_reference_m": 13.066504517692428,
+      "flow_l_min": 2.8339741621918066,
       "warning_count": 13,
-      "nonphysical_pm10_excess": 0.0005741060850507115,
+      "nonphysical_pm10_excess": 0.0004282725057102759,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005660884621037808,
-        "/flow/total_m3_s": 4.758693048374418e-05,
-        "/elements/1/length_m": 0.15818869631633933,
-        "/elements/2/radius_m": 0.03837159595414663,
-        "/elements/3/volume_m3": 3.129138343602823e-05
+        "/elements/0/inner_diameter_m": 0.00517096376608878,
+        "/flow/total_m3_s": 4.723290270319678e-05,
+        "/elements/1/length_m": 0.1714609386891034,
+        "/elements/2/radius_m": 0.04458383134893979,
+        "/elements/3/volume_m3": 2.0061373309052273e-05
       },
-      "violations": [
-        "PM10 relative deviation: 1.523399e-1 > 1.500000e-1"
-      ],
-      "pareto_points": 0
+      "violations": [],
+      "pareto_points": 14
     },
     {
       "study": "strict-nonphysical-guard",
       "status": "no_feasible_design_found",
       "evaluations": 512,
       "failed_evaluations": 0,
-      "elapsed_seconds": 8.616710331,
-      "worst_pm10_bias": 0.14593693077676706,
-      "resolution_at_reference_m": 11.808266321595875,
+      "elapsed_seconds": 7.498791226,
+      "worst_pm10_bias": 0.09038998217529448,
+      "resolution_at_reference_m": 13.190279172667601,
       "flow_l_min": 3.0,
-      "warning_count": 14,
-      "nonphysical_pm10_excess": 0.0005456014212231318,
+      "warning_count": 13,
+      "nonphysical_pm10_excess": 0.0004666075531091214,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005691470926353472,
+        "/elements/0/inner_diameter_m": 0.005428806537554799,
         "/flow/total_m3_s": 5e-05,
-        "/elements/1/length_m": 0.0833509361378939,
-        "/elements/2/radius_m": 0.01,
-        "/elements/3/volume_m3": 1.3225619513309904e-06
+        "/elements/1/length_m": 0.19254668630024585,
+        "/elements/2/radius_m": 0.022309510443005318,
+        "/elements/3/volume_m3": 2.2335452229920506e-05
       },
       "violations": [
         "nonphysical extrapolation cannot be accepted by search without constraints.max_nonphysical_pm10_excess"
@@ -118,50 +116,50 @@
       "status": "feasible_design_found",
       "evaluations": 512,
       "failed_evaluations": 0,
-      "elapsed_seconds": 0.273826356,
-      "worst_pm10_bias": 0.09922800078170313,
-      "resolution_at_reference_m": 13.565539781186061,
+      "elapsed_seconds": 0.226785634,
+      "worst_pm10_bias": 0.05879690902350343,
+      "resolution_at_reference_m": 14.434279888337214,
       "flow_l_min": 3.0,
-      "warning_count": 10,
+      "warning_count": 9,
       "nonphysical_pm10_excess": 0.0,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005152025782965091,
+        "/elements/0/inner_diameter_m": 0.004836747876646257,
         "/flow/total_m3_s": 5e-05,
-        "/elements/1/length_m": 0.11330814370219125,
-        "/elements/2/radius_m": 0.01,
-        "/elements/3/volume_m3": 2.5477324560861748e-05
+        "/elements/1/length_m": 0.22731106566310177,
+        "/elements/2/radius_m": 0.013501354029648317,
+        "/elements/3/volume_m3": 3.205177405413892e-05
       },
       "violations": [],
-      "pareto_points": 20
+      "pareto_points": 8
     },
     {
       "study": "mode-coarse-monodisperse-sensitivity",
       "status": "feasible_design_found",
       "evaluations": 256,
       "failed_evaluations": 0,
-      "elapsed_seconds": 0.125377046,
-      "worst_pm10_bias": 0.10044386268293748,
-      "resolution_at_reference_m": 12.19064733674406,
-      "flow_l_min": 2.9390911017419357,
+      "elapsed_seconds": 0.109512034,
+      "worst_pm10_bias": 0.06199157031986502,
+      "resolution_at_reference_m": 11.820530611281965,
+      "flow_l_min": 2.887823544333125,
       "warning_count": 9,
       "nonphysical_pm10_excess": 0.0,
       "design": {
-        "/elements/0/inner_diameter_m": 0.005004288466634237,
-        "/flow/total_m3_s": 4.898485169569893e-05,
-        "/elements/1/length_m": 0.05829197082969163,
-        "/elements/2/radius_m": 0.024078020112226,
-        "/elements/3/volume_m3": 1.130897795009906e-05
+        "/elements/0/inner_diameter_m": 0.004734027030261299,
+        "/flow/total_m3_s": 4.813039240555208e-05,
+        "/elements/1/length_m": 0.17176971698347054,
+        "/elements/2/radius_m": 0.03162631349562346,
+        "/elements/3/volume_m3": 2.406120782065041e-06
       },
       "violations": [],
-      "pareto_points": 25
+      "pareto_points": 11
     },
     {
       "study": "deliberately-impossible-zero-resolution",
       "status": "no_feasible_design_found",
       "evaluations": 64,
       "failed_evaluations": 0,
-      "elapsed_seconds": 0.026213703,
-      "worst_pm10_bias": 0.10953781059807488,
+      "elapsed_seconds": 0.027023541,
+      "worst_pm10_bias": 0.11044664717054475,
       "resolution_at_reference_m": 15.18254190822419,
       "flow_l_min": 2.8712362480490525,
       "warning_count": 9,

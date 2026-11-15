@@ -7,13 +7,13 @@ Date 2026-11-15. Source defaults and random seeds are retained in examples/ and 
 | Speed, km/h | Crosswind, m/s | PM2.5 relative bias | PM10 relative bias | Mean position offset, m | Resolution, m |
 |---:|---:|---:|---:|---:|---:|
 | 10.0 | 0.0 | -0.06% | -19.32% | 6.02 | 7.86 |
-| 10.0 | 2.0 | -0.35% | -27.30% | 6.02 | 7.86 |
+| 10.0 | 2.0 | -0.07% | -20.49% | 6.02 | 7.86 |
 | 15.0 | 0.0 | +0.26% | -16.59% | 9.03 | 11.79 |
-| 15.0 | 2.0 | -0.02% | -17.71% | 9.03 | 11.79 |
+| 15.0 | 2.0 | +0.05% | -15.84% | 9.03 | 11.79 |
 | 20.0 | 0.0 | +0.69% | -13.25% | 12.05 | 15.73 |
-| 20.0 | 2.0 | +0.19% | -11.39% | 12.05 | 15.73 |
+| 20.0 | 2.0 | +0.20% | -10.93% | 12.05 | 15.73 |
 | 25.0 | 0.0 | +1.20% | -9.23% | 15.06 | 19.66 |
-| 25.0 | 2.0 | +0.38% | -5.37% | 15.06 | 19.66 |
+| 25.0 | 2.0 | +0.38% | -5.29% | 15.06 | 19.66 |
 
 ## Budgeted search
 
@@ -21,22 +21,22 @@ Goal: PM10 within 15% at every declared speed and crosswind, resolution below 15
 
 | Study | Budget used | Status | Worst PM10 bias | Resolution at 18 km/h, m | Flow, L/min | Nonphysical PM10 excess | Pareto points |
 |---|---:|---|---:|---:|---:|---:|---:|
-| full-distribution-seed42 | 512 | feasible_design_found | 0.14433 | 11.806 | 3.000 | 5.25e-04 | 9 |
-| full-distribution-seed7 | 512 | feasible_design_found | 0.14463 | 12.114 | 3.000 | 5.29e-04 | 8 |
-| full-distribution-seed123 | 512 | feasible_design_found | 0.14430 | 11.977 | 2.998 | 5.25e-04 | 9 |
-| mode-full-distribution | 256 | no_feasible_design_found | 0.15234 | 14.550 | 2.855 | 5.74e-04 | 0 |
-| strict-nonphysical-guard | 512 | no_feasible_design_found | 0.14594 | 11.808 | 3.000 | 5.46e-04 | 0 |
-| coarse-monodisperse-sensitivity | 512 | feasible_design_found | 0.09923 | 13.566 | 3.000 | 0.00e+00 | 20 |
-| mode-coarse-monodisperse-sensitivity | 256 | feasible_design_found | 0.10044 | 12.191 | 2.939 | 0.00e+00 | 25 |
-| deliberately-impossible-zero-resolution | 64 | no_feasible_design_found | 0.10954 | 15.183 | 2.871 | 0.00e+00 | 0 |
+| full-distribution-seed42 | 512 | feasible_design_found | 0.08782 | 12.773 | 3.000 | 4.47e-04 | 29 |
+| full-distribution-seed7 | 512 | feasible_design_found | 0.08817 | 11.806 | 3.000 | 4.49e-04 | 87 |
+| full-distribution-seed123 | 512 | feasible_design_found | 0.08669 | 13.489 | 3.000 | 4.24e-04 | 15 |
+| mode-full-distribution | 256 | feasible_design_found | 0.10175 | 13.067 | 2.834 | 4.28e-04 | 14 |
+| strict-nonphysical-guard | 512 | no_feasible_design_found | 0.09039 | 13.190 | 3.000 | 4.67e-04 | 0 |
+| coarse-monodisperse-sensitivity | 512 | feasible_design_found | 0.05880 | 14.434 | 3.000 | 0.00e+00 | 8 |
+| mode-coarse-monodisperse-sensitivity | 256 | feasible_design_found | 0.06199 | 11.821 | 2.888 | 0.00e+00 | 11 |
+| deliberately-impossible-zero-resolution | 64 | no_feasible_design_found | 0.11045 | 15.183 | 2.871 | 0.00e+00 | 0 |
 
 ### Best full-distribution designs
 
 | Study | Inlet, mm | Flow, L/min | Tube, cm | Bend radius, cm | Buffer, mL |
 |---|---:|---:|---:|---:|---:|
-| full-distribution-seed42 | 5.62 | 3 | 3 | 1.01 | 1 |
-| full-distribution-seed7 | 5.64 | 3 | 4.18 | 2.89 | 10.3 |
-| full-distribution-seed123 | 5.62 | 3 | 3 | 1 | 7.75 |
+| full-distribution-seed42 | 5.36 | 3 | 13 | 2.59 | 18.5 |
+| full-distribution-seed7 | 5.37 | 3 | 13.6 | 2.22 | 1 |
+| full-distribution-seed123 | 5.28 | 3 | 3 | 1 | 24.9 |
 
 All full-distribution seeds put flow at its upper bound. Active bounds mark where the declared requirements push; widening a bound, for example a higher flow limit, is a design decision for the owner, not something the search should do silently.
 
@@ -51,7 +51,7 @@ The coarse monodisperse sensitivity tests a different declared aerosol; it demon
 - **full-distribution-seed42**: no declared constraint violation; scientific coverage warnings remain.
 - **full-distribution-seed7**: no declared constraint violation; scientific coverage warnings remain.
 - **full-distribution-seed123**: no declared constraint violation; scientific coverage warnings remain.
-- **mode-full-distribution**: PM10 relative deviation: 1.523399e-1 > 1.500000e-1
+- **mode-full-distribution**: no declared constraint violation; scientific coverage warnings remain.
 - **strict-nonphysical-guard**: nonphysical extrapolation cannot be accepted by search without constraints.max_nonphysical_pm10_excess
 - **coarse-monodisperse-sensitivity**: no declared constraint violation; scientific coverage warnings remain.
 - **mode-coarse-monodisperse-sensitivity**: no declared constraint violation; scientific coverage warnings remain.

@@ -1,6 +1,6 @@
 # inlet-craft implementation and verification log
 
-> **Note, 2026-11-15:** this is the delivery log of the 0.1.0 source candidate. A later review changed the right-angle aspiration exponent and the search's handling of extrapolated efficiencies; the full-distribution bicycle studies now find accepted designs. See CHANGELOG.md and docs/bicycle-study.md for current results. The figures below are the original record.
+> **Note, 2026-11-15:** this is the delivery log of the 0.1.0 source candidate. A later review changed the right-angle aspiration exponent (a declared conflict with the printed source), corrected the oblique-probe wall-impaction term to the printed equation, and changed the search's handling of extrapolated efficiencies; the full-distribution bicycle studies now find accepted designs. See CHANGELOG.md and docs/bicycle-study.md for current results. The figures below are the original record.
 
 Date: 2026-11-14 (user timezone: America/Argentina/Salta).
 Deliverable: complete new Rust project, source candidate 0.1.0, based on both supplied documents.

@@ -224,6 +224,13 @@ fn probe(
             range(w, path, name, "Stk_freestream", st, 0.02, 0.2);
             range(w, path, name, "U0/U", ratio, 0.5, 2.);
             moving = c::aspiration_right_angle(st, ratio, theta);
+            let mut d = Diagnostic::new(
+                "W_SOURCE_CONFLICT",
+                path,
+                "Stokes exponent sqrt(U/U0) deliberately differs from the printed W eq 7 sqrt(U0/U); see formula registry",
+            );
+            d.formula = Some(name.into());
+            w.push(d);
         } else {
             return Err(Diagnostic::new(
                 "E_ANGLE_UNCOVERED",

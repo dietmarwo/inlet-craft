@@ -440,31 +440,31 @@
       "mean_position_offset_m": 6.023311647397974,
       "pm": [
         {
-          "efficiency": 0.9965218526238865,
+          "efficiency": 0.9992519088188682,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 3.959988902367433e-09
+          "sampled_mass_kg_m3": 3.970837628069234e-09
         },
         {
-          "efficiency": 0.7269885326544444,
+          "efficiency": 0.7950719724770077,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 1.2354718148678375e-08
+          "sampled_mass_kg_m3": 1.3511753881455325e-08
         }
       ],
       "sizes": [
         {
           "aerodynamic_diameter_m": 1.0000000000000002e-06,
           "aspiration_efficiency": 1.0001623620171707,
-          "bypass_particle_flux_fraction": 0.8549336824872829,
+          "bypass_particle_flux_fraction": 0.8583769485013744,
           "diffusion_coefficient_m2_s": 2.7200811667701047e-11,
           "elements": [
             {
-              "efficiency": 0.9959765407164182,
+              "efficiency": 0.9999878602418157,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -475,7 +475,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9959765407164182,
+                  "efficiency": 0.9999878602418157,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "warning"
                 }
@@ -538,23 +538,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.9952662194264061,
+          "overall_efficiency": 0.9992746781156862,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
-          "sensor_particle_flux_fraction": 0.14033253693912326,
+          "sensor_particle_flux_fraction": 0.14089772961431174,
           "settling_re": 2.291334870713181e-06,
           "settling_velocity_m_s": 3.450865082953443e-05,
           "slip_correction": 1.14865177525374,
-          "transport_efficiency": 0.9951046522277746
+          "transport_efficiency": 0.9991124602012675
         },
         {
           "aerodynamic_diameter_m": 2.5000000000000006e-06,
           "aspiration_efficiency": 1.0009308123834797,
-          "bypass_particle_flux_fraction": 0.8344228535880545,
+          "bypass_particle_flux_fraction": 0.8536979042037482,
           "diffusion_coefficient_m2_s": 1.0035356427958221e-11,
           "elements": [
             {
-              "efficiency": 0.9770274668500916,
+              "efficiency": 0.9995966639849484,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -565,7 +565,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9770274668500916,
+                  "efficiency": 0.9995966639849484,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "warning"
                 }
@@ -628,23 +628,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.9713886537695628,
+          "overall_efficiency": 0.9938275951149572,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
-          "sensor_particle_flux_fraction": 0.13696580018150833,
+          "sensor_particle_flux_fraction": 0.14012969091120894,
           "settling_re": 3.302170837469964e-05,
           "settling_velocity_m_s": 0.0001989293871729087,
           "slip_correction": 1.0594472434407038,
-          "transport_efficiency": 0.9704853140212867
+          "transport_efficiency": 0.9929033883454863
         },
         {
           "aerodynamic_diameter_m": 5.000000000000001e-06,
           "aspiration_efficiency": 1.0035378605914251,
-          "bypass_particle_flux_fraction": 0.7329927757029453,
+          "bypass_particle_flux_fraction": 0.7974285209276141,
           "diffusion_coefficient_m2_s": 4.876903323669635e-12,
           "elements": [
             {
-              "efficiency": 0.9136077727792019,
+              "efficiency": 0.9939209759013226,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -655,7 +655,7 @@
                   "validity": "within_declared_range"
                 },
                 {
-                  "efficiency": 0.9136077727792019,
+                  "efficiency": 0.9939209759013226,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -718,23 +718,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.8533094012839876,
+          "overall_efficiency": 0.928321910276617,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
-          "sensor_particle_flux_fraction": 0.12031662558104224,
+          "sensor_particle_flux_fraction": 0.130893389349003,
           "settling_re": 0.0002567620679654729,
           "settling_velocity_m_s": 0.0007733930699472002,
           "slip_correction": 1.0297236216531347,
-          "transport_efficiency": 0.8503011543392076
+          "transport_efficiency": 0.9250492151133388
         },
         {
           "aerodynamic_diameter_m": 1.0000000000000003e-05,
           "aspiration_efficiency": 1.0125157368370516,
-          "bypass_particle_flux_fraction": 0.21484544412277565,
+          "bypass_particle_flux_fraction": 0.2790394042944083,
           "diffusion_coefficient_m2_s": 2.4032579394166235e-12,
           "elements": [
             {
-              "efficiency": 0.7003329020891829,
+              "efficiency": 0.9095863149653978,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -745,7 +745,7 @@
                   "validity": "within_declared_range"
                 },
                 {
-                  "efficiency": 0.7003329020891829,
+                  "efficiency": 0.9095863149653978,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -808,14 +808,14 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.2501111107366422,
+          "overall_efficiency": 0.32484214702492237,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
-          "sensor_particle_flux_fraction": 0.03526566661386655,
+          "sensor_particle_flux_fraction": 0.04580274273051405,
           "settling_re": 0.002024450147729371,
           "settling_velocity_m_s": 0.0030489233225018705,
           "slip_correction": 1.0148618108265672,
-          "transport_efficiency": 0.24701947993218562
+          "transport_efficiency": 0.32082676368041535
         }
       ],
       "time_response": {
@@ -1250,31 +1250,31 @@
       "mean_position_offset_m": 9.034967471096962,
       "pm": [
         {
-          "efficiency": 0.9998460942394287,
+          "efficiency": 1.000530386491658,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 3.973198808273334e-09
+          "sampled_mass_kg_m3": 3.9759180559422826e-09
         },
         {
-          "efficiency": 0.822915712413607,
+          "efficiency": 0.8416013968412555,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 1.3984940931415706e-08
+          "sampled_mass_kg_m3": 1.430249252150176e-08
         }
       ],
       "sizes": [
         {
           "aerodynamic_diameter_m": 1.0000000000000002e-06,
           "aspiration_efficiency": 1.0020178274015943,
-          "bypass_particle_flux_fraction": 0.8591150576451295,
+          "bypass_particle_flux_fraction": 0.8599763007990014,
           "diffusion_coefficient_m2_s": 2.7200811667701047e-11,
           "elements": [
             {
-              "efficiency": 0.9989944403936843,
+              "efficiency": 0.9999959094226447,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -1285,7 +1285,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9989944403936843,
+                  "efficiency": 0.9999959094226447,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "warning"
                 }
@@ -1348,23 +1348,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.0001339437079506,
+          "overall_efficiency": 1.0011365550628655,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
-          "sensor_particle_flux_fraction": 0.14101888606282104,
+          "sensor_particle_flux_fraction": 0.14116025426386403,
           "settling_re": 2.291334870713181e-06,
           "settling_velocity_m_s": 3.450865082953443e-05,
           "slip_correction": 1.14865177525374,
-          "transport_efficiency": 0.9981199100034689
+          "transport_efficiency": 0.9991205023357578
         },
         {
           "aerodynamic_diameter_m": 2.5000000000000006e-06,
           "aspiration_efficiency": 1.0116062868646973,
-          "bypass_particle_flux_fraction": 0.8581597649506316,
+          "bypass_particle_flux_fraction": 0.8630338757288248,
           "diffusion_coefficient_m2_s": 1.0035356427958221e-11,
           "elements": [
             {
-              "efficiency": 0.9942171959872711,
+              "efficiency": 0.9998640754481201,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -1375,7 +1375,7 @@
                   "validity": "within_declared_range"
                 },
                 {
-                  "efficiency": 0.9942171959872711,
+                  "efficiency": 0.9998640754481201,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -1438,23 +1438,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.9990218451113291,
+          "overall_efficiency": 1.0046960136540453,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
-          "sensor_particle_flux_fraction": 0.14086208016069737,
+          "sensor_particle_flux_fraction": 0.14166213792522037,
           "settling_re": 3.302170837469964e-05,
           "settling_velocity_m_s": 0.0001989293871729087,
           "slip_correction": 1.0594472434407038,
-          "transport_efficiency": 0.9875599411383933
+          "transport_efficiency": 0.99316900922782
         },
         {
           "aerodynamic_diameter_m": 5.000000000000001e-06,
           "aspiration_efficiency": 1.0444482754792324,
-          "bypass_particle_flux_fraction": 0.8163959193353363,
+          "bypass_particle_flux_fraction": 0.8332988387959819,
           "diffusion_coefficient_m2_s": 4.876903323669635e-12,
           "elements": [
             {
-              "efficiency": 0.9777047866998474,
+              "efficiency": 0.9979474959962507,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -1465,7 +1465,7 @@
                   "validity": "within_declared_range"
                 },
                 {
-                  "efficiency": 0.9777047866998474,
+                  "efficiency": 0.9979474959962507,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -1528,23 +1528,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.9504027000411366,
+          "overall_efficiency": 0.9700801382956715,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
-          "sensor_particle_flux_fraction": 0.13400678070580024,
+          "sensor_particle_flux_fraction": 0.13678129949968967,
           "settling_re": 0.0002567620679654729,
           "settling_velocity_m_s": 0.0007733930699472002,
           "slip_correction": 1.0297236216531347,
-          "transport_efficiency": 0.9099566942221776
+          "transport_efficiency": 0.9287967255731856
         },
         {
           "aerodynamic_diameter_m": 1.0000000000000003e-05,
           "aspiration_efficiency": 1.1583638278336157,
-          "bypass_particle_flux_fraction": 0.32111538170087456,
+          "bypass_particle_flux_fraction": 0.33993591157879477,
           "diffusion_coefficient_m2_s": 2.4032579394166235e-12,
           "elements": [
             {
-              "efficiency": 0.9149477324799554,
+              "efficiency": 0.9685726975771268,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -1555,7 +1555,7 @@
                   "validity": "within_declared_range"
                 },
                 {
-                  "efficiency": 0.9149477324799554,
+                  "efficiency": 0.9685726975771268,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -1618,14 +1618,14 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.37382465855747915,
+          "overall_efficiency": 0.395734472152264,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
-          "sensor_particle_flux_fraction": 0.05270927685660456,
+          "sensor_particle_flux_fraction": 0.055798560573469214,
           "settling_re": 0.002024450147729371,
           "settling_velocity_m_s": 0.0030489233225018705,
           "slip_correction": 1.0148618108265672,
-          "transport_efficiency": 0.3227178280045312
+          "transport_efficiency": 0.34163227704750654
         }
       ],
       "time_response": {
@@ -2060,31 +2060,31 @@
       "mean_position_offset_m": 12.046623294795948,
       "pm": [
         {
-          "efficiency": 1.0018704745353237,
+          "efficiency": 1.0020311467098864,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 3.981243311747902e-09
+          "sampled_mass_kg_m3": 3.981881792506263e-09
         },
         {
-          "efficiency": 0.8861298030058116,
+          "efficiency": 0.8906534410470772,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 1.5059225101263727e-08
+          "sampled_mass_kg_m3": 1.5136101517460295e-08
         }
       ],
       "sizes": [
         {
           "aerodynamic_diameter_m": 1.0000000000000002e-06,
           "aspiration_efficiency": 1.0042068037237617,
-          "bypass_particle_flux_fraction": 0.861655486602579,
+          "bypass_particle_flux_fraction": 0.861857448534867,
           "diffusion_coefficient_m2_s": 2.7200811667701047e-11,
           "elements": [
             {
-              "efficiency": 0.9997644432248911,
+              "efficiency": 0.999998776275543,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -2095,7 +2095,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9997644432248911,
+                  "efficiency": 0.999998776275543,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "warning"
                 }
@@ -2158,23 +2158,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.003091369735249,
+          "overall_efficiency": 1.003326482578425,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
-          "sensor_particle_flux_fraction": 0.1414358831326701,
+          "sensor_particle_flux_fraction": 0.1414690340435579,
           "settling_re": 2.291334870713181e-06,
           "settling_velocity_m_s": 3.450865082953443e-05,
           "slip_correction": 1.14865177525374,
-          "transport_efficiency": 0.9988892387659829
+          "transport_efficiency": 0.9991233666789825
         },
         {
           "aerodynamic_diameter_m": 2.5000000000000006e-06,
           "aspiration_efficiency": 1.0242507527688107,
-          "bypass_particle_flux_fraction": 0.8727540122711857,
+          "bypass_particle_flux_fraction": 0.8739045279247555,
           "diffusion_coefficient_m2_s": 1.0035356427958221e-11,
           "elements": [
             {
-              "efficiency": 0.9986428656113977,
+              "efficiency": 0.9999593353532231,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -2185,7 +2185,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9986428656113977,
+                  "efficiency": 0.9999593353532231,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -2248,23 +2248,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.0160116557289705,
+          "overall_efficiency": 1.0173510220311472,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
-          "sensor_particle_flux_fraction": 0.14325764345778483,
+          "sensor_particle_flux_fraction": 0.14344649410639174,
           "settling_re": 3.302170837469964e-05,
           "settling_velocity_m_s": 0.0001989293871729087,
           "slip_correction": 1.0594472434407038,
-          "transport_efficiency": 0.9919559765833046
+          "transport_efficiency": 0.9932636312748497
         },
         {
           "aerodynamic_diameter_m": 5.000000000000001e-06,
           "aspiration_efficiency": 1.0932187533901612,
-          "bypass_particle_flux_fraction": 0.8694011762682544,
+          "bypass_particle_flux_fraction": 0.8734665545753605,
           "diffusion_coefficient_m2_s": 4.876903323669635e-12,
           "elements": [
             {
-              "efficiency": 0.9947340945406059,
+              "efficiency": 0.9993855379934916,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -2275,7 +2275,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9947340945406059,
+                  "efficiency": 0.9993855379934916,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -2338,23 +2338,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.012108470626606,
+          "overall_efficiency": 1.0168411578292904,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
-          "sensor_particle_flux_fraction": 0.14270729435835142,
+          "sensor_particle_flux_fraction": 0.14337460325392992,
           "settling_re": 0.0002567620679654729,
           "settling_velocity_m_s": 0.0007733930699472002,
           "slip_correction": 1.0297236216531347,
-          "transport_efficiency": 0.925805990327164
+          "transport_efficiency": 0.9301351213341176
         },
         {
           "aerodynamic_diameter_m": 1.0000000000000003e-05,
           "aspiration_efficiency": 1.3305695100249042,
-          "bypass_particle_flux_fraction": 0.39483695700745075,
+          "bypass_particle_flux_fraction": 0.39930869640685135,
           "diffusion_coefficient_m2_s": 2.4032579394166235e-12,
           "elements": [
             {
-              "efficiency": 0.979400659634494,
+              "efficiency": 0.9904928951503396,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -2365,7 +2365,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.979400659634494,
+                  "efficiency": 0.9904928951503396,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -2428,14 +2428,14 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.4596472142112349,
+          "overall_efficiency": 0.4648529643851587,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
-          "sensor_particle_flux_fraction": 0.06481025720378411,
+          "sensor_particle_flux_fraction": 0.06554426797830737,
           "settling_re": 0.002024450147729371,
           "settling_velocity_m_s": 0.0030489233225018705,
           "slip_correction": 1.0148618108265672,
-          "transport_efficiency": 0.3454514858097355
+          "transport_efficiency": 0.34936390837368436
         }
       ],
       "time_response": {
@@ -2870,31 +2870,31 @@
       "mean_position_offset_m": 15.058279118278097,
       "pm": [
         {
-          "efficiency": 1.0038166503788137,
+          "efficiency": 1.0038471280145924,
           "ideal_mass_kg_m3": 3.973810400585402e-09,
           "nominal_cut_m": 2.5e-06,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 3.9889770455561305e-09
+          "sampled_mass_kg_m3": 3.989098157902173e-09
         },
         {
-          "efficiency": 0.9462658711793629,
+          "efficiency": 0.9471341297288312,
           "ideal_mass_kg_m3": 1.699437830685959e-08,
           "nominal_cut_m": 1e-05,
           "nonphysical_excess": 0.0,
           "quadrature_bins": 48,
-          "sampled_mass_kg_m3": 1.6081200193692157e-08
+          "sampled_mass_kg_m3": 1.6095955707949985e-08
         }
       ],
       "sizes": [
         {
           "aerodynamic_diameter_m": 1.0000000000000002e-06,
           "aspiration_efficiency": 1.0068591509517175,
-          "bypass_particle_flux_fraction": 0.8640963725504869,
+          "bypass_particle_flux_fraction": 0.8641346301894727,
           "diffusion_coefficient_m2_s": 2.7200811667701047e-11,
           "elements": [
             {
-              "efficiency": 0.9999554439642456,
+              "efficiency": 0.9999997167277849,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -2905,7 +2905,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9999554439642456,
+                  "efficiency": 0.9999997167277849,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "warning"
                 }
@@ -2968,23 +2968,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.0059329133300197,
+          "overall_efficiency": 1.0059774507444386,
           "physical_diameter_m": 1.0000000000000002e-06,
           "relaxation_time_s": 3.5189030738870497e-06,
-          "sensor_particle_flux_fraction": 0.14183654077953275,
+          "sensor_particle_flux_fraction": 0.14184282055496583,
           "settling_re": 2.291334870713181e-06,
           "settling_velocity_m_s": 3.450865082953443e-05,
           "slip_correction": 1.14865177525374,
-          "transport_efficiency": 0.9990800723012526
+          "transport_efficiency": 0.9991243063079424
         },
         {
           "aerodynamic_diameter_m": 2.5000000000000006e-06,
           "aspiration_efficiency": 1.0396089352642797,
-          "bypass_particle_flux_fraction": 0.8868165951954838,
+          "bypass_particle_flux_fraction": 0.8870360572331781,
           "diffusion_coefficient_m2_s": 1.0035356427958221e-11,
           "elements": [
             {
-              "efficiency": 0.9997431784813912,
+              "efficiency": 0.9999905866561016,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -2995,7 +2995,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9997431784813912,
+                  "efficiency": 0.9999905866561016,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -3058,23 +3058,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.0323825322415412,
+          "overall_efficiency": 1.0326380177336183,
           "physical_diameter_m": 2.5000000000000006e-06,
           "relaxation_time_s": 2.0285152133797852e-05,
-          "sensor_particle_flux_fraction": 0.1455659370460573,
+          "sensor_particle_flux_fraction": 0.14560196050044016,
           "settling_re": 3.302170837469964e-05,
           "settling_velocity_m_s": 0.0001989293871729087,
           "slip_correction": 1.0594472434407038,
-          "transport_efficiency": 0.9930489217843232
+          "transport_efficiency": 0.9932946733197427
         },
         {
           "aerodynamic_diameter_m": 5.000000000000001e-06,
           "aspiration_efficiency": 1.152517551797817,
-          "bypass_particle_flux_fraction": 0.9204919849179264,
+          "bypass_particle_flux_fraction": 0.9212805503068235,
           "diffusion_coefficient_m2_s": 4.876903323669635e-12,
           "elements": [
             {
-              "efficiency": 0.9990019054330669,
+              "efficiency": 0.9998577285569772,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -3085,7 +3085,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9990019054330669,
+                  "efficiency": 0.9998577285569772,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -3148,23 +3148,23 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 1.0715855470523008,
+          "overall_efficiency": 1.0725035509974663,
           "physical_diameter_m": 5.000000000000001e-06,
           "relaxation_time_s": 7.88641452429933e-05,
-          "sensor_particle_flux_fraction": 0.1510935621343744,
+          "sensor_particle_flux_fraction": 0.15122300069064273,
           "settling_re": 0.0002567620679654729,
           "settling_velocity_m_s": 0.0007733930699472002,
           "slip_correction": 1.0297236216531347,
-          "transport_efficiency": 0.92977807182262
+          "transport_efficiency": 0.9305745923994507
         },
         {
           "aerodynamic_diameter_m": 1.0000000000000003e-05,
           "aspiration_efficiency": 1.5351582987830406,
-          "bypass_particle_flux_fraction": 0.4633010715276148,
+          "bypass_particle_flux_fraction": 0.4641011669558354,
           "diffusion_coefficient_m2_s": 2.4032579394166235e-12,
           "elements": [
             {
-              "efficiency": 0.9960710167844236,
+              "efficiency": 0.9977911765588974,
               "flow_m3_s": 3.3333333333333335e-05,
               "index": 0,
               "kind": "probe",
@@ -3175,7 +3175,7 @@
                   "validity": "warning"
                 },
                 {
-                  "efficiency": 0.9960710167844236,
+                  "efficiency": 0.9977911765588974,
                   "formula": "transmission.hangal_willeke_angle",
                   "validity": "within_declared_range"
                 }
@@ -3238,14 +3238,14 @@
             }
           ],
           "nonphysical_transport_excess": 0.0,
-          "overall_efficiency": 0.5393493265746389,
+          "overall_efficiency": 0.540280753149983,
           "physical_diameter_m": 1.0000000000000003e-05,
           "relaxation_time_s": 0.000310903654408169,
-          "sensor_particle_flux_fraction": 0.07604825504702407,
+          "sensor_particle_flux_fraction": 0.0761795861941476,
           "settling_re": 0.002024450147729371,
           "settling_velocity_m_s": 0.0030489233225018705,
           "slip_correction": 1.0148618108265672,
-          "transport_efficiency": 0.351331407974145
+          "transport_efficiency": 0.3519381379615884
         }
       ],
       "time_response": {
@@ -3268,30 +3268,30 @@
     {
       "aerodynamic_diameter_m": 1.0000000000000002e-06,
       "maximum": 1.0176826874564102,
-      "minimum": 0.9952662194264061,
-      "weighted_mean": 1.0045096254298187,
-      "weighted_std": 0.006533849126960801
+      "minimum": 0.9992746781156862,
+      "weighted_mean": 1.0051709654675425,
+      "weighted_std": 0.005828194217050347
     },
     {
       "aerodynamic_diameter_m": 2.5000000000000006e-06,
       "maximum": 1.0485414982091974,
-      "minimum": 0.9713886537695628,
-      "weighted_mean": 1.0122797212519512,
-      "weighted_std": 0.02273565714921777
+      "minimum": 0.9938275951149572,
+      "weighted_mean": 1.0159932164622467,
+      "weighted_std": 0.018018155279954665
     },
     {
       "aerodynamic_diameter_m": 5.000000000000001e-06,
-      "maximum": 1.0715855470523008,
-      "minimum": 0.8533094012839876,
-      "weighted_mean": 0.9805214324044018,
-      "weighted_std": 0.06573351261423639
+      "maximum": 1.0725035509974663,
+      "minimum": 0.928321910276617,
+      "weighted_mean": 0.9930640122037786,
+      "weighted_std": 0.04942395351483427
     },
     {
       "aerodynamic_diameter_m": 1.0000000000000003e-05,
-      "maximum": 0.5393493265746389,
-      "minimum": 0.2501111107366422,
-      "weighted_mean": 0.4048523796889489,
-      "weighted_std": 0.08075270779913317
+      "maximum": 0.540280753149983,
+      "minimum": 0.32484214702492237,
+      "weighted_mean": 0.41769963301799046,
+      "weighted_std": 0.06449204297221607
     }
   ],
   "verification_status": "provisional_literature_equations; G0/G1 evidence incomplete; no on-bike validation",

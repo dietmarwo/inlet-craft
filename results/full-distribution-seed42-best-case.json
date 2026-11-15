@@ -22,26 +22,26 @@
     {
       "angle_to_heading_deg": 0.0,
       "angle_to_vertical_deg": 90.0,
-      "inner_diameter_m": 0.005624384179404637,
+      "inner_diameter_m": 0.005361972888042894,
       "kind": "probe",
-      "outer_diameter_m": 0.005905603388374868,
+      "outer_diameter_m": 0.005630071532445038,
       "upward_sampling": false
     },
     {
       "inclination_deg": 0.0,
-      "inner_diameter_m": 0.005624384179404637,
+      "inner_diameter_m": 0.005361972888042894,
       "kind": "tube",
-      "length_m": 0.03
+      "length_m": 0.12990195583235983
     },
     {
       "angle_deg": 90.0,
       "inner_diameter_m": null,
       "kind": "bend",
-      "radius_m": 0.01010874870201782
+      "radius_m": 0.02592347839560735
     },
     {
       "kind": "buffer",
-      "volume_m3": 1e-06
+      "volume_m3": 1.8456898337613086e-05
     },
     {
       "kind": "split",

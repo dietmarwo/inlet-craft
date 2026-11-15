@@ -643,3 +643,14 @@ fn bend_radius_must_exceed_tube_radius() {
         ("E_UNCOVERED", "elements[2]")
     );
 }
+
+#[test]
+fn oblique_wall_impaction_is_linear_in_stokes_as_printed() {
+    // W eq 17/18: Iw = Stk*sqrt(U0/U)*sin(.)*sin(./2). For U0/U > 1 the
+    // vena-contracta term Iv is zero, so sqrt(-ln T / 75) = Iw must double
+    // when Stk doubles. The 0.1.0 form sqrt(Stk*U0/U) grew by sqrt(2).
+    for upward in [false, true] {
+        let iw = |st: f64| (-c::transmission_oblique(st, 2., 45., upward).ln() / 75.).sqrt();
+        close(iw(0.2) / iw(0.1), 2., 1e-12);
+    }
+}

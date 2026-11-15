@@ -396,12 +396,12 @@
       "passed": true
     },
     {
-      "actual": 0.7689623809133568,
+      "actual": 0.8397520675179667,
       "error": null,
       "fixture": {
         "absolute_tolerance": 1e-13,
         "evidence_kind": "independent_equation_arithmetic",
-        "expected": 0.7689623809133568,
+        "expected": 0.8397520675179667,
         "formula": "transmission.hangal_willeke_angle",
         "id": "oblique-transmission",
         "inputs": [

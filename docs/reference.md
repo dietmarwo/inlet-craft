@@ -9,12 +9,12 @@ Generated from the current binary `describe`. Schemas are in schemas/. Registry 
 |particle.stokes|B slide5; Stokes drag; settling Rep<.1|
 |aspiration.belyaev_levin|B slide10; W eq5; St=tau*U0/d; 0.05<=St<=2.03, .17<=R<=5.6|
 |aspiration.durham_lundgren|W eq6; 0<theta<=60deg, .02<=St<=4, .5<=R<=2|
-|aspiration.hangal_willeke|W eq7, Hangal & Willeke (1990a); exponent sqrt(U/U0) corrected 2026-11-15, see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2|
+|aspiration.hangal_willeke|W eq7 (prints exponent sqrt(U0/U)), Hangal & Willeke (1990a); implemented exponent sqrt(U/U0) is a declared source conflict (W_SOURCE_CONFLICT), see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2|
 |aspiration.grinshpun_calm|B slide20, W eq8; phi angle to upward-facing vertical 0–90deg, .001<=q<=1, .001<=s<=100|
 |aspiration.grinshpun_slow|W eq9–10; automatic switch at U0<=1.5m/s; extension of blend below.5m/s is an implementation policy, reported; underlying correlation ranges still checked|
 |transmission.liu|B slide13, W eq12; 1<=R<=10, .01<=St<=100|
 |transmission.hangal_willeke|B slide14, W eq13–14; .25<=R<=1, .02<=St<=4|
-|transmission.hangal_willeke_angle|W eq15–19; .02<=St<=4,.25<=R<=4,0<theta<=90; documented downward/upward branch|
+|transmission.hangal_willeke_angle|W eq15–19 (Iw transcription corrected 2026-11-15); .02<=St<=4,.25<=R<=4,0<theta<=90; documented downward/upward branch|
 |tube.diffusion_holman|W eq21–22; laminar Re<2000|
 |tube.diffusion_friedlander|W eq21,23; turbulent Re>4000|
 |tube.settling_heyder|B slide26, W eq24–25; a>=1 gives complete deposition (analytic domain); abs(v*sin(i)/U)<<1 checked against stated .1 policy|

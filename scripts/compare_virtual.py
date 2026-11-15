@@ -72,6 +72,7 @@ def main():
                      'taper wall losses unmodeled; conical volume only',
                      'primary Brockmann contraction factor 2 differs from PLC printed Eq 32',
                      '150 L/min: 10 mm tube Re about 21000 exceeds the Lee-Gieseke fitted range 4000-15600',
+                     'orifice diameter not stated: Figure 7 labels the inlet super-isokinetic, which the transcribed 50 mm probe cannot give at these flows',
                      'possible remaining convention/source discrepancy: not tuned or resolved'],
         gate_g1='open', experimental_validation=False)
     (ROOT / 'results/plc-virtual-comparison.json').write_text(json.dumps(report, indent=2) + '\n')
@@ -87,6 +88,17 @@ def main():
                     f"{100 * r['actual_loss']:.2f}% | {r['passed']} | {main} |")
     text += ['', f"Overall anchor check: **{'passed' if report['all_passed'] else 'FAILED'}**. "
              'This comparison does not close G1.', '',
+             'The anchors are confirmed by the paper text, not only read from the graph: case 2 (40 L/min) gives '
+             '"at least 5%" for all sizes and case 3 (150 L/min) "at least 40% for all particle sizes". The flow '
+             'regimes the paper names (case 2 laminar in sections 1 to 5 and turbulent in section 6; case 3 '
+             'turbulent everywhere) match the computed Reynolds numbers. One geometry input is missing: Figure 7 '
+             'labels the inlet "super-isokinetic sampling", which a 50 mm orifice cannot give at 10 to 150 L/min '
+             'with U0 = 3 m/s. The program takes the orifice diameter as a separate input and the figure does not '
+             'state it, so the transcribed 50 mm probe is an assumption. With the printed probe equations (eq 5 to '
+             '19, vena-contracta term extrapolated), an orifice small enough to make the 10 L/min case '
+             'super-isokinetic adds under 4% loss at 0.1 to 0.3 µm and 150 L/min for orifices of 5 mm or more, and '
+             'about 10% for a near-sonic 3 mm orifice; that term also grows with particle size instead of staying '
+             'flat. This gap therefore does not explain the 40% plateau either.', '',
              'Where the computed fine-particle loss comes from: at 40 and 150 L/min the largest share is the '
              'size-independent `2e-8*Re` term of the Lee–Gieseke turbulent deposition velocity in the 10 mm tube, '
              'whose Reynolds number at 150 L/min (about 21000) lies above the fitted range. The published curve '

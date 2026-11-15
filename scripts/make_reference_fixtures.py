@@ -33,7 +33,7 @@ add('calm-horizontal','aspiration.grinshpun_calm',[s,q,90],m.exp(-4*s**(1+m.sqrt
 add('liu-r2','transmission.facing',[s,2],(1+1/(1+m.mpf('2.66')*s**(-m.mpf(2)/3)))/(1+1/(1+m.mpf('.418')/s)))
 add('hangal-rhalf','transmission.facing',[s,.5],m.exp(-75*(m.mpf('.09')*(s*(2-1))**m.mpf('.3'))**2))
 angle=m.pi/6;alpha=12*((1-m.mpf(30)/90)-m.exp(-30))*m.pi/180
-iv=m.mpf('.09')*(s*m.cos(angle)*(2-1))**m.mpf('.3');iw=m.sqrt(s*m.mpf('.5'))*m.sin(angle-alpha)*m.sin((angle-alpha)/2)
+iv=m.mpf('.09')*(s*m.cos(angle)*(2-1))**m.mpf('.3');iw=s*m.sqrt(m.mpf('.5'))*m.sin(angle-alpha)*m.sin((angle-alpha)/2)
 add('oblique-transmission','transmission.hangal_willeke_angle',[s,.5,30,0],m.exp(-75*(iv+iw)**2))
 xi=m.mpf('.001');add('holman','tube.diffusion_holman',[xi],m.exp(-xi*(m.mpf('3.66')+m.mpf('.2672')/(xi+m.mpf('.10079')*xi**(m.mpf(1)/3)))))
 add('friedlander','tube.diffusion_friedlander',[xi,8000,10000],m.exp(-xi*m.mpf('.0118')*8000**(m.mpf(7)/8)*10000**(m.mpf(1)/3)))

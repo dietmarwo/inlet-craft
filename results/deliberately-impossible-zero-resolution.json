@@ -91,11 +91,11 @@
     "distance_resolution_objective_m": 14.152714200707324,
     "feasible": false,
     "maximum_distance_resolution_m": 19.656547500856593,
-    "maximum_pm10_relative_deviation": 0.14669059871601242,
+    "maximum_pm10_relative_deviation": 0.0725035509974663,
     "nonphysical_pm10_excess": 0.0,
     "normalized_violation": 14152714200707.324,
     "objectives": [
-      0.14669059871601242,
+      0.0725035509974663,
       14.152714200707324,
       2.0
     ],
@@ -198,11 +198,11 @@
     "distance_resolution_objective_m": 15.18254190822419,
     "feasible": false,
     "maximum_distance_resolution_m": 21.086863761287532,
-    "maximum_pm10_relative_deviation": 0.10953781059807488,
+    "maximum_pm10_relative_deviation": 0.11044664717054475,
     "nonphysical_pm10_excess": 0.0,
     "normalized_violation": 15182541908224.19,
     "objectives": [
-      0.10953781059807488,
+      0.11044664717054475,
       15.18254190822419,
       2.8712362480490525
     ],
@@ -221,7 +221,7 @@
   },
   "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
   "cold_recheck_evaluations": 1,
-  "elapsed_seconds": 0.026213703,
+  "elapsed_seconds": 0.027023541,
   "engine": "fcmaes-core DE ask/tell",
   "evaluations": 64,
   "failed_evaluations": 0,

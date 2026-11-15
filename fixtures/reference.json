@@ -289,7 +289,7 @@
       30.0,
       0.0
     ],
-    "expected": 0.7689623809133568,
+    "expected": 0.8397520675179667,
     "absolute_tolerance": 1e-13,
     "relative_tolerance": 1e-11,
     "evidence_kind": "independent_equation_arithmetic",

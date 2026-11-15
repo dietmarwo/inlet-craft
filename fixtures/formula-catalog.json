@@ -32,7 +32,7 @@
   {
     "id": "aspiration.hangal_willeke",
     "equation": "A=1+(R*cos(theta)-1)*3*St^sqrt(1/R)",
-    "source_and_validity": "W eq7, Hangal & Willeke (1990a); exponent sqrt(U/U0) corrected 2026-11-15, see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2",
+    "source_and_validity": "W eq7 (prints exponent sqrt(U0/U)), Hangal & Willeke (1990a); implemented exponent sqrt(U/U0) is a declared source conflict (W_SOURCE_CONFLICT), see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2",
     "verification_anchor_and_limit": "theta=90,R=1,St=.1 gives .7; R=2 arithmetic point; at 90deg A falls as R rises; 60\u201361deg interval is uncovered"
   },
   {
@@ -61,8 +61,8 @@
   },
   {
     "id": "transmission.hangal_willeke_angle",
-    "equation": "Iv=.09*(St*cos(theta)*(1/R-1))^.3 if R<=1; alpha_deg=12*((1-theta_deg/90)-exp(-theta_deg)); Iw=sqrt(St*R)*sin(theta\u00b1alpha)*sin((theta\u00b1alpha)/2); T=exp(-75*(Iv+Iw)\u00b2)",
-    "source_and_validity": "W eq15\u201319; .02<=St<=4,.25<=R<=4,0<theta<=90; documented downward/upward branch",
+    "equation": "Iv=.09*(St*cos(theta)*(1/R-1))^.3 if R<=1; alpha_deg=12*((1-theta_deg/90)-exp(-theta_deg)); Iw=St*sqrt(R)*sin(theta\u00b1alpha)*sin((theta\u00b1alpha)/2); T=exp(-75*(Iv+Iw)\u00b2)",
+    "source_and_validity": "W eq15\u201319 (Iw transcription corrected 2026-11-15); .02<=St<=4,.25<=R<=4,0<theta<=90; documented downward/upward branch",
     "verification_anchor_and_limit": "zero-St 1, signs explicit; gravitational deposition is in transport only"
   },
   {

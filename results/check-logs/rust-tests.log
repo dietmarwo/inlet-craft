@@ -1,9 +1,7 @@
-   Compiling inlet-craft v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft)
    Compiling pyo3-ffi v0.29.0
    Compiling pyo3 v0.29.0
    Compiling inlet-craft-py v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft-py)
-   Compiling inlet-craft-cli v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft-cli)
-    Finished `release` profile [optimized] target(s) in 56.01s
+    Finished `release` profile [optimized] target(s) in 20.64s
      Running unittests src/lib.rs (target/release/deps/inlet_craft-da60eab8132028c2)
 
 running 0 tests
@@ -12,24 +10,25 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
      Running tests/verification.rs (target/release/deps/verification-4506b35af57fd755)
 
-running 37 tests
+running 38 tests
 test air_pressure_and_dimensional_relations ... ok
+test angles_symmetry_and_tailwind_gap_rejection ... ok
 test apparent_wind_vectors_and_stationary_case ... ok
 test bend_radius_must_exceed_tube_radius ... ok
-test angles_symmetry_and_tailwind_gap_rejection ... ok
-test calm_and_slow_modes_are_finite_and_reported ... ok
 test cancellation_prevents_solver_and_rechecks ... ok
 test contraction_uses_factor_two_and_upstream_velocity ... ok
+test calm_and_slow_modes_are_finite_and_reported ... ok
 test failed_reference_row_is_retained ... ok
-test general_tank_chain_conserves_probability ... ok
 test downward_facing_aperture_rejected_for_calm_and_slow ... ok
-test matched_speeds_and_small_particle_limits ... ok
+test general_tank_chain_conserves_probability ... ok
 test invalid_fixture_tolerance_cannot_pass ... ok
+test matched_speeds_and_small_particle_limits ... ok
 test monodisperse_pm_matches_size_resolved ... ok
 test negative_efficiency_is_rejected_even_with_allowance ... ok
 test mode_search_keeps_rechecked_nondominated_points ... ok
 test no_design_found_is_not_infeasibility_proof ... ok
 test nonphysical_allowance_is_explicit_and_bounded ... ok
+test oblique_wall_impaction_is_linear_in_stokes_as_printed ... ok
 test out_of_range_values_are_reported_without_clamping ... ok
 test particle_count_through_split_is_conserved ... ok
 test nonphysical_excess_is_reported_without_clipping ... ok
@@ -51,7 +50,7 @@ test unsupported_geometry_and_diameter_changes_rejected ... ok
 test unsupported_stiff_time_chain_is_rejected_quickly ... ok
 test search_is_deterministic_bounded_and_cold_rechecked ... ok
 
-test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+test result: ok. 38 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
 
      Running unittests src/main.rs (target/release/deps/inlet_craft-2d66084b9f69698d)
 
