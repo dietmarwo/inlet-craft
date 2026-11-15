@@ -31,9 +31,9 @@
   },
   {
     "id": "aspiration.hangal_willeke",
-    "equation": "A=1+(R*cos(theta)-1)*3*St^sqrt(R)",
-    "source_and_validity": "W eq7; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2",
-    "verification_anchor_and_limit": "theta=90,R=1,St=.1 gives .7; 60\u201361deg interval is uncovered"
+    "equation": "A=1+(R*cos(theta)-1)*3*St^sqrt(1/R)",
+    "source_and_validity": "W eq7, Hangal & Willeke (1990a); exponent sqrt(U/U0) corrected 2026-11-15, see below; 61<=theta<=90deg, .02<=St<=.2, .5<=R<=2",
+    "verification_anchor_and_limit": "theta=90,R=1,St=.1 gives .7; R=2 arithmetic point; at 90deg A falls as R rises; 60\u201361deg interval is uncovered"
   },
   {
     "id": "aspiration.grinshpun_calm",
@@ -92,26 +92,26 @@
   {
     "id": "tube.inertia_lee_gieseke",
     "equation": "vp=(.0006*(.0395*St*Re^.75)^2+2e-8*Re)*U/(5.03*Re^.125); T=exp(-pi*d*L*vp/Q)",
-    "source_and_validity": "W eq28\u201329, Re 4000\u201315600 (Lee/Gieseke original DOI10.1016/0021-8502(94)90011-6); St=tau*U/d",
+    "source_and_validity": "W eq28\u201329, Re 4000\u201315600 (Lee/Gieseke original DOI 10.1016/0021-8502(94)90011-6); St=tau*U/d",
     "verification_anchor_and_limit": "L=0 T=1; use W version, not B's different capped Liu-Agarwal model"
   },
   {
     "id": "bend.pui_laminar",
     "equation": "T=(1+(St/.171)^(.452*St/.171+2.242))^(-2*theta_rad/pi)",
-    "source_and_validity": "B slide38, W eq30; St=tau*U/d, curvature radius/(d/2) 5\u201330; fit measured at Re1000, curvature5.6\u20135.7; generic curvature envelope5\u201330 is not additional fitted-condition evidence",
+    "source_and_validity": "B slide38, W eq30; St=tau*U/d, curvature radius/(d/2) 5\u201330; fit measured at Re1000, curvature 5.6\u20135.7; generic curvature envelope 5\u201330 is not additional fitted-condition evidence",
     "verification_anchor_and_limit": "St=.171,theta=pi/2 gives .5; angle radians despite W's degrees sentence"
   },
   {
     "id": "bend.pui_turbulent",
     "equation": "T=exp(-2.823*St*theta_rad)",
-    "source_and_validity": "B slide38, W eq31; Re>4000, curvature ratio5\u201330",
-    "verification_anchor_and_limit": "zero angle1; St=.1,theta=pi/2 arithmetic fixture"
+    "source_and_validity": "B slide38, W eq31; Re>4000, curvature ratio 5\u201330",
+    "verification_anchor_and_limit": "zero angle 1; St=.1,theta=pi/2 arithmetic fixture"
   },
   {
     "id": "contraction.muyshondt",
     "equation": "x=2*St*(1-Ao/Ai); T=1-1/(1+(x/(3.14*exp(-.0185*halfangle_deg)))^(-1.24))",
-    "source_and_validity": "B slide42 / notes eq40; W eq32 omits factor2; C St=tau*U_upstream/d_downstream; .001<=x<=100, 12\u201390deg",
-    "verification_anchor_and_limit": "no contraction limit1; preserves area/velocity convention"
+    "source_and_validity": "B slide42 / notes eq40; W eq32 omits factor 2; C St=tau*U_upstream/d_downstream; .001<=x<=100, 12\u201390deg",
+    "verification_anchor_and_limit": "no contraction limit 1; preserves area/velocity convention"
   },
   {
     "id": "response.series",

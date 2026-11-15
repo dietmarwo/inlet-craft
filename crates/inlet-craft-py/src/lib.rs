@@ -13,7 +13,14 @@ fn evaluate_json(case_json: &str) -> PyResult<String> {
 fn check_json(case_json: &str) -> PyResult<String> {
     let c = inlet_craft::parse(case_json).map_err(pyerr)?;
     let r = inlet_craft::evaluate(&c).map_err(pyerr)?;
-    Ok(serde_json::json!({"valid":true,"warnings":r.warnings}).to_string())
+    // Same report as `inlet-craft check`.
+    Ok(serde_json::json!({
+        "valid": true,
+        "warning_count": r.warning_count,
+        "warnings": r.warnings,
+        "evidence": r.verification_status,
+    })
+    .to_string())
 }
 #[pyfunction]
 fn describe_json() -> String {

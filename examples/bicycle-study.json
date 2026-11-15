@@ -113,6 +113,7 @@
     "max_distance_resolution_m": 15.0,
     "max_total_flow_m3_s": 5e-05,
     "require_laminar": true,
-    "distance_reference_speed_m_s": 5.0
+    "distance_reference_speed_m_s": 5.0,
+    "max_nonphysical_pm10_excess": 0.001
   }
 }

@@ -32,6 +32,11 @@ pub struct SizeResult {
     pub aspiration_efficiency: f64,
     pub transport_efficiency: f64,
     pub overall_efficiency: f64,
+    /// overall_efficiency minus the same product with every transport
+    /// mechanism above one replaced by one. Zero unless an extrapolated
+    /// correlation exceeds its physical bound. A reported sensitivity; the
+    /// efficiencies themselves are never clipped.
+    pub nonphysical_transport_excess: f64,
     pub sensor_particle_flux_fraction: f64,
     pub bypass_particle_flux_fraction: f64,
     pub elements: Vec<ElementResult>,
@@ -43,6 +48,9 @@ pub struct PmResult {
     pub ideal_mass_kg_m3: f64,
     pub sampled_mass_kg_m3: f64,
     pub efficiency: Option<f64>,
+    /// Mass-weighted nonphysical_transport_excess divided by ideal mass: the
+    /// share of `efficiency` that rests on transport efficiencies above one.
+    pub nonphysical_excess: f64,
     pub quadrature_bins: usize,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
@@ -139,7 +147,11 @@ fn push_mech(
     w: &mut Vec<Diagnostic>,
     start: usize,
 ) -> Result<()> {
+    let before = w.len();
     efficiency(eta, transport, path, w)?;
+    for d in &mut w[before..] {
+        d.formula = Some(formula.into());
+    }
     out.push(Mechanism {
         formula: formula.into(),
         efficiency: eta,
@@ -440,6 +452,8 @@ pub fn evaluate_particle(
     let mut q = case.flow.total_m3_s;
     let mut aspiration = 1.;
     let mut transport = 1.;
+    let mut capped_transport = 1.;
+    let mut above_one = false;
     let mut elements = vec![];
     let mut split_penetration = None;
     for (i, e) in case.elements.iter().enumerate() {
@@ -620,6 +634,18 @@ pub fn evaluate_particle(
             }
         };
         transport *= eff;
+        // The probe's first mechanism is aspiration, which may exceed one;
+        // its element efficiency is the transmission factor alone.
+        let transport_factors = if kind == "probe" {
+            &mechanisms[1..]
+        } else {
+            &mechanisms[..]
+        };
+        above_one |= transport_factors.iter().any(|m| m.efficiency > 1.);
+        capped_transport *= transport_factors
+            .iter()
+            .map(|m| m.efficiency.min(1.))
+            .product::<f64>();
         elements.push(ElementResult {
             index: i,
             kind: kind.into(),
@@ -644,6 +670,11 @@ pub fn evaluate_particle(
             aspiration_efficiency: aspiration,
             transport_efficiency: transport,
             overall_efficiency: overall,
+            nonphysical_transport_excess: if above_one {
+                overall - aspiration * capped_transport
+            } else {
+                0.
+            },
             sensor_particle_flux_fraction: overall * sensor_fraction,
             bypass_particle_flux_fraction: aspiration
                 * split_penetration.unwrap_or(transport)
@@ -795,10 +826,12 @@ pub fn evaluate(case: &Case) -> Result<Evaluation> {
             for (cut, grid) in [2.5e-6, 10e-6].iter().zip(&pmgrids) {
                 let ideal = grid.iter().map(|(_, w)| w).sum::<f64>();
                 let mut sampled = 0.;
+                let mut excess = 0.;
                 for (p, weight) in grid {
                     let (s, w) = evaluate_particle(case, &conditions, p)?;
                     collector.add(w);
                     sampled += weight * s.overall_efficiency;
+                    excess += weight * s.nonphysical_transport_excess;
                 }
                 pm.push(PmResult {
                     nominal_cut_m: *cut,
@@ -809,6 +842,7 @@ pub fn evaluate(case: &Case) -> Result<Evaluation> {
                     } else {
                         None
                     },
+                    nonphysical_excess: if ideal > 0. { excess / ideal } else { 0. },
                     quadrature_bins: dist.quadrature_bins,
                 });
             }
@@ -823,13 +857,13 @@ pub fn evaluate(case: &Case) -> Result<Evaluation> {
         });
     }
     let mut stats = vec![];
-    for i in 0..particles.len() {
+    for (i, particle) in particles.iter().enumerate() {
         let mean = scenarios
             .iter()
             .map(|s| s.conditions.weight * s.sizes[i].overall_efficiency)
             .sum::<f64>();
         stats.push(SizeStatistics {
-            aerodynamic_diameter_m: particles[i].aerodynamic_diameter_m(&case.air),
+            aerodynamic_diameter_m: particle.aerodynamic_diameter_m(&case.air),
             weighted_mean: mean,
             minimum: scenarios
                 .iter()

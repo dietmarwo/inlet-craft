@@ -9,6 +9,6 @@
 
 The comparison is about workflows, not an assertion that inlet-craft is a more accurate physical model. PLC's validation is its authors' evidence; it does not transfer to this reimplementation. AeroSampleR has mechanisms and reporting choices inlet-craft does not provide, and aerosolpy covers broader aerosol science.
 
-PLC paper is CC BY3.0; PLC software has a separate restrictive license and was not inspected. First-party code is MIT. Vendored ecosystem crates are MIT. aerosolpy(MIT) is only an installed comparison dependency; AeroSampleR(GPL-3) is optional and called externally. Neither oracle's code is copied into this library.
+PLC paper is CC BY 3.0; PLC software has a separate restrictive license and was not inspected. First-party code is MIT. Vendored ecosystem crates are MIT. aerosolpy(MIT) is only an installed comparison dependency; AeroSampleR(GPL-3) is optional and called externally. Neither oracle's code is copied into this library.
 
 Primary links: [PLC paper](https://doi.org/10.5194/amt-2-479-2009), [Brockmann standard-reference notes](https://www.osti.gov/servlets/purl/1675151), [AeroSampleR CRAN manual](https://cran.r-project.org/web/packages/AeroSampleR/refman/AeroSampleR.html), [aerosolpy](https://github.com/DominikStolzenburg/aerosolpy). Source access and limits are recorded in the formula registry.

@@ -72,7 +72,7 @@ impl Prepared for PreparedStudy {
                     "claimed"
                 }
                 .into(),
-                checks: if best.is_some() {
+                checks: if best.is_some_and(|b| b.cold_rechecked) {
                     vec!["objective".into(), "bounds".into(), "constraints".into()]
                 } else {
                     vec![]

@@ -29,6 +29,13 @@ pub struct Constraints {
     pub require_laminar: bool,
     #[serde(default)]
     pub distance_reference_speed_m_s: Option<f64>,
+    /// Explicit allowance for transport correlations extrapolated above one.
+    /// Absent: any such value rejects the candidate. Present: accepted only if,
+    /// in every scenario, the share of the PM10 ratio resting on efficiencies
+    /// above one (PmResult.nonphysical_excess) is at most this value. Negative
+    /// efficiencies are always rejected. Nothing is clipped.
+    #[serde(default)]
+    pub max_nonphysical_pm10_excess: Option<f64>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
@@ -65,6 +72,8 @@ pub struct Candidate {
     pub distance_reference_speed_m_s: Option<f64>,
     pub total_flow_l_min: f64,
     pub warning_count: usize,
+    /// Largest PM10 nonphysical_excess over scenarios (0 if none).
+    pub nonphysical_pm10_excess: f64,
     pub feasible: bool,
     pub normalized_violation: f64,
     pub violations: Vec<String>,
@@ -186,6 +195,10 @@ impl Study {
                 "distance_reference_speed_m_s",
                 self.constraints.distance_reference_speed_m_s,
             ),
+            (
+                "max_nonphysical_pm10_excess",
+                self.constraints.max_nonphysical_pm10_excess,
+            ),
         ] {
             if let Some(x) = x {
                 nonnegative(x, &format!("constraints.{name}"))?;
@@ -284,15 +297,15 @@ impl Study {
     pub fn assess(&self, x: &[f64], case: Case) -> Result<Candidate> {
         let r = evaluate(&case)?;
         let mut bias = 0_f64;
+        let mut nonphysical_excess = 0_f64;
         for s in &r.scenarios {
-            let p =
-                s.pm.iter()
-                    .find(|p| p.nominal_cut_m == 10e-6)
-                    .and_then(|p| p.efficiency)
-                    .ok_or_else(|| {
-                        Diagnostic::new("E_EMPTY_PM", "distribution", "no mass below PM10 cut")
-                    })?;
+            let pm10 = s.pm.iter().find(|p| p.nominal_cut_m == 10e-6);
+            let p = pm10.and_then(|p| p.efficiency).ok_or_else(|| {
+                Diagnostic::new("E_EMPTY_PM", "distribution", "no mass below PM10 cut")
+            })?;
             bias = bias.max((p - 1.).abs());
+            nonphysical_excess =
+                nonphysical_excess.max(pm10.map_or(0., |p| p.nonphysical_excess.abs()));
         }
         let maximum_distance = r
             .scenarios
@@ -345,12 +358,34 @@ impl Study {
             violations.push("require_laminar: Re>=2000".into());
             violation += 1.;
         }
-        if r.warnings
+        let nonphysical: Vec<_> = r
+            .warnings
             .iter()
-            .any(|w| w.diagnostic.code == "W_NONPHYSICAL")
+            .filter(|w| w.diagnostic.code == "W_NONPHYSICAL")
+            .collect();
+        if nonphysical
+            .iter()
+            .any(|w| w.minimum_value.is_none_or(|v| v < 0.))
         {
-            violations.push("nonphysical extrapolation cannot be accepted by search".into());
+            violations.push("negative extrapolated efficiency cannot be accepted by search".into());
             violation += 1e6;
+        } else if !nonphysical.is_empty() {
+            match self.constraints.max_nonphysical_pm10_excess {
+                None => {
+                    violations.push(
+                        "nonphysical extrapolation cannot be accepted by search without constraints.max_nonphysical_pm10_excess"
+                            .into(),
+                    );
+                    violation += 1e6;
+                }
+                Some(max) if nonphysical_excess > max => {
+                    violations.push(format!(
+                        "nonphysical PM10 excess: {nonphysical_excess:.6e} > {max:.6e}"
+                    ));
+                    violation += 1e6;
+                }
+                Some(_) => {}
+            }
         }
         Ok(Candidate {
             x: x.to_vec(),
@@ -361,6 +396,7 @@ impl Study {
             distance_reference_speed_m_s: self.constraints.distance_reference_speed_m_s,
             total_flow_l_min: flow,
             warning_count: r.warning_count,
+            nonphysical_pm10_excess: nonphysical_excess,
             feasible: violations.is_empty(),
             normalized_violation: violation,
             violations,
@@ -510,27 +546,50 @@ pub fn optimize(study: &Study, cancel: &AtomicBool) -> Result<SearchResult> {
             de.tell(&ys);
         }
     }
+    // A failed recheck is evidence, not a reason to discard the whole search:
+    // the candidate is kept, marked infeasible and unrechecked, with the error.
+    let recheck = |c: &Candidate| -> Candidate {
+        match study
+            .candidate_case(&c.x)
+            .and_then(|case| study.assess(&c.x, case))
+        {
+            Ok(mut cold) => {
+                cold.cold_rechecked = true;
+                cold
+            }
+            Err(e) => {
+                let mut failed = c.clone();
+                failed.feasible = false;
+                failed.cold_rechecked = false;
+                failed.violations.push(format!("cold recheck failed: {e}"));
+                failed.normalized_violation += 1e6;
+                failed
+            }
+        }
+    };
     let mut rechecks = 0;
-    if let Some(b) = best.take()
-        && !cancel.load(Ordering::Relaxed)
-        && start.elapsed() < deadline
-    {
-        let mut cold = study.assess(&b.x, study.candidate_case(&b.x)?)?;
-        cold.cold_rechecked = true;
-        best = Some(cold);
-        rechecks += 1;
+    if let Some(b) = best.take() {
+        if !cancel.load(Ordering::Relaxed) && start.elapsed() < deadline {
+            best = Some(recheck(&b));
+            rechecks += 1;
+        } else {
+            best = Some(b);
+        }
     }
     for p in &mut archive {
         if cancel.load(Ordering::Relaxed) || start.elapsed() >= deadline {
             break;
         }
-        let mut cold = study.assess(&p.x, study.candidate_case(&p.x)?)?;
-        cold.cold_rechecked = true;
-        *p = cold;
+        *p = recheck(p);
         rechecks += 1;
     }
     archive.retain(|p| p.feasible && p.cold_rechecked);
-    let status = if best.as_ref().is_some_and(|b| b.feasible) {
+    // Acceptance needs a completed cold recheck; an unrechecked best (deadline
+    // or cancellation) is returned for inspection with cold_rechecked=false.
+    let status = if best
+        .as_ref()
+        .is_some_and(|b| b.feasible && b.cold_rechecked)
+    {
         "feasible_design_found"
     } else if termination == "cancelled" {
         "cancelled_without_feasible_design"

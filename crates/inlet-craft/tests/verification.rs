@@ -524,3 +524,122 @@ fn unequal_three_tank_quantiles_match_independent_scipy_expm() {
     close(r.t10_s, 0.7986830031577664, 1e-10);
     close(r.t90_s, 4.704048480781246, 1e-10);
 }
+
+#[test]
+fn right_angle_aspiration_falls_as_wind_outruns_inlet() {
+    // At 90deg, (R*cos-1) = -1, so only the Stokes exponent carries R.
+    // Wind faster than inlet velocity (larger R = U0/U) must not improve
+    // aspiration of inertial particles (Vincent et al.: A90 decreases in
+    // St*R^0.5). The 0.1.0 exponent sqrt(R) reversed this trend.
+    for st in [0.02, 0.05, 0.1, 0.2] {
+        let a: Vec<_> = [0.5, 1., 2.]
+            .iter()
+            .map(|r| c::aspiration_right_angle(st, *r, 90.))
+            .collect();
+        assert!(a[0] > a[1] && a[1] > a[2], "St={st}: {a:?}");
+    }
+    close(
+        c::aspiration_right_angle(0.1, 2., 90.),
+        1. - 3. * 0.1_f64.powf(0.5_f64.sqrt()),
+        1e-14,
+    );
+}
+
+fn liu_case() -> Case {
+    // Facing, sub-isokinetic (U0/U ~ 1.9): Liu transmission extrapolates
+    // slightly above one for Stokes numbers below ~0.0039.
+    let mut c = example();
+    c.platform.speed_m_s = vec![5.];
+    c.platform.crosswind_m_s = vec![0.];
+    c.particles.aerodynamic_diameter_m = vec![3e-7, 1e-5];
+    c
+}
+
+#[test]
+fn nonphysical_excess_is_reported_without_clipping() {
+    let r = evaluate(&liu_case()).unwrap();
+    let fine = &r.scenarios[0].sizes[0];
+    let liu = &fine.elements[0].mechanisms[1];
+    assert_eq!(liu.formula, "transmission.liu");
+    assert!(liu.efficiency > 1., "raw extrapolation is kept");
+    assert!(fine.nonphysical_transport_excess > 0.);
+    close(
+        fine.overall_efficiency - fine.nonphysical_transport_excess,
+        fine.aspiration_efficiency
+            * fine
+                .elements
+                .iter()
+                .map(|e| {
+                    let m = if e.kind == "probe" {
+                        &e.mechanisms[1..]
+                    } else {
+                        &e.mechanisms[..]
+                    };
+                    m.iter().map(|m| m.efficiency.min(1.)).product::<f64>()
+                })
+                .product::<f64>(),
+        1e-15,
+    );
+    // The coarse size is inside the physical range: no excess at all.
+    assert_eq!(r.scenarios[0].sizes[1].nonphysical_transport_excess, 0.);
+    let w = r
+        .warnings
+        .iter()
+        .find(|w| w.diagnostic.code == "W_NONPHYSICAL")
+        .unwrap();
+    assert_eq!(w.diagnostic.formula.as_deref(), Some("transmission.liu"));
+    assert!(w.minimum_value.unwrap() > 1. && w.maximum_value.unwrap() < 1.01);
+    let pm10 = &r.scenarios[0].pm[1];
+    assert!(pm10.nonphysical_excess > 0. && pm10.nonphysical_excess < 1e-3);
+}
+
+#[test]
+fn nonphysical_allowance_is_explicit_and_bounded() {
+    let mut s = small_study();
+    s.case = liu_case();
+    let strict = s.assess(&[], s.case.clone()).unwrap();
+    assert!(!strict.feasible);
+    assert!(strict.violations[0].contains("max_nonphysical_pm10_excess"));
+    assert!(strict.nonphysical_pm10_excess > 0.);
+    s.constraints.max_nonphysical_pm10_excess = Some(strict.nonphysical_pm10_excess * 0.5);
+    let tight = s.assess(&[], s.case.clone()).unwrap();
+    assert!(!tight.feasible && tight.violations[0].contains("nonphysical PM10 excess"));
+    s.constraints.max_nonphysical_pm10_excess = Some(1e-3);
+    let allowed = s.assess(&[], s.case.clone()).unwrap();
+    assert!(allowed.feasible, "{:?}", allowed.violations);
+    assert_eq!(
+        allowed.objectives, strict.objectives,
+        "allowance never alters values"
+    );
+}
+
+#[test]
+fn negative_efficiency_is_rejected_even_with_allowance() {
+    let mut s = small_study();
+    s.case = liu_case();
+    s.case.particles.aerodynamic_diameter_m = vec![1e-4];
+    if let Element::Probe {
+        angle_to_heading_deg,
+        ..
+    } = &mut s.case.elements[0]
+    {
+        *angle_to_heading_deg = 90.;
+    }
+    s.constraints.max_nonphysical_pm10_excess = Some(1.);
+    let c = s.assess(&[], s.case.clone()).unwrap();
+    assert!(!c.feasible);
+    assert!(c.violations.iter().any(|v| v.contains("negative")));
+}
+
+#[test]
+fn bend_radius_must_exceed_tube_radius() {
+    let mut c = example();
+    if let Element::Bend { radius_m, .. } = &mut c.elements[2] {
+        *radius_m = 0.002;
+    }
+    let e = evaluate(&c).unwrap_err();
+    assert_eq!(
+        (e.code.as_str(), e.path.as_str()),
+        ("E_UNCOVERED", "elements[2]")
+    );
+}

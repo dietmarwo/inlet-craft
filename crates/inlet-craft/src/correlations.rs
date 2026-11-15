@@ -16,8 +16,11 @@ pub fn aspiration_oblique(st: f64, r: f64, angle_deg: f64) -> f64 {
     let capture = if z.is_infinite() { 1. } else { z / (1. + z) };
     1. + (r * angle_deg.to_radians().cos() - 1.) * quotient * capture
 }
+/// Hangal and Willeke (1990a), 61..90deg. The Stokes exponent is sqrt(U/U0) =
+/// 1/sqrt(R): at 90deg aspiration must fall as wind outruns inlet velocity
+/// (R up). The 0.1.0 candidate used sqrt(R), which reversed that trend.
 pub fn aspiration_right_angle(st: f64, r: f64, angle_deg: f64) -> f64 {
-    1. + (r * angle_deg.to_radians().cos() - 1.) * 3. * st.powf(r.sqrt())
+    1. + (r * angle_deg.to_radians().cos() - 1.) * 3. * st.powf(1. / r.sqrt())
 }
 pub fn aspiration_calm(st_inlet: f64, settling_ratio: f64, vertical_angle_deg: f64) -> f64 {
     settling_ratio * vertical_angle_deg.to_radians().cos()

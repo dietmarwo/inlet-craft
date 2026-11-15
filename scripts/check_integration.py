@@ -72,7 +72,7 @@ def main():
     py=inlet_craft.evaluate(case)
     require(py==result,'Python and CLI must return identical numerical reports')
     require(inlet_craft.verify()['all_passed'],'native verify')
-    require(inlet_craft.check(case)['valid'],'native check')
+    require(inlet_craft.check(case)==run([CLI,'check',ROOT/'examples/bicycle.json']),'native check must equal CLI check')
     require(len(inlet_craft.sweep(case,'/elements/3/volume_m3',[0.,1e-5])['rows'])==2,'native sweep')
     checks.append('installed native Python check/evaluate/sweep/verify parity')
     report=dict(schema='inlet-craft.integration/0.1',passed=True,checks=checks,python_optimized=not __debug__)

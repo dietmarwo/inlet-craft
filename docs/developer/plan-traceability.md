@@ -4,7 +4,7 @@
 |---|---|---|
 | I0 | Formula registry first; source/conflict/license ledger; existing-tool search; independent review | G0 incomplete: not every original full text or published numerical point available |
 | I1 | Air/particle primitives, slip-corrected diameter conversion; grids/properties and aerosolpy comparison | Exact original mean-free-path convention differs and is recorded |
-| I2 | Facing/oblique/right-angle, calm/slow aspiration and transmission; endpoints, limits, range diagnostics | Fitted ranges and3-D assumption boundaries remain; precision published fixtures not universal |
+| I2 | Facing/oblique/right-angle, calm/slow aspiration and transmission; endpoints, limits, range diagnostics | Fitted ranges and 3-D assumption boundaries remain; precision published fixtures not universal |
 | I3 | Tubes/regimes/bends/contractions/buffers/splits/system product, per-mechanism output | Buffer wall loss and bend settling not modeled; virtual-system mismatch retained; G1 open |
 | I4 | Strict typed case/result schemas; describe/check/evaluate/verify; CLI and native Python | Package publication deferred; source/wheel local delivery only |
 | I5 | Weighted wind distributions, tilt/yaw, size modes, mass-weightedPM, response and position/resolution, sweep | Numerical response/work caps; time response is a declared linear model |

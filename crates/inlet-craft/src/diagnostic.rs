@@ -91,11 +91,16 @@ pub fn efficiency(x: f64, transport: bool, path: &str, w: &mut Vec<Diagnostic>) 
         ));
     }
     if x < 0. || (transport && x > 1. + 1e-12) {
-        w.push(Diagnostic::new(
+        let mut d = Diagnostic::new(
             "W_NONPHYSICAL",
             path,
             format!("extrapolated efficiency {x}; returned unmodified"),
-        ));
+        );
+        d.quantity = Some("efficiency".into());
+        d.value = Some(x);
+        // Aspiration may legitimately exceed one; only its sign is bounded.
+        d.allowed = transport.then_some([0., 1.]);
+        w.push(d);
     }
     Ok(x)
 }

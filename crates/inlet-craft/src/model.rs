@@ -471,6 +471,13 @@ impl Case {
                 } => {
                     nonnegative(*angle_deg, &path)?;
                     finite_positive(*radius_m, &path)?;
+                    if *radius_m <= 0.5 * diameter {
+                        return Err(Diagnostic::new(
+                            "E_UNCOVERED",
+                            &path,
+                            "bend centerline radius must exceed the tube radius",
+                        ));
+                    }
                     if *angle_deg > 3600. {
                         return Err(Diagnostic::new(
                             "E_ANGLE",
