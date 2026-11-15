@@ -1,6 +1,4 @@
-    Checking inlet-craft v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft)
    Compiling pyo3-ffi v0.29.0
    Compiling pyo3 v0.29.0
-    Checking inlet-craft-cli v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft-cli)
     Checking inlet-craft-py v0.1.0 (/home/claude/inlet-craft/crates/inlet-craft-py)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.90s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.27s

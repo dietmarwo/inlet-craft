@@ -99,17 +99,17 @@
     "distance_resolution_objective_m": 14.152714200707324,
     "feasible": false,
     "maximum_distance_resolution_m": 19.656547500856593,
-    "maximum_pm10_relative_deviation": 0.2730114673455556,
+    "maximum_pm10_relative_deviation": 0.20492802752299233,
     "nonphysical_pm10_excess": 0.0002851761255568603,
-    "normalized_violation": 1000000.820076449,
+    "normalized_violation": 1000000.3661868501,
     "objectives": [
-      0.2730114673455556,
+      0.20492802752299233,
       14.152714200707324,
       2.0
     ],
     "total_flow_l_min": 2.0,
     "violations": [
-      "PM10 relative deviation: 2.730115e-1 > 1.500000e-1",
+      "PM10 relative deviation: 2.049280e-1 > 1.500000e-1",
       "nonphysical extrapolation cannot be accepted by search without constraints.max_nonphysical_pm10_excess"
     ],
     "warning_count": 13,
@@ -140,26 +140,26 @@
         {
           "angle_to_heading_deg": 0.0,
           "angle_to_vertical_deg": 90.0,
-          "inner_diameter_m": 0.005691470926353472,
+          "inner_diameter_m": 0.005428806537554799,
           "kind": "probe",
-          "outer_diameter_m": 0.005976044472671144,
+          "outer_diameter_m": 0.005700246864432538,
           "upward_sampling": false
         },
         {
           "inclination_deg": 0.0,
-          "inner_diameter_m": 0.005691470926353472,
+          "inner_diameter_m": 0.005428806537554799,
           "kind": "tube",
-          "length_m": 0.0833509361378939
+          "length_m": 0.19254668630024585
         },
         {
           "angle_deg": 90.0,
           "inner_diameter_m": null,
           "kind": "bend",
-          "radius_m": 0.01
+          "radius_m": 0.022309510443005318
         },
         {
           "kind": "buffer",
-          "volume_m3": 1.3225619513309904e-06
+          "volume_m3": 2.2335452229920506e-05
         },
         {
           "kind": "split",
@@ -212,33 +212,33 @@
     },
     "cold_rechecked": true,
     "distance_reference_speed_m_s": 5.0,
-    "distance_resolution_objective_m": 11.808266321595875,
+    "distance_resolution_objective_m": 13.190279172667601,
     "feasible": false,
-    "maximum_distance_resolution_m": 16.40036989100042,
-    "maximum_pm10_relative_deviation": 0.14593693077676706,
-    "nonphysical_pm10_excess": 0.0005456014212231318,
+    "maximum_distance_resolution_m": 18.31983218414331,
+    "maximum_pm10_relative_deviation": 0.09038998217529448,
+    "nonphysical_pm10_excess": 0.0004666075531091214,
     "normalized_violation": 1000000.0,
     "objectives": [
-      0.14593693077676706,
-      11.808266321595875,
+      0.09038998217529448,
+      13.190279172667601,
       3.0
     ],
     "total_flow_l_min": 3.0,
     "violations": [
       "nonphysical extrapolation cannot be accepted by search without constraints.max_nonphysical_pm10_excess"
     ],
-    "warning_count": 14,
+    "warning_count": 13,
     "x": [
-      0.005691470926353472,
+      0.005428806537554799,
       5e-05,
-      0.0833509361378939,
-      0.01,
-      1.3225619513309904e-06
+      0.19254668630024585,
+      0.022309510443005318,
+      2.2335452229920506e-05
     ]
   },
   "claim": "Finite-budget search; no proof of infeasibility or optimality. Feasibility is conditional on the declared correlations/assumptions and warning allowance.",
   "cold_recheck_evaluations": 1,
-  "elapsed_seconds": 8.616710331,
+  "elapsed_seconds": 7.498791226,
   "engine": "fcmaes-core DE ask/tell",
   "evaluations": 512,
   "failed_evaluations": 0,
