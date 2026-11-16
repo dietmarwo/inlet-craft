@@ -4,6 +4,10 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
+repository.workspace = true
+description = "Python extension of inlet-craft; built with maturin, which takes the package metadata from pyproject.toml"
+# The wheel is the published artifact; this crate is not for crates.io.
+publish = false
 [lib]
 name = "_inlet_craft"
 crate-type = ["cdylib", "rlib"]

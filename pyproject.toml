@@ -5,8 +5,13 @@ build-backend = "maturin"
 name = "inlet-craft"
 version = "0.1.0"
 requires-python = ">=3.10"
-description = "Literature-correlated aerosol inlet system analysis and design"
+description = "Python API for a Rust aerosol sampling evaluator: inlet aspiration, sampling-line losses and sensor response on moving platforms, with design search"
+readme = "README.md"
 license = "MIT"
+keywords = ["aerosol", "aerosol sampling", "particle losses", "inlet efficiency", "particulate matter", "PM2.5", "PM10", "air quality", "mobile monitoring", "low-cost sensors", "Rust"]
+[project.urls]
+Repository = "https://github.com/dietmarwo/inlet-craft"
+Documentation = "https://github.com/dietmarwo/inlet-craft/blob/main/docs/guide/01-first-evaluation.md"
 [tool.maturin]
 manifest-path = "crates/inlet-craft-py/Cargo.toml"
 python-source = "python"
