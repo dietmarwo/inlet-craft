@@ -4,6 +4,10 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories = ["science", "simulation", "command-line-utilities"]
+description = "Command-line tools for inlet-craft: check, evaluate, sweep, optimize and verify aerosol sampling cases as versioned JSON, plus an optimization-jobs worker"
 default-run = "inlet-craft"
 [dependencies]
 inlet-craft = { path = "../inlet-craft" }
