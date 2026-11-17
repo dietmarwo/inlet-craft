@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dietmarwo/inlet-craft/main/docs/images/inlet-craft.png" alt="inlet-craft: particle sampling and inlet design with native Rust and Python workflows">
+</p>
+
 # inlet-craft
 
 Rust library and tools for an aerosol inlet, sampling line, mixing volume and sensor on a moving platform. It evaluates published correlations with SI inputs and explicit validity diagnostics, then searches designs with fcmaes DE or MODE.

@@ -44,7 +44,8 @@ def main():
     nav=[];articles=[]
     for file in files:
         slug=str(file.relative_to(ROOT)).replace('/','-').replace('.md','')
-        title=file.read_text().splitlines()[0].lstrip('# ')
+        # The first level-1 heading; a README may open with a centered banner.
+        title=next(line for line in file.read_text().splitlines() if line.startswith('# ')).lstrip('# ')
         nav.append(f'<a href="#{html.escape(slug)}">{html.escape(title)}</a>')
         content=markdown.markdown(file.read_text(),extensions=['tables','fenced_code'])
         articles.append(f'<article id="{html.escape(slug)}">{content}</article>')
